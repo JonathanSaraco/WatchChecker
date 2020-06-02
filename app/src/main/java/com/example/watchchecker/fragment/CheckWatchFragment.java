@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 
 import com.example.watchchecker.R;
-import com.example.watchchecker.activity.MainActivity;
+import com.example.watchchecker.activity.CheckWatchActivity;
 import com.example.watchchecker.adapter.CheckWatchAdapter;
 import com.example.watchchecker.dataModel.WatchDataEntry;
 import com.example.watchchecker.dataModel.WatchType;
@@ -52,7 +52,7 @@ public class CheckWatchFragment extends Fragment {
         fab.setImageResource(R.drawable.ic_plus_one); //Set button icon to a plus one icon
         fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimaryDark))); //Set the background colour of the fab
         fab.setOnClickListener(view -> {
-            Intent in = new Intent(getActivity(), MainActivity.class);
+            Intent in = new Intent(getActivity(), CheckWatchActivity.class);
             startActivity(in);
         });
 

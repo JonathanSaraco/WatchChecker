@@ -16,7 +16,7 @@ import com.example.watchchecker.fragment.CheckWatchFragment;
 import com.example.watchchecker.fragment.WatchCollectionFragment;
 import com.example.watchchecker.fragment.WatchPreferenceFragment;
 
-public class MainActivity extends AppCompatActivity
+public class CheckWatchActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     NavigationView navigationView = null;

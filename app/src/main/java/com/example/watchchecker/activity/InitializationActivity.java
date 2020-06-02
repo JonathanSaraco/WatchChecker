@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.watchchecker.init.WatchCheckStarter;
 
-public class StarterActivity extends AppCompatActivity {
+public class InitializationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -15,7 +15,7 @@ public class StarterActivity extends AppCompatActivity {
         // Do app initialization
         new WatchCheckStarter().run();
         // Done initialization, transition to the main activity
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, CheckWatchActivity.class);
         startActivity(intent);
         finish();
     }
