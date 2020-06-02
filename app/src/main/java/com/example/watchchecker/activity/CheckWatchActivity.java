@@ -8,13 +8,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.watchchecker.R;
 import com.example.watchchecker.fragment.CheckWatchFragment;
+import com.example.watchchecker.fragment.PreferencesFragment;
 import com.example.watchchecker.fragment.WatchCollectionFragment;
-import com.example.watchchecker.fragment.WatchPreferenceFragment;
 
 public class CheckWatchActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -56,13 +55,6 @@ public class CheckWatchActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -97,7 +89,7 @@ public class CheckWatchActivity extends AppCompatActivity
             fragmentTransaction.commit();
         } else if (id == R.id.nav_settings) {
             //Set the watch check and watch collection fragments
-            Fragment fragment = new WatchPreferenceFragment();
+            Fragment fragment = new PreferencesFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();

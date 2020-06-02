@@ -16,11 +16,7 @@
         android:verticalSpacing="212dp"
         android:horizontalSpacing="10dp"
         android:layout_gravity="center_horizontal"
-        android:stretchMode="spacingWidthUniform"
-
-
-
-        />
+        android:stretchMode="spacingWidthUniform"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

@@ -16,13 +16,11 @@
 
     <item android:title="Settings">
         <menu>
-
             <item
                 android:id="@+id/nav_settings"
                 android:title="@string/action_settings"
                 android:icon="@drawable/ic_menu_manage"
                 />
-
         </menu>
     </item>
 

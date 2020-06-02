@@ -11,9 +11,9 @@ import com.example.watchchecker.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WatchPreferenceFragment extends PreferenceFragmentCompat {
+public class PreferencesFragment extends PreferenceFragmentCompat {
 
-    public WatchPreferenceFragment() {
+    public PreferencesFragment() {
         // Required empty public constructor
     }
 
