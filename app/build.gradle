@@ -23,6 +23,12 @@ android {
     }
 }
 
+repositories {
+    maven {
+        url "https://jitpack.io"
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:28.0.0'
@@ -37,4 +43,5 @@ dependencies {
     implementation 'com.google.guava:guava:29.0-android'
     implementation 'javax.measure:unit-api:2.0'
     implementation 'tec.units:unit-ri:1.0.3'
+    implementation 'com.github.instacart.truetime-android:library:3.4'
 }
