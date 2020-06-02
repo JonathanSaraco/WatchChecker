@@ -2,12 +2,12 @@
 <resources>
     <string name="ref_time_title">Reference Time Source</string>
     <string-array name="ref_time_entries">
-        <item>NIST</item>
-        <item>Phone</item>
+        <item name="0">NIST</item>
+        <item name="1">Phone</item>
     </string-array>
     <string-array name="ref_time_values">
-        <item>nist</item>
-        <item>phone</item>
+        <item name="0"> nist</item>
+        <item name="1">phone</item>
     </string-array>
     <string name="ref_time_summary">Select a source for the reference time</string>
 </resources>
