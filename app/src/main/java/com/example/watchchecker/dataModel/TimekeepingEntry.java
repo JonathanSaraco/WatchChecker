@@ -22,9 +22,7 @@ public class TimekeepingEntry implements Iterable<TimingEntry> {
     }
 
     /**
-     * Calculates the time deviation for this entire timekeeping run, which is given by:
-     *
-     * @return
+     * Calculates the time deviation for this entire timekeeping run
      */
     public TimingDeviation getSecondsPerDay() {
         if (timingEntries.size() < 2) {
