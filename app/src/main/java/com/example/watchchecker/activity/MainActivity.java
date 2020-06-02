@@ -13,8 +13,8 @@ import android.view.MenuItem;
 
 import com.example.watchchecker.R;
 import com.example.watchchecker.fragment.CheckWatchFragment;
-import com.example.watchchecker.fragment.SettingsFragment;
 import com.example.watchchecker.fragment.WatchCollectionFragment;
+import com.example.watchchecker.fragment.WatchPreferenceFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -97,11 +97,10 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
         } else if (id == R.id.nav_settings) {
             //Set the watch check and watch collection fragments
-            Fragment fragment = new SettingsFragment();
+            Fragment fragment = new WatchPreferenceFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
-
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

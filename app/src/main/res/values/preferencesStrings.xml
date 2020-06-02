@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ref_time_title">Reference Time Source</string>
+    <string-array name="ref_time_entries">
+        <item>NIST</item>
+        <item>Phone</item>
+    </string-array>
+    <string-array name="ref_time_values">
+        <item>nist</item>
+        <item>phone</item>
+    </string-array>
+    <string name="ref_time_summary">Select a source for the reference time</string>
+</resources>
