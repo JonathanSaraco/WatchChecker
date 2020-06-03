@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.watchchecker.init.UserDataInitialization;
 import com.example.watchchecker.init.WatchCheckStarter;
 
 public class InitializationActivity extends AppCompatActivity {
@@ -14,6 +15,7 @@ public class InitializationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // Do app initialization
         new WatchCheckStarter().run();
+        new UserDataInitialization(getApplicationContext()).run();
         // Done initialization, transition to the main activity
         Intent intent = new Intent(this, CheckWatchActivity.class);
         startActivity(intent);
