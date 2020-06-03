@@ -28,6 +28,10 @@
             android:name=".activity.AddWatchActivity"
             android:label="@string/title_activity_add_watch"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".activity.WatchTimekeepingActivity"
+            android:label="@string/title_watch_timekeeping_activity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

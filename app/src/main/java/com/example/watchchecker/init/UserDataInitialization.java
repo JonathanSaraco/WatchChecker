@@ -3,9 +3,13 @@ package com.example.watchchecker.init;
 import android.content.Context;
 
 import com.example.watchchecker.data.UserData;
+import com.example.watchchecker.dataModel.WatchDataEntry;
+import com.example.watchchecker.dataModel.WatchTimekeepingMap;
+import com.example.watchchecker.dataModel.WatchType;
 import com.example.watchchecker.io.TimekeepingMapReader;
 
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * Class to read in data from {@link Context#getFilesDir()} and initialize static fields to store
@@ -28,5 +32,22 @@ public class UserDataInitialization implements Runnable {
 
     private void initializeWatchTimekeepingMap() throws IOException {
         UserData.setWatchTimekeepingMap(new TimekeepingMapReader(context.getFilesDir()).read());
+
+        // DEBUG TODO remove
+        WatchTimekeepingMap dummyMap = new WatchTimekeepingMap();
+        WatchDataEntry sarbEntry = new WatchDataEntry("Seiko",
+                "SARB033",
+                "6R15C",
+                WatchType.DRESS,
+                new Date(),
+                new Date());
+        WatchDataEntry sinn104Entry = new WatchDataEntry("Sinn",
+                "104 St Sa I",
+                "SW200-1",
+                WatchType.AVIATION,
+                new Date(),
+                new Date());
+        UserData.addWatchDataEntry(sarbEntry);
+        UserData.addWatchDataEntry(sinn104Entry);
     }
 }
