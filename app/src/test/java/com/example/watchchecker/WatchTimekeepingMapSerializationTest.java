@@ -13,6 +13,7 @@ import org.junit.Test;
 import java.util.Date;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
 
 /**
  * Tests to ensure that {@link TimekeepingMapWriter} produces a Json file that is compatible with
@@ -30,7 +31,8 @@ public class WatchTimekeepingMapSerializationTest {
             WatchTimekeepingMap watchTimekeepingMap = TimekeepingMapReader.parseJsonAsString(new Gson(), mapAsJson);
             // Check that the new map isn't empty, probably needs a more comprehensive test but I can't be bothered right now
             assertFalse(watchTimekeepingMap.getDataMap().isEmpty());
-        } catch (Exception ignore) {
+        } catch (Exception e) {
+            fail();
         }
     }
 
