@@ -6,9 +6,15 @@ package com.example.watchchecker.dataModel;
  */
 
 public enum WatchType {
-    DRESS,
-    DIVER,
-    AVIATION,
-    CHRONOGRAPH,
-    HIGH_COMPLICATION,
+    DRESS("dress"),
+    DIVER("diver"),
+    AVIATION("aviation"),
+    CHRONOGRAPH("chronograph"),
+    HIGH_COMPLICATION("high_complication");
+
+    private final String name;
+
+    WatchType(String name) {
+        this.name = name;
+    }
 }
