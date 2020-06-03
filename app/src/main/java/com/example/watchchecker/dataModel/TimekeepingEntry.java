@@ -44,6 +44,6 @@ public class TimekeepingEntry implements Iterable<TimingEntry> {
 
     @Override
     public Iterator<TimingEntry> iterator() {
-        return null;
+        return timingEntries.iterator();
     }
 }
