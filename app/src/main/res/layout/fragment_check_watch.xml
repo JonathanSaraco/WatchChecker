@@ -3,20 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryLight"
     tools:context=".fragment.CheckWatchFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text=""
+        />
 
     <GridView
         android:id="@+id/gridView_check_watch"
+        android:paddingTop="@dimen/check_watch_grid_view_padding_top"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="48dp"
+        android:layout_margin="@dimen/check_watch_grid_view_layout_margin"
+        android:verticalSpacing="16dp"
         android:gravity="center"
-        android:columnWidth="200dp"
+        android:columnWidth="180dp"
+        android:minHeight="180dp"
         android:numColumns="auto_fit"
-        android:verticalSpacing="212dp"
-        android:horizontalSpacing="10dp"
-        android:layout_gravity="center_horizontal"
-        android:stretchMode="spacingWidthUniform"/>
+        android:stretchMode="spacingWidthUniform"
+         />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

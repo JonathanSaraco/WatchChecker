@@ -117,6 +117,10 @@ public class WatchDataEntry implements Parcelable {
         this.lastServiceDate = lastServiceDate;
     }
 
+    public String toDisplayString() {
+        return String.format("%s %s", brand, model);
+    }
+
     /* Parcelable implementation stuff  */
 
     // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
