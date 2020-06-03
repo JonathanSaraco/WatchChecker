@@ -1,5 +1,7 @@
 package com.example.watchchecker.io;
 
+import android.support.annotation.VisibleForTesting;
+
 import com.example.watchchecker.dataModel.WatchTimekeepingMap;
 import com.example.watchchecker.util.IO_Util;
 import com.google.gson.Gson;
@@ -28,5 +30,10 @@ public class TimekeepingMapReader {
             watchTimekeepingMap = watchTimekeepingMap.union(readTimekeepingMap);
         }
         return watchTimekeepingMap;
+    }
+
+    @VisibleForTesting()
+    public static WatchTimekeepingMap parseJsonAsString(Gson gson, String jsonString) {
+        return gson.fromJson(jsonString, WatchTimekeepingMap.class);
     }
 }
