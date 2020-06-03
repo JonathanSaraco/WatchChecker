@@ -39,6 +39,11 @@ public class WatchDataEntry {
      */
     private Date lastServiceDate;
 
+    /* NO ARGS CONSTRUCTOR FOR SERIALIZATION */
+    private WatchDataEntry() {
+        this("", "", "", WatchType.DIVER, new Date(), new Date());
+    }
+
     public WatchDataEntry(String brand,
                           String model,
                           String movement,

@@ -14,10 +14,8 @@ import android.widget.GridView;
 import com.example.watchchecker.R;
 import com.example.watchchecker.activity.CheckWatchActivity;
 import com.example.watchchecker.adapter.CheckWatchAdapter;
-import com.example.watchchecker.dataModel.WatchDataEntry;
-import com.example.watchchecker.dataModel.WatchType;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,17 +32,11 @@ public class CheckWatchFragment extends Fragment {
         // Inflate the layout for this fragment
         View fragmentView = inflater.inflate(R.layout.fragment_check_watch, container, false);
 
-        //Dummy WatchDataEntry for testing
-        WatchDataEntry sarbEntry = new WatchDataEntry("Seiko",
-                "SARB033",
-                "6R15C",
-                WatchType.DRESS,
-                null,
-                null);
+
 
         // Add the gridView
         GridView gridView = fragmentView.findViewById(R.id.gridView_check_watch);
-        CheckWatchAdapter checkWatchAdapter = new CheckWatchAdapter(fragmentView.getContext(), Arrays.asList(sarbEntry, sarbEntry, sarbEntry, sarbEntry, sarbEntry, sarbEntry, sarbEntry, sarbEntry));
+        CheckWatchAdapter checkWatchAdapter = new CheckWatchAdapter(fragmentView.getContext(), new ArrayList<>());
         gridView.setAdapter(checkWatchAdapter);
 
         // Add the floating action button
