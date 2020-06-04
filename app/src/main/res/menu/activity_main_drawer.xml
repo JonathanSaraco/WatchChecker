@@ -5,9 +5,9 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_check_watch"
+            android:id="@+id/nav_watch_collection"
             android:icon="@drawable/ic_menu_check_watch"
-            android:title="@string/menu_check_watch" />
+            android:title="@string/menu_watch_collection" />
     </group>
 
     <item android:title="Settings">

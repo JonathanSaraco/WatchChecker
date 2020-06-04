@@ -42,7 +42,7 @@ public class UserDataInitialization implements Runnable {
                 new Date(),
                 new Date());
         WatchDataEntry sinn104Entry = new WatchDataEntry("Sinn",
-                "104 St Sa I",
+                "104 St Sa I---------------",
                 "SW200-1",
                 WatchType.AVIATION,
                 new Date(),

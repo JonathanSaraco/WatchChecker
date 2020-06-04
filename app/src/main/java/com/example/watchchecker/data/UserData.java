@@ -6,6 +6,7 @@ import com.example.watchchecker.dataModel.WatchTimekeepingMap;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,7 +24,9 @@ public class UserData {
     }
 
     public static List<WatchDataEntry> getWatchDataEntries() {
-        return new ArrayList<>(WATCH_TIMEKEEPING_MAP.getDataMap().keySet());
+        List<WatchDataEntry> watchDataEntries = new ArrayList<>(WATCH_TIMEKEEPING_MAP.getDataMap().keySet());
+        watchDataEntries.sort(Comparator.comparing(WatchDataEntry::toDisplayString));
+        return watchDataEntries;
     }
 
     public static void addWatchDataEntry(WatchDataEntry watchDataEntry) {

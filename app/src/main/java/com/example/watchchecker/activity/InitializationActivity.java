@@ -17,7 +17,7 @@ public class InitializationActivity extends AppCompatActivity {
         new WatchCheckStarter().run();
         new UserDataInitialization(getApplicationContext()).run();
         // Done initialization, transition to the main activity
-        Intent intent = new Intent(this, CheckWatchActivity.class);
+        Intent intent = new Intent(this, WatchCollectionActivity.class);
         startActivity(intent);
         finish();
     }

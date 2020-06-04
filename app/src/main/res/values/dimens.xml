@@ -6,10 +6,12 @@
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
-    <!-- Dimensions for CheckWatchActivity's GridView  -->
-    <dimen name="check_watch_grid_view_padding_top">52dp</dimen>
-    <dimen name="check_watch_grid_view_layout_margin">12dp</dimen>
-    <dimen name="check_watch_grid_view_min_width">360dp</dimen>
-    <dimen name="check_watch_display_text_size">24sp</dimen>
+    <!-- Dimensions for WatchCollectionActivity's GridView  -->
+    <dimen name="watch_collection_grid_view_padding_top">52dp</dimen>
+    <dimen name="watch_collection_grid_view_layout_margin">12dp</dimen>
+    <dimen name="watch_collection_grid_view_min_width">360dp</dimen>
+    <dimen name="watch_collection_text_padding_left">4dp</dimen>
+    <dimen name="watch_collection_display_text_size">16sp</dimen>
+    <dimen name="watch_collection_movement_text_size">10sp</dimen>
 
 </resources>
