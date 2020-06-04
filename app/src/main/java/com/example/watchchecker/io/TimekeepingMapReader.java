@@ -2,7 +2,7 @@ package com.example.watchchecker.io;
 
 import android.support.annotation.VisibleForTesting;
 
-import com.example.watchchecker.dataModel.WatchTimekeepingMap;
+import com.example.watchchecker.data.WatchTimekeepingMap;
 import com.example.watchchecker.util.IO_Util;
 import com.google.gson.Gson;
 

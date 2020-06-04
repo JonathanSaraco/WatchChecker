@@ -1,4 +1,4 @@
-package com.example.watchchecker.dataModel;
+package com.example.watchchecker.data;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

@@ -1,7 +1,7 @@
 package com.example.watchchecker.util;
 
-import com.example.watchchecker.dataModel.TimingDeviation;
-import com.example.watchchecker.dataModel.TimingEntry;
+import com.example.watchchecker.data.TimingDeviation;
+import com.example.watchchecker.data.TimingEntry;
 
 import javax.measure.MetricPrefix;
 import javax.measure.Quantity;

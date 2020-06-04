@@ -3,8 +3,8 @@ package com.example.watchchecker.init;
 import android.content.Context;
 
 import com.example.watchchecker.data.UserData;
-import com.example.watchchecker.dataModel.WatchDataEntry;
-import com.example.watchchecker.dataModel.WatchTimekeepingMap;
+import com.example.watchchecker.data.WatchDataEntry;
+import com.example.watchchecker.data.WatchTimekeepingMap;
 import com.example.watchchecker.io.TimekeepingMapReader;
 
 import java.io.IOException;

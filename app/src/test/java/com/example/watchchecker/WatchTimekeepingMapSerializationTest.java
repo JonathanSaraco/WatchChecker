@@ -1,8 +1,8 @@
 package com.example.watchchecker;
 
-import com.example.watchchecker.dataModel.TimekeepingEntry;
-import com.example.watchchecker.dataModel.WatchDataEntry;
-import com.example.watchchecker.dataModel.WatchTimekeepingMap;
+import com.example.watchchecker.data.TimekeepingEntry;
+import com.example.watchchecker.data.WatchDataEntry;
+import com.example.watchchecker.data.WatchTimekeepingMap;
 import com.example.watchchecker.io.TimekeepingMapReader;
 import com.example.watchchecker.io.TimekeepingMapWriter;
 import com.google.gson.Gson;

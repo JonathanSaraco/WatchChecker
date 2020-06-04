@@ -1,4 +1,4 @@
-package com.example.watchchecker.dataModel;
+package com.example.watchchecker.data;
 
 import java.util.Date;
 

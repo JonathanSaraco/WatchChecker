@@ -16,7 +16,7 @@ import com.example.watchchecker.activity.AddWatchActivity;
 import com.example.watchchecker.activity.WatchTimekeepingActivity;
 import com.example.watchchecker.adapter.WatchCollectionAdapter;
 import com.example.watchchecker.data.UserData;
-import com.example.watchchecker.dataModel.WatchDataEntry;
+import com.example.watchchecker.data.WatchDataEntry;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -1,7 +1,6 @@
-package com.example.watchchecker.dataModel;
+package com.example.watchchecker.data;
 
 import com.example.watchchecker.util.Timekeeping_Util;
-import com.google.common.collect.Iterables;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,8 +27,8 @@ public class TimekeepingEntry implements Iterable<TimingEntry> {
         if (timingEntries.size() < 2) {
             return TimingDeviation.UNDEFINED_DEVIATION;
         } else {
-            TimingEntry firstTimingEntry = Iterables.getFirst(timingEntries, null);
-            TimingEntry lastTimingEntry = Iterables.getLast(timingEntries);
+            TimingEntry firstTimingEntry = timingEntries.get(0);
+            TimingEntry lastTimingEntry = timingEntries.get(timingEntries.size() - 1);
             return Timekeeping_Util.calculateDeviation(firstTimingEntry, lastTimingEntry);
         }
     }

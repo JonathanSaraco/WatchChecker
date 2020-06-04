@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.watchchecker.R;
-import com.example.watchchecker.dataModel.WatchDataEntry;
+import com.example.watchchecker.data.WatchDataEntry;
 import com.example.watchchecker.view.SquareImageView;
 
 import java.util.List;
