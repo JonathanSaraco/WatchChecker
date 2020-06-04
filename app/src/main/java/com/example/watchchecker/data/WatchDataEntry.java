@@ -44,6 +44,11 @@ public class WatchDataEntry implements Parcelable {
      */
     private Date lastServiceDate;
 
+    /**
+     * The date when this WatchDataEntry was created
+     */
+    private Date creationDate;
+
     /* NO ARGS CONSTRUCTOR FOR SERIALIZATION */
     private WatchDataEntry() {
         this("", "", "", new Date(), new Date());
@@ -59,6 +64,7 @@ public class WatchDataEntry implements Parcelable {
         this.movement = movement;
         this.purchaseDate = purchaseDate;
         this.lastServiceDate = lastServiceDate;
+        this.creationDate = new Date();
     }
 
     /**
@@ -101,6 +107,10 @@ public class WatchDataEntry implements Parcelable {
      */
     public void setLastServiceDate(Date lastServiceDate) {
         this.lastServiceDate = lastServiceDate;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
     }
 
     public String toDisplayString() {

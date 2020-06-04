@@ -21,7 +21,7 @@ public class UserData {
 
     public static List<WatchDataEntry> getWatchDataEntries() {
         List<WatchDataEntry> watchDataEntries = new ArrayList<>(WATCH_TIMEKEEPING_MAP.getDataMap().keySet());
-        watchDataEntries.sort(Comparator.comparing(WatchDataEntry::toDisplayString));
+        watchDataEntries.sort(Comparator.comparing(WatchDataEntry::getCreationDate));
         return watchDataEntries;
     }
 

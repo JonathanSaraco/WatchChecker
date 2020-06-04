@@ -13,23 +13,27 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.watchchecker.R;
+import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.data.WatchDataEntry;
 import com.example.watchchecker.view.SquareImageView;
 
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-public class WatchCollectionAdapter extends BaseAdapter {
+public class WatchCollectionAdapter extends BaseAdapter implements Observer {
 
     private final Context context;
 
     /**
      * The list of {@link WatchDataEntry} objects that form each element of the GridView
      */
-    private final List<WatchDataEntry> watchDataEntries;
+    private List<WatchDataEntry> watchDataEntries;
 
     public WatchCollectionAdapter(Context context, List<WatchDataEntry> watchDataEntries) {
         this.context = context;
         this.watchDataEntries = watchDataEntries;
+        UserData.getWatchTimekeepingMap().addObserver(this);
     }
 
     @Override
@@ -77,6 +81,12 @@ public class WatchCollectionAdapter extends BaseAdapter {
         linearLayout.addView(watchDialImageView);
         cardView.addView(linearLayout);
         return cardView;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        watchDataEntries = UserData.getWatchDataEntries();
+        notifyDataSetChanged();
     }
 
     private void setCommonTextViewProperties(TextView textView) {
