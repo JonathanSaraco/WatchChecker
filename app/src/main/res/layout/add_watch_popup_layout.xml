@@ -25,13 +25,13 @@
                 android:padding="12dp"
                 android:hint="@string/add_watch_form_model_hint"
                 android:inputType="text"/>
-            <EditText
+            <com.example.watchchecker.widget.UnTouchableEditText
                 android:id="@+id/purchaseDateEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="12dp"
                 android:hint="@string/add_watch_form_purchase_hint"/>
-            <EditText
+            <com.example.watchchecker.widget.UnTouchableEditText
                 android:id="@+id/serviceDateEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
