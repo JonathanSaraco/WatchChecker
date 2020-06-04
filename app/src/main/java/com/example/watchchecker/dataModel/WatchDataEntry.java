@@ -35,11 +35,6 @@ public class WatchDataEntry implements Parcelable {
     private String movement;
 
     /**
-     * The generic type of the watch, ie "Diver", "Chronograph", etc.
-     */
-    private WatchType watchType;
-
-    /**
      * The date that the watch was purchased
      */
     private Date purchaseDate;
@@ -51,19 +46,17 @@ public class WatchDataEntry implements Parcelable {
 
     /* NO ARGS CONSTRUCTOR FOR SERIALIZATION */
     private WatchDataEntry() {
-        this("", "", "", WatchType.DIVER, new Date(), new Date());
+        this("", "", "", new Date(), new Date());
     }
 
     public WatchDataEntry(String brand,
                           String model,
                           String movement,
-                          WatchType watchType,
                           Date purchaseDate,
                           Date lastServiceDate) {
         this.brand = brand;
         this.model = model;
         this.movement = movement;
-        this.watchType = watchType;
         this.purchaseDate = purchaseDate;
         this.lastServiceDate = lastServiceDate;
     }
@@ -80,13 +73,6 @@ public class WatchDataEntry implements Parcelable {
      */
     public String getModel() {
         return model;
-    }
-
-    /**
-     * Get the {@link WatchType} of the watch
-     */
-    public WatchType getWatchType() {
-        return watchType;
     }
 
     /**
@@ -140,7 +126,6 @@ public class WatchDataEntry implements Parcelable {
         brand = parcel.readString();
         model = parcel.readString();
         movement = parcel.readString();
-        watchType = WatchType.valueOf(parcel.readString());
         try {
             purchaseDate = DATE_FORMAT.parse(parcel.readString());
             lastServiceDate = DATE_FORMAT.parse(parcel.readString());
@@ -164,7 +149,6 @@ public class WatchDataEntry implements Parcelable {
         dest.writeString(brand);
         dest.writeString(model);
         dest.writeString(movement);
-        dest.writeString(watchType.name());
         dest.writeString(DATE_FORMAT.format(purchaseDate));
         dest.writeString(DATE_FORMAT.format(lastServiceDate));
     }
