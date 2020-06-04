@@ -22,7 +22,7 @@ public class TimingEntry {
     private final Time watchTime;
 
     /**
-     * The NIST time when the user presses the check watch button
+     * The reference time when the user presses the check watch button
      */
     private final Time referenceTime;
 

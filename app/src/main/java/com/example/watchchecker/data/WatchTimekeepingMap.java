@@ -5,12 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Observable;
 
 /**
  * Data structure to store {@link WatchDataEntry} objects with their corresponding {@link TimingEntry}
  * objects.
  */
-public class WatchTimekeepingMap {
+public class WatchTimekeepingMap extends Observable {
 
     private final Map<WatchDataEntry, List<TimekeepingEntry>> dataMap;
 
@@ -44,5 +45,14 @@ public class WatchTimekeepingMap {
             newMap.put(watchDataEntry, entryList);
         }
         return new WatchTimekeepingMap(newMap);
+    }
+
+    public void changed() {
+        this.setChanged();
+    }
+
+    @Override
+    public void notifyObservers() {
+        super.notifyObservers();
     }
 }

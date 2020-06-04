@@ -13,11 +13,8 @@ public class TimekeepingEntry implements Iterable<TimingEntry> {
 
     private final List<TimingEntry> timingEntries;
 
-    private DateRange dateRange;
-
     public TimekeepingEntry() {
         this.timingEntries = new ArrayList<>();
-        this.dateRange = DateRange.ZERO_DATE;
     }
 
     /**

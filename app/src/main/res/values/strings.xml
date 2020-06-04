@@ -24,6 +24,7 @@
     <string name="add_watch_form_movement_hint">Movement</string>
     <string name="add_watch_form_purchase_hint">Purchase Date</string>
     <string name="add_watch_form_service_hint">Last Service Date</string>
+    <string name="add_watch_form_text">Add Watch</string>
     <string-array name="watch_types_array">
         <item>Mercury</item>
         <item>Venus</item>

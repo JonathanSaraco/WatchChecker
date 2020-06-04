@@ -27,25 +27,36 @@ public class UserData {
 
     public static void addWatchDataEntry(WatchDataEntry watchDataEntry) {
         getWatchTimekeepingMap().getDataMap().putIfAbsent(watchDataEntry, new ArrayList<>());
+        getWatchTimekeepingMap().changed();
+        getWatchTimekeepingMap().notifyObservers();
     }
 
     public static void removeWatchDataEntry(WatchDataEntry watchDataEntry) {
         getWatchTimekeepingMap().getDataMap().remove(watchDataEntry);
+        getWatchTimekeepingMap().hasChanged();
+        getWatchTimekeepingMap().changed();
+        getWatchTimekeepingMap().notifyObservers();
     }
 
     public static void addTimekeepingEntry(WatchDataEntry watchDataEntry, TimekeepingEntry timekeepingEntry) {
         List<TimekeepingEntry> timekeepingEntries = getWatchTimekeepingMap().getDataMap().getOrDefault(watchDataEntry, Collections.emptyList());
         Objects.requireNonNull(timekeepingEntries).add(timekeepingEntry);
         getWatchTimekeepingMap().getDataMap().put(watchDataEntry, timekeepingEntries);
+        getWatchTimekeepingMap().changed();
+        getWatchTimekeepingMap().notifyObservers();
     }
 
     public static void removeTimekeepingEntry(WatchDataEntry watchDataEntry, TimekeepingEntry timekeepingEntry) {
         List<TimekeepingEntry> timekeepingEntries = getWatchTimekeepingMap().getDataMap().getOrDefault(watchDataEntry, Collections.emptyList());
         Objects.requireNonNull(timekeepingEntries).remove(timekeepingEntry);
         getWatchTimekeepingMap().getDataMap().put(watchDataEntry, timekeepingEntries);
+        getWatchTimekeepingMap().changed();
+        getWatchTimekeepingMap().notifyObservers();
     }
 
     public static void setWatchTimekeepingMap(WatchTimekeepingMap watchTimekeepingMap) {
         UserData.WATCH_TIMEKEEPING_MAP = watchTimekeepingMap;
+        getWatchTimekeepingMap().changed();
+        getWatchTimekeepingMap().notifyObservers();
     }
 }

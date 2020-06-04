@@ -11,11 +11,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.watchchecker.R;
+import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.fragment.PreferencesFragment;
 import com.example.watchchecker.fragment.WatchCollectionFragment;
 
+import java.util.Observable;
+import java.util.Observer;
+
 public class WatchCollectionActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, Observer {
 
     NavigationView navigationView = null;
     Toolbar toolbar = null;
@@ -40,6 +44,14 @@ public class WatchCollectionActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Set up observation of watch timekeeping map to prompt a refresh of the view
+        UserData.getWatchTimekeepingMap().addObserver(this);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        recreate();
     }
 
     @Override

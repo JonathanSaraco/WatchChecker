@@ -2,8 +2,7 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:minHeight="360dp"
+    android:layout_height="wrap_content"
     android:minWidth="360dp">
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -14,16 +13,25 @@
             android:orientation="vertical"
             android:layout_marginBottom="20dp">
             <EditText
+                android:id="@+id/brandEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="12dp"
                 android:hint="@string/add_watch_form_brand_hint"
                 android:inputType="text"/>
             <EditText
+                android:id="@+id/modelEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="12dp"
                 android:hint="@string/add_watch_form_model_hint"
+                android:inputType="text"/>
+            <EditText
+                android:id="@+id/movementEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:hint="@string/add_watch_form_movement_hint"
                 android:inputType="text"/>
             <com.example.watchchecker.widget.UnTouchableEditText
                 android:id="@+id/purchaseDateEdit"
@@ -37,6 +45,12 @@
                 android:layout_height="wrap_content"
                 android:padding="12dp"
                 android:hint="@string/add_watch_form_service_hint"/>
+            <Button
+                android:id="@+id/addWatchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:text="@string/add_watch_form_text" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </android.support.constraint.ConstraintLayout>
