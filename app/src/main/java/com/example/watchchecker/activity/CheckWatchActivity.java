@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import com.example.watchchecker.R;
 import com.example.watchchecker.fragment.CheckWatchFragment;
 import com.example.watchchecker.fragment.PreferencesFragment;
-import com.example.watchchecker.fragment.WatchCollectionFragment;
 
 public class CheckWatchActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -77,12 +76,6 @@ public class CheckWatchActivity extends AppCompatActivity
         if (id == R.id.nav_check_watch) {
             //Set the check watch fragment
             Fragment fragment = new CheckWatchFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, fragment);
-            fragmentTransaction.commit();
-        } else if (id == R.id.nav_watch_collection) {
-            //Set the watch check and watch collection fragments
-            Fragment fragment = new WatchCollectionFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
