@@ -47,8 +47,25 @@ public class UserDataInitialization implements Runnable {
                 WatchType.AVIATION,
                 new Date(),
                 new Date());
-
         WatchDataEntry ct701Entry = new WatchDataEntry("Modded",
+                "CT701 Sumo",
+                "NH35",
+                WatchType.DIVER,
+                new Date(),
+                new Date());
+        WatchDataEntry ct701Entry2 = new WatchDataEntry("Modded",
+                "CT701 Sumo",
+                "NH35",
+                WatchType.DIVER,
+                new Date(),
+                new Date());
+        WatchDataEntry ct701Entry3 = new WatchDataEntry("Modded",
+                "CT701 Sumo",
+                "NH35",
+                WatchType.DIVER,
+                new Date(),
+                new Date());
+        WatchDataEntry ct701Entry4 = new WatchDataEntry("Modded",
                 "CT701 Sumo",
                 "NH35",
                 WatchType.DIVER,
@@ -57,5 +74,8 @@ public class UserDataInitialization implements Runnable {
         UserData.addWatchDataEntry(sarbEntry);
         UserData.addWatchDataEntry(sinn104Entry);
         UserData.addWatchDataEntry(ct701Entry);
+        UserData.addWatchDataEntry(ct701Entry2);
+        UserData.addWatchDataEntry(ct701Entry3);
+        UserData.addWatchDataEntry(ct701Entry4);
     }
 }
