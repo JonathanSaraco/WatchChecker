@@ -5,7 +5,6 @@ import android.content.Context;
 import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.dataModel.WatchDataEntry;
 import com.example.watchchecker.dataModel.WatchTimekeepingMap;
-import com.example.watchchecker.dataModel.WatchType;
 import com.example.watchchecker.io.TimekeepingMapReader;
 
 import java.io.IOException;
@@ -38,37 +37,31 @@ public class UserDataInitialization implements Runnable {
         WatchDataEntry sarbEntry = new WatchDataEntry("Seiko",
                 "SARB033",
                 "6R15C",
-                WatchType.DRESS,
                 new Date(),
                 new Date());
         WatchDataEntry sinn104Entry = new WatchDataEntry("Sinn",
                 "104 St Sa I---------------",
                 "SW200-1",
-                WatchType.AVIATION,
                 new Date(),
                 new Date());
         WatchDataEntry ct701Entry = new WatchDataEntry("Modded",
                 "CT701 Sumo",
                 "NH35",
-                WatchType.DIVER,
                 new Date(),
                 new Date());
         WatchDataEntry ct701Entry2 = new WatchDataEntry("Modded",
                 "CT701 Sumo",
                 "NH35",
-                WatchType.DIVER,
                 new Date(),
                 new Date());
         WatchDataEntry ct701Entry3 = new WatchDataEntry("Modded",
                 "CT701 Sumo",
                 "NH35",
-                WatchType.DIVER,
                 new Date(),
                 new Date());
         WatchDataEntry ct701Entry4 = new WatchDataEntry("Modded",
                 "CT701 Sumo",
                 "NH35",
-                WatchType.DIVER,
                 new Date(),
                 new Date());
         UserData.addWatchDataEntry(sarbEntry);

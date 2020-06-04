@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 
 import com.example.watchchecker.R;
-import com.example.watchchecker.activity.WatchCollectionActivity;
+import com.example.watchchecker.activity.AddWatchActivity;
 import com.example.watchchecker.activity.WatchTimekeepingActivity;
 import com.example.watchchecker.adapter.WatchCollectionAdapter;
 import com.example.watchchecker.data.UserData;
@@ -36,7 +36,7 @@ public class WatchCollectionFragment extends Fragment {
         GridView gridView = fragmentView.findViewById(R.id.gridView_check_watch);
         WatchCollectionAdapter watchCollectionAdapter = new WatchCollectionAdapter(fragmentView.getContext(), UserData.getWatchDataEntries());
         gridView.setAdapter(watchCollectionAdapter);
-        //
+        // Setup WatchTimekeepingActivity as a response to clicking on a GridView item
         gridView.setOnItemClickListener((parent, view, position, id) -> {
             // Get the WatchDataEntry that we clicked on
             WatchDataEntry watchDataEntry = (WatchDataEntry) parent.getAdapter().getItem(position);
@@ -53,10 +53,9 @@ public class WatchCollectionFragment extends Fragment {
         fab.setImageResource(R.drawable.ic_plus_one); //Set button icon to a plus one icon
         fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimaryDark))); //Set the background colour of the fab
         fab.setOnClickListener(view -> {
-            Intent in = new Intent(getActivity(), WatchCollectionActivity.class);
+            Intent in = new Intent(getActivity(), AddWatchActivity.class);
             startActivity(in);
         });
-
         return fragmentView;
     }
 

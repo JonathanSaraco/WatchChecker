@@ -21,16 +21,16 @@
         </activity>
         <activity
             android:name=".activity.WatchCollectionActivity"
-            android:label="@string/app_name"
+            android:label="@string/title_activity_watch_collection"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
             android:name=".activity.AddWatchActivity"
             android:label="@string/title_activity_add_watch"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@android:style/Theme.Material.Light.Dialog"></activity>
         <activity
             android:name=".activity.WatchTimekeepingActivity"
-            android:label="@string/title_watch_timekeeping_activity"
+            android:label="@string/title_activity_watch_timekeeping"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

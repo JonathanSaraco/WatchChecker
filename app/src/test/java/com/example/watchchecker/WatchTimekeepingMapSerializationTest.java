@@ -3,7 +3,6 @@ package com.example.watchchecker;
 import com.example.watchchecker.dataModel.TimekeepingEntry;
 import com.example.watchchecker.dataModel.WatchDataEntry;
 import com.example.watchchecker.dataModel.WatchTimekeepingMap;
-import com.example.watchchecker.dataModel.WatchType;
 import com.example.watchchecker.io.TimekeepingMapReader;
 import com.example.watchchecker.io.TimekeepingMapWriter;
 import com.google.gson.Gson;
@@ -42,7 +41,6 @@ public class WatchTimekeepingMapSerializationTest {
         WatchDataEntry sarbEntry = new WatchDataEntry("Seiko",
                 "SARB033",
                 "6R15C",
-                WatchType.DRESS,
                 new Date(),
                 new Date());
         dummyMap.put(sarbEntry, new TimekeepingEntry());
