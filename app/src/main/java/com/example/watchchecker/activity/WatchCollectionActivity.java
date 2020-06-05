@@ -100,13 +100,15 @@ public class WatchCollectionActivity extends AppCompatActivity
     }
 
     /**
-     * Save user data
+     * Saves user data, we override this method because onPause() is called whenever we switch activity
+     * (which is too often), and because onDestroy() is only called when we exit the app via back
+     * button (not often enough).
      */
     @Override
-    protected void onDestroy() {
+    protected void onStop() {
         Intent finalizeIntent = new Intent(this, FinalizationService.class);
         finalizeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startService(finalizeIntent);
-        super.onDestroy();
+        super.onStop();
     }
 }
