@@ -1,5 +1,10 @@
 package com.example.watchchecker.data;
 
+import android.content.Context;
+
+import com.example.watchchecker.io.TimekeepingMapWriter;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -58,5 +63,9 @@ public class UserData {
         UserData.WATCH_TIMEKEEPING_MAP = watchTimekeepingMap;
         getWatchTimekeepingMap().changed();
         getWatchTimekeepingMap().notifyObservers();
+    }
+
+    public static void writeUserData(Context context) throws IOException {
+        new TimekeepingMapWriter(context).write(WATCH_TIMEKEEPING_MAP);
     }
 }

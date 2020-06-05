@@ -9,12 +9,14 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.watchchecker.R;
+import com.example.watchchecker.RequiredFieldTextWatcher;
 import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.data.WatchDataEntry;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AddWatchActivity extends Activity{
 
@@ -45,13 +47,17 @@ public class AddWatchActivity extends Activity{
                 watchDataEntry = new WatchDataEntry(brandEditText.getText().toString(),
                         modelEditText.getText().toString(),
                         movementEditText.getText().toString(),
-                        DATE_FORMAT.parse(purchaseEditText.getText().toString()),
-                        DATE_FORMAT.parse(serviceEditText.getText().toString()));
+                        parseDateEditText(purchaseEditText),
+                        parseDateEditText(serviceEditText));
             } catch (ParseException ignore) {}
             if (watchDataEntry != null) {
                 UserData.addWatchDataEntry(watchDataEntry);
+                // We're done with the activity
+                this.finish();
             }
         });
+        // Disable add watch button if the model field is empty
+        modelEditText.addTextChangedListener(new RequiredFieldTextWatcher(addWatchButton));
     }
 
     private void setUpDatePickerEditText(EditText purchaseEditText) {
@@ -67,5 +73,13 @@ public class AddWatchActivity extends Activity{
                     currentYear, currentMonth, currentDay);
             datePicker.show();
         });
+    }
+
+    private Date parseDateEditText(EditText editText) throws ParseException {
+        if (editText.getText().toString().isEmpty()) {
+            return new Date();
+        } else {
+            return DATE_FORMAT.parse(editText.getText().toString());
+        }
     }
 }

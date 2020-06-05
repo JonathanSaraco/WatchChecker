@@ -113,8 +113,15 @@ public class WatchDataEntry implements Parcelable {
         return creationDate;
     }
 
+    /**
+     * @return the string used as the display name for this entry.
+     */
     public String toDisplayString() {
-        return String.format("%s %s", brand, model);
+        if (!brand.isEmpty()) {
+            return String.format("%s %s", brand, model);
+        } else {
+            return model;
+        }
     }
 
     /* Parcelable implementation stuff  */

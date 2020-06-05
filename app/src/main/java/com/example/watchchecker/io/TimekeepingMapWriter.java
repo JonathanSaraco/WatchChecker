@@ -1,5 +1,6 @@
 package com.example.watchchecker.io;
 
+import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 
 import com.example.watchchecker.data.WatchTimekeepingMap;
@@ -7,7 +8,6 @@ import com.example.watchchecker.util.IO_Util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -16,16 +16,17 @@ import java.io.IOException;
  */
 public class TimekeepingMapWriter {
 
-    private final File writeDirectory;
+    private final Context context;
 
-    public TimekeepingMapWriter(File writeDirectory) {
-        this.writeDirectory = writeDirectory;
+    public TimekeepingMapWriter(Context context) {
+        this.context = context;
     }
 
     public void write(WatchTimekeepingMap watchTimekeepingMap) throws IOException {
         String mapAsJson = getMapAsJson(watchTimekeepingMap);
-        FileOutputStream fileOutputStream = new FileOutputStream(new File(writeDirectory, IO_Util.DEFAULT_TIMEKEEPING_MAP_FILENAME));
+        FileOutputStream fileOutputStream = context.openFileOutput(IO_Util.DEFAULT_TIMEKEEPING_MAP_FILENAME, 0);
         fileOutputStream.write(mapAsJson.getBytes());
+        fileOutputStream.close();
     }
 
     @VisibleForTesting()

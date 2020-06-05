@@ -26,8 +26,13 @@ public class TimekeepingMapReader {
         WatchTimekeepingMap watchTimekeepingMap = new WatchTimekeepingMap();
         Gson gson = new Gson();
         for (File timekeepingMapFile : IO_Util.getTimekeepingMapFiles(readDirectory)) {
-            WatchTimekeepingMap readTimekeepingMap = gson.fromJson(new FileReader(timekeepingMapFile), WatchTimekeepingMap.class);
-            watchTimekeepingMap = watchTimekeepingMap.union(readTimekeepingMap);
+            WatchTimekeepingMap readTimekeepingMap;
+            try {
+                readTimekeepingMap = gson.fromJson(new FileReader(timekeepingMapFile), WatchTimekeepingMap.class);
+                if (readTimekeepingMap != null) {
+                    watchTimekeepingMap = watchTimekeepingMap.union(readTimekeepingMap);
+                }
+            } catch (Exception ignore) {}
         }
         return watchTimekeepingMap;
     }

@@ -20,7 +20,7 @@
     <string name="title_activity_watch_timekeeping">Timekeeping</string>
     <!-- Add Watch user form strings -->
     <string name="add_watch_form_brand_hint">Brand</string>
-    <string name="add_watch_form_model_hint">Model</string>
+    <string name="add_watch_form_model_hint">Required: Model</string>
     <string name="add_watch_form_movement_hint">Movement</string>
     <string name="add_watch_form_purchase_hint">Purchase Date</string>
     <string name="add_watch_form_service_hint">Last Service Date</string>

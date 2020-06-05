@@ -1,8 +1,10 @@
 package com.example.watchchecker.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -77,18 +79,34 @@ public class WatchCollectionActivity extends AppCompatActivity
             //Set the check watch fragment
             Fragment fragment = new WatchCollectionFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.replace(R.id.fragment_container, fragment, "WatchCollectionFragment");
+            // Clears back stack because this is the main fragment
+            getSupportFragmentManager().popBackStackImmediate(0, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             fragmentTransaction.commit();
         } else if (id == R.id.nav_settings) {
-            //Set the watch check and watch collection fragments
             Fragment fragment = new PreferencesFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.replace(R.id.fragment_container, fragment, "PreferencesFragment");
+            // Don't add inordinate SettingsFragments to the back stack
+            if (getSupportFragmentManager().getBackStackEntryCount() < 1) {
+                fragmentTransaction.addToBackStack("PreferencesFragment");
+            }
             fragmentTransaction.commit();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    /**
+     * Save user data
+     */
+    @Override
+    protected void onDestroy() {
+        Intent finalizeIntent = new Intent(this, FinalizationService.class);
+        finalizeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startService(finalizeIntent);
+        super.onDestroy();
     }
 }

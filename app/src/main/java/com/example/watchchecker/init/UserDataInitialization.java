@@ -3,12 +3,9 @@ package com.example.watchchecker.init;
 import android.content.Context;
 
 import com.example.watchchecker.data.UserData;
-import com.example.watchchecker.data.WatchDataEntry;
-import com.example.watchchecker.data.WatchTimekeepingMap;
 import com.example.watchchecker.io.TimekeepingMapReader;
 
 import java.io.IOException;
-import java.util.Date;
 
 /**
  * Class to read in data from {@link Context#getFilesDir()} and initialize static fields to store
@@ -31,44 +28,5 @@ public class UserDataInitialization implements Runnable {
 
     private void initializeWatchTimekeepingMap() throws IOException {
         UserData.setWatchTimekeepingMap(new TimekeepingMapReader(context.getFilesDir()).read());
-
-        // DEBUG TODO remove
-        WatchTimekeepingMap dummyMap = new WatchTimekeepingMap();
-        WatchDataEntry sarbEntry = new WatchDataEntry("Seiko",
-                "SARB033",
-                "6R15C",
-                new Date(),
-                new Date());
-        WatchDataEntry sinn104Entry = new WatchDataEntry("Sinn",
-                "104 St Sa I---------------",
-                "SW200-1",
-                new Date(),
-                new Date());
-        WatchDataEntry ct701Entry = new WatchDataEntry("Modded",
-                "CT701 Sumo",
-                "NH35",
-                new Date(),
-                new Date());
-        WatchDataEntry ct701Entry2 = new WatchDataEntry("Modded",
-                "CT701 Sumo",
-                "NH35",
-                new Date(),
-                new Date());
-        WatchDataEntry ct701Entry3 = new WatchDataEntry("Modded",
-                "CT701 Sumo",
-                "NH35",
-                new Date(),
-                new Date());
-        WatchDataEntry ct701Entry4 = new WatchDataEntry("Modded",
-                "CT701 Sumo",
-                "NH35",
-                new Date(),
-                new Date());
-        UserData.addWatchDataEntry(sarbEntry);
-        UserData.addWatchDataEntry(sinn104Entry);
-        UserData.addWatchDataEntry(ct701Entry);
-        UserData.addWatchDataEntry(ct701Entry2);
-        UserData.addWatchDataEntry(ct701Entry3);
-        UserData.addWatchDataEntry(ct701Entry4);
     }
 }

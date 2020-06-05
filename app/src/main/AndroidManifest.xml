@@ -3,6 +3,8 @@
     package="com.example.watchchecker">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -32,6 +34,9 @@
             android:name=".activity.WatchTimekeepingActivity"
             android:label="@string/title_activity_watch_timekeeping"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <service
+            android:name=".activity.FinalizationService"
+            android:theme="@android:style/Theme.Translucent"></service>
     </application>
 
 </manifest>
