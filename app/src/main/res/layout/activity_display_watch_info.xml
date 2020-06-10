@@ -2,7 +2,8 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -118,7 +119,7 @@
                 <ListView
                     android:id="@+id/display_watch_timekeeping_entry_grid_view"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:verticalSpacing="4dp"
                     android:layout_marginStart="4dp"
                     android:layout_marginLeft="4dp"
