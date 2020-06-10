@@ -31,9 +31,9 @@
             android:label="@string/title_activity_add_watch"
             android:theme="@android:style/Theme.Material.Light.Dialog"></activity>
         <activity
-            android:name=".activity.WatchTimekeepingActivity"
-            android:label="@string/title_activity_watch_timekeeping"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".activity.WatchInformationDisplayActivity"
+            android:label="@string/title_activity_watch_information_display"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <service
             android:name=".activity.FinalizationService"
             android:theme="@android:style/Theme.Translucent"></service>

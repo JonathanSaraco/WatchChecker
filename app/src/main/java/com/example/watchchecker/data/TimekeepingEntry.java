@@ -20,7 +20,7 @@ public class TimekeepingEntry implements Iterable<TimingEntry> {
     /**
      * Calculates the time deviation for this entire timekeeping run
      */
-    public TimingDeviation getSecondsPerDay() {
+    public TimingDeviation getTimingDeviation() {
         if (timingEntries.size() < 2) {
             return TimingDeviation.UNDEFINED_DEVIATION;
         } else {

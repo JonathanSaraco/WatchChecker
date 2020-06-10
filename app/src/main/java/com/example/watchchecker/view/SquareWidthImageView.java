@@ -3,18 +3,22 @@ package com.example.watchchecker.view;
 import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
+import android.widget.ImageView;
 
-public class SquareImageView extends AppCompatImageView {
+/**
+ * Constraints the height of an {@link ImageView} based on its width to ensure it is square.
+ */
+public class SquareWidthImageView extends AppCompatImageView {
 
-    public SquareImageView(Context context) {
+    public SquareWidthImageView(Context context) {
         super(context);
     }
 
-    public SquareImageView(Context context, AttributeSet attrs) {
+    public SquareWidthImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public SquareImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SquareWidthImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

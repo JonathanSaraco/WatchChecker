@@ -1,5 +1,6 @@
 package com.example.watchchecker;
 
+import com.example.watchchecker.data.DateString;
 import com.example.watchchecker.data.TimekeepingEntry;
 import com.example.watchchecker.data.WatchDataEntry;
 import com.example.watchchecker.data.WatchTimekeepingMap;
@@ -41,8 +42,8 @@ public class WatchTimekeepingMapSerializationTest {
         WatchDataEntry sarbEntry = new WatchDataEntry("Seiko",
                 "SARB033",
                 "6R15C",
-                new Date(),
-                new Date());
+                new DateString(new Date()),
+                new DateString(new Date()));
         dummyMap.put(sarbEntry, new TimekeepingEntry());
         return dummyMap;
     }

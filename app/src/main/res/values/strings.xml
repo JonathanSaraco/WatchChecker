@@ -17,7 +17,7 @@
 
     <string name="title_activity_add_watch">Add Watch</string>
     <string name="title_activity_watch_collection">Watch Collection</string>
-    <string name="title_activity_watch_timekeeping">Timekeeping</string>
+    <string name="title_activity_watch_information_display">Watch Information</string>
     <!-- Add Watch user form strings -->
     <string name="add_watch_form_brand_hint">Brand</string>
     <string name="add_watch_form_model_hint">Required: Model</string>

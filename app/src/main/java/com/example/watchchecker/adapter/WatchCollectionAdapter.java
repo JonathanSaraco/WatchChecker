@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.example.watchchecker.R;
 import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.data.WatchDataEntry;
-import com.example.watchchecker.view.SquareImageView;
+import com.example.watchchecker.view.SquareWidthImageView;
 
 import java.util.List;
 import java.util.Observable;
@@ -72,7 +72,7 @@ public class WatchCollectionAdapter extends BaseAdapter implements Observer {
         watchMovementTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimensionPixelSize(R.dimen.watch_collection_movement_text_size));
         watchMovementTextView.setText(watchDataEntry.getMovement());
         // Image view to display image associated with watch
-        ImageView watchDialImageView = new SquareImageView(context);
+        ImageView watchDialImageView = new SquareWidthImageView(context);
         watchDialImageView.setImageResource(R.drawable.watch_placeholder_image);
         watchDialImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         // Add views to cardview, add that to the linearLayout, and return it

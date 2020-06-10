@@ -3,10 +3,8 @@ package com.example.watchchecker.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Class that contains all data for a specific watch ie. its brand, model, serial number, movement,
@@ -14,8 +12,6 @@ import java.util.Date;
  * set of deltas from NIST time and the period over which the measurements took place
  */
 public class WatchDataEntry implements Parcelable {
-
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
     public static final String PARCEL_KEY = "watchDataEntry";
 
@@ -37,34 +33,34 @@ public class WatchDataEntry implements Parcelable {
     /**
      * The date that the watch was purchased
      */
-    private Date purchaseDate;
+    private DateString purchaseDate;
 
     /**
      * The date of the watch's last service
      */
-    private Date lastServiceDate;
+    private DateString lastServiceDate;
 
     /**
      * The date when this WatchDataEntry was created
      */
-    private Date creationDate;
+    private DateString creationDate;
 
     /* NO ARGS CONSTRUCTOR FOR SERIALIZATION */
     private WatchDataEntry() {
-        this("", "", "", new Date(), new Date());
+        this("", "", "", new DateString(), new DateString());
     }
 
     public WatchDataEntry(String brand,
                           String model,
                           String movement,
-                          Date purchaseDate,
-                          Date lastServiceDate) {
+                          DateString purchaseDate,
+                          DateString lastServiceDate) {
         this.brand = brand;
         this.model = model;
         this.movement = movement;
         this.purchaseDate = purchaseDate;
         this.lastServiceDate = lastServiceDate;
-        this.creationDate = new Date();
+        this.creationDate = new DateString(new Date());
     }
 
     /**
@@ -91,25 +87,25 @@ public class WatchDataEntry implements Parcelable {
     /**
      * Return the watch's purchase date
      */
-    public Date getPurchaseDate() {
+    public DateString getPurchaseDate() {
         return purchaseDate;
     }
 
     /**
      * Return the watch's last service date
      */
-    public Date getLastServiceDate() {
+    public DateString getLastServiceDate() {
         return lastServiceDate;
     }
 
     /**
      * Set the watch's last service date
      */
-    public void setLastServiceDate(Date lastServiceDate) {
+    public void setLastServiceDate(DateString lastServiceDate) {
         this.lastServiceDate = lastServiceDate;
     }
 
-    public Date getCreationDate() {
+    public DateString getCreationDate() {
         return creationDate;
     }
 
@@ -143,17 +139,9 @@ public class WatchDataEntry implements Parcelable {
         brand = parcel.readString();
         model = parcel.readString();
         movement = parcel.readString();
-        try {
-            purchaseDate = DATE_FORMAT.parse(parcel.readString());
-            lastServiceDate = DATE_FORMAT.parse(parcel.readString());
-        } catch (ParseException e) {
-            if (purchaseDate == null) {
-                purchaseDate = new Date();
-            }
-            if (lastServiceDate == null) {
-                lastServiceDate = new Date();
-            }
-        }
+        purchaseDate = DateString.tryToParse(parcel.readString());
+        lastServiceDate = DateString.tryToParse(parcel.readString());
+        creationDate = DateString.tryToParse(parcel.readString());
     }
 
     @Override
@@ -166,7 +154,26 @@ public class WatchDataEntry implements Parcelable {
         dest.writeString(brand);
         dest.writeString(model);
         dest.writeString(movement);
-        dest.writeString(DATE_FORMAT.format(purchaseDate));
-        dest.writeString(DATE_FORMAT.format(lastServiceDate));
+        dest.writeString(purchaseDate.getComplexDateString());
+        dest.writeString(lastServiceDate.getComplexDateString());
+        dest.writeString(creationDate.getComplexDateString());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WatchDataEntry that = (WatchDataEntry) o;
+        return Objects.equals(getBrand(), that.getBrand()) &&
+                Objects.equals(getModel(), that.getModel()) &&
+                Objects.equals(getMovement(), that.getMovement()) &&
+                Objects.equals(getPurchaseDate(), that.getPurchaseDate()) &&
+                Objects.equals(getLastServiceDate(), that.getLastServiceDate()) &&
+                Objects.equals(getCreationDate(), that.getCreationDate());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getBrand(), getModel(), getMovement(), getPurchaseDate(), getLastServiceDate(), getCreationDate());
     }
 }

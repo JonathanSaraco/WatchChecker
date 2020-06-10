@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import com.example.watchchecker.R;
 import com.example.watchchecker.RequiredFieldTextWatcher;
+import com.example.watchchecker.data.DateString;
 import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.data.WatchDataEntry;
 
@@ -47,8 +48,8 @@ public class AddWatchActivity extends Activity{
                 watchDataEntry = new WatchDataEntry(brandEditText.getText().toString(),
                         modelEditText.getText().toString(),
                         movementEditText.getText().toString(),
-                        parseDateEditText(purchaseEditText),
-                        parseDateEditText(serviceEditText));
+                        new DateString(parseDateEditText(purchaseEditText)),
+                        new DateString(parseDateEditText(serviceEditText)));
             } catch (ParseException ignore) {}
             if (watchDataEntry != null) {
                 UserData.addWatchDataEntry(watchDataEntry);
@@ -79,7 +80,7 @@ public class AddWatchActivity extends Activity{
         if (editText.getText().toString().isEmpty()) {
             return new Date();
         } else {
-            return DATE_FORMAT.parse(editText.getText().toString());
+            return DateString.SIMPLE_DATE_FORMAT.parse(editText.getText().toString());
         }
     }
 }

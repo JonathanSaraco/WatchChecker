@@ -13,7 +13,7 @@ import android.widget.GridView;
 
 import com.example.watchchecker.R;
 import com.example.watchchecker.activity.AddWatchActivity;
-import com.example.watchchecker.activity.WatchTimekeepingActivity;
+import com.example.watchchecker.activity.WatchInformationDisplayActivity;
 import com.example.watchchecker.adapter.WatchCollectionAdapter;
 import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.data.WatchDataEntry;
@@ -36,12 +36,12 @@ public class WatchCollectionFragment extends Fragment {
         GridView gridView = fragmentView.findViewById(R.id.gridView_check_watch);
         WatchCollectionAdapter watchCollectionAdapter = new WatchCollectionAdapter(fragmentView.getContext(), UserData.getWatchDataEntries());
         gridView.setAdapter(watchCollectionAdapter);
-        // Setup WatchTimekeepingActivity as a response to clicking on a GridView item
+        // Setup WatchInformationDisplayActivity as a response to clicking on a GridView item
         gridView.setOnItemClickListener((parent, view, position, id) -> {
             // Get the WatchDataEntry that we clicked on
             WatchDataEntry watchDataEntry = (WatchDataEntry) parent.getAdapter().getItem(position);
             // Setup and start activity to display timekeeping information
-            Intent intent = new Intent(getActivity(), WatchTimekeepingActivity.class);
+            Intent intent = new Intent(getActivity(), WatchInformationDisplayActivity.class);
             Bundle bundle = new Bundle();
             bundle.putParcelable(WatchDataEntry.PARCEL_KEY, watchDataEntry);
             intent.putExtras(bundle);

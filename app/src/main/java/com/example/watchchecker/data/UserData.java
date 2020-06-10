@@ -8,8 +8,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Static class to give easy access to objects storing user data.
@@ -26,7 +28,13 @@ public class UserData {
 
     public static List<WatchDataEntry> getWatchDataEntries() {
         List<WatchDataEntry> watchDataEntries = new ArrayList<>(WATCH_TIMEKEEPING_MAP.getDataMap().keySet());
-        watchDataEntries.sort(Comparator.comparing(WatchDataEntry::getCreationDate));
+        watchDataEntries.sort(Comparator.comparing(watchDataEntry -> {
+            try {
+                return watchDataEntry.getCreationDate().getComplexDate();
+            } catch (Exception e) {
+                return new Date();
+            }
+        }));
         return watchDataEntries;
     }
 
@@ -41,6 +49,20 @@ public class UserData {
         getWatchTimekeepingMap().hasChanged();
         getWatchTimekeepingMap().changed();
         getWatchTimekeepingMap().notifyObservers();
+    }
+
+    public static List<TimekeepingEntry> getTimekeepingEntries(WatchDataEntry watchDataEntry) {
+        if (!getWatchTimekeepingMap().getDataMap().containsKey(watchDataEntry)) {
+            Optional<WatchDataEntry> actualWatchDataEntry = getWatchTimekeepingMap().getDataMap().keySet().stream()
+                    .filter(watchDataEntry::equals)
+                    .findAny();
+            if (actualWatchDataEntry.isPresent()) {
+                return getWatchTimekeepingMap().getTimekeepingEntries(actualWatchDataEntry.get());
+            } else {
+                return new ArrayList<>();
+            }
+        }
+        return getWatchTimekeepingMap().getTimekeepingEntries(watchDataEntry);
     }
 
     public static void addTimekeepingEntry(WatchDataEntry watchDataEntry, TimekeepingEntry timekeepingEntry) {
