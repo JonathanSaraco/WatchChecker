@@ -5,18 +5,21 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.watchchecker.R;
-import com.example.watchchecker.adapter.TimekeepingEntryAdapter;
 import com.example.watchchecker.data.TimekeepingEntry;
 import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.data.WatchDataEntry;
+
+import java.util.List;
 
 /**
  * An {@link Activity} used to display all of the information associated with a {@link WatchDataEntry},
@@ -35,7 +38,7 @@ public class WatchInformationDisplayActivity extends AppCompatActivity {
         // Set text view components
         setTextViewComponents(watchDataEntry);
         // Set timekeeping entry grid view
-        setTimekeepingGridView(watchDataEntry);
+        setTimekeepingLinearLayout(watchDataEntry);
     }
 
     private void setTextViewComponents(WatchDataEntry watchDataEntry) {
@@ -50,10 +53,18 @@ public class WatchInformationDisplayActivity extends AppCompatActivity {
         setComplexTextViewText(R.id.display_watch_service_date_text, watchDataEntry.getLastServiceDate().getSimpleDateString());
     }
 
-    private void setTimekeepingGridView(WatchDataEntry watchDataEntry) {
-        ListView timekeepingGridView = findViewById(R.id.display_watch_timekeeping_entry_grid_view);
-        TimekeepingEntryAdapter timekeepingEntryAdapter = new TimekeepingEntryAdapter(getApplicationContext(), UserData.getTimekeepingEntries(watchDataEntry));
-        timekeepingGridView.setAdapter(timekeepingEntryAdapter);
+    private void setTimekeepingLinearLayout(WatchDataEntry watchDataEntry) {
+        LinearLayoutCompat timekeepingLinearLayout = findViewById(R.id.display_watch_timekeeping_entry_list_view);
+        List<TimekeepingEntry> timekeepingEntries = UserData.getTimekeepingEntries(watchDataEntry);
+        // Inflate layout for each timekeeping entry
+        LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+        for (int i = 0; i < timekeepingEntries.size(); i++) {
+            View view = inflater.inflate(R.layout.timekeeping_entry_card, timekeepingLinearLayout, false);
+            // Set text in textview to show timing deviation in entry
+            TextView textView = view.findViewById(R.id.timekeeping_entry_date_range_text_view);
+            textView.setText(timekeepingEntries.get(i).getTimingDeviation().toDisplayString());
+            timekeepingLinearLayout.addView(view);
+        }
     }
 
     private void setSimpleTextViewText(int resourceID, String text) {
