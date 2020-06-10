@@ -115,7 +115,7 @@
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="24sp" />
 
-                <GridView
+                <ListView
                     android:id="@+id/display_watch_timekeeping_entry_grid_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
                     android:layout_marginLeft="4dp"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp">
-                </GridView>
+                </ListView>
 
             </LinearLayout>
         </android.support.v7.widget.LinearLayoutCompat>

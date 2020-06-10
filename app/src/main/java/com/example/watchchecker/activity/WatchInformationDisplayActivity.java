@@ -8,8 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.watchchecker.R;
@@ -51,7 +51,7 @@ public class WatchInformationDisplayActivity extends AppCompatActivity {
     }
 
     private void setTimekeepingGridView(WatchDataEntry watchDataEntry) {
-        GridView timekeepingGridView = findViewById(R.id.display_watch_timekeeping_entry_grid_view);
+        ListView timekeepingGridView = findViewById(R.id.display_watch_timekeeping_entry_grid_view);
         TimekeepingEntryAdapter timekeepingEntryAdapter = new TimekeepingEntryAdapter(getApplicationContext(), UserData.getTimekeepingEntries(watchDataEntry));
         timekeepingGridView.setAdapter(timekeepingEntryAdapter);
     }
