@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
     android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
 
     <android.support.design.card.MaterialCardView
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="4dp"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="4dp">
 
         <TextView
             android:id="@+id/timekeeping_entry_date_range_text_view"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Date range"/>
+            android:layout_height="wrap_content"
+            android:text="Date range"
+            android:textSize="18sp"/>
 
     </android.support.design.card.MaterialCardView>
 </LinearLayout>
