@@ -34,6 +34,10 @@
             android:name=".activity.WatchInformationDisplayActivity"
             android:label="@string/title_activity_watch_information_display"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name=".activity.TimeWatchActivity"
+            android:label="@string/title_activity_time_watch"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <service
             android:name=".activity.FinalizationService"
             android:theme="@android:style/Theme.Translucent"></service>

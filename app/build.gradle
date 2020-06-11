@@ -45,4 +45,6 @@ dependencies {
     implementation 'tec.units:unit-ri:1.0.3'
     implementation 'com.github.instacart.truetime-android:library:3.4'
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.kovachcode:timePickerWithSeconds:1.0.1'
+    implementation 'org.apache.commons:commons-lang3:3.9'
 }

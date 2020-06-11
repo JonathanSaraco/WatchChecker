@@ -40,51 +40,78 @@ public class UserData {
 
     public static void addWatchDataEntry(WatchDataEntry watchDataEntry) {
         getWatchTimekeepingMap().getDataMap().putIfAbsent(watchDataEntry, new ArrayList<>());
-        getWatchTimekeepingMap().changed();
-        getWatchTimekeepingMap().notifyObservers();
+        notifyObservers();
     }
 
     public static void removeWatchDataEntry(WatchDataEntry watchDataEntry) {
-        getWatchTimekeepingMap().getDataMap().remove(watchDataEntry);
-        getWatchTimekeepingMap().hasChanged();
+        WatchDataEntry watchDataEntryAsKey = getWatchDataEntryKey(watchDataEntry);
+        getWatchTimekeepingMap().getDataMap().remove(watchDataEntryAsKey);
+        notifyObservers();
+    }
+
+    private static void notifyObservers() {
         getWatchTimekeepingMap().changed();
         getWatchTimekeepingMap().notifyObservers();
     }
 
     public static List<TimekeepingEntry> getTimekeepingEntries(WatchDataEntry watchDataEntry) {
+        WatchDataEntry watchDataEntryAsKey = getWatchDataEntryKey(watchDataEntry);
+        List<TimekeepingEntry> timekeepingEntries = getWatchTimekeepingMap().getTimekeepingEntries(watchDataEntryAsKey);
+        timekeepingEntries.sort(Comparator.comparing(TimekeepingEntry::getLastTimekeepingEvent));
+        return getWatchTimekeepingMap().getTimekeepingEntries(watchDataEntryAsKey);
+    }
+
+    public static TimekeepingEntry getLastTimekeepingEntry(WatchDataEntry watchDataEntry) {
+        WatchDataEntry watchDataEntryAsKey = getWatchDataEntryKey(watchDataEntry);
+        List<TimekeepingEntry> timekeepingEntries = getTimekeepingEntries(watchDataEntryAsKey);
+        if (timekeepingEntries.isEmpty()) {
+            TimekeepingEntry timekeepingEntry = new TimekeepingEntry();
+            timekeepingEntries.add(timekeepingEntry);
+        }
+        return timekeepingEntries.get(timekeepingEntries.size() - 1);
+    }
+
+    public static void addTimekeepingEntry(WatchDataEntry watchDataEntry, TimekeepingEntry timekeepingEntry) {
+        WatchDataEntry watchDataEntryAsKey = getWatchDataEntryKey(watchDataEntry);
+        List<TimekeepingEntry> timekeepingEntries = getWatchTimekeepingMap().getDataMap().getOrDefault(watchDataEntryAsKey, Collections.emptyList());
+        Objects.requireNonNull(timekeepingEntries).add(timekeepingEntry);
+        getWatchTimekeepingMap().getDataMap().put(watchDataEntryAsKey, timekeepingEntries);
+        notifyObservers();
+    }
+
+    public static void removeTimekeepingEntry(WatchDataEntry watchDataEntry, TimekeepingEntry timekeepingEntry) {
+        WatchDataEntry watchDataEntryAsKey = getWatchDataEntryKey(watchDataEntry);
+        List<TimekeepingEntry> timekeepingEntries = getWatchTimekeepingMap().getDataMap().getOrDefault(watchDataEntryAsKey, Collections.emptyList());
+        Objects.requireNonNull(timekeepingEntries).remove(timekeepingEntry);
+        getWatchTimekeepingMap().getDataMap().put(watchDataEntryAsKey, timekeepingEntries);
+        notifyObservers();
+    }
+
+    public static void addTimingEntry(WatchDataEntry watchDataEntry, TimingEntry timingEntry) {
+        WatchDataEntry watchDataEntryAsKey = getWatchDataEntryKey(watchDataEntry);
+        TimekeepingEntry lastTimekeepingEntry = getLastTimekeepingEntry(watchDataEntryAsKey);
+        lastTimekeepingEntry.addTimingEntry(timingEntry);
+        notifyObservers();
+    }
+
+    private static WatchDataEntry getWatchDataEntryKey(WatchDataEntry watchDataEntry) {
+        WatchDataEntry watchDataEntryAsKey = watchDataEntry;
         if (!getWatchTimekeepingMap().getDataMap().containsKey(watchDataEntry)) {
             Optional<WatchDataEntry> actualWatchDataEntry = getWatchTimekeepingMap().getDataMap().keySet().stream()
                     .filter(watchDataEntry::equals)
                     .findAny();
             if (actualWatchDataEntry.isPresent()) {
-                return getWatchTimekeepingMap().getTimekeepingEntries(actualWatchDataEntry.get());
+                watchDataEntryAsKey = actualWatchDataEntry.get();
             } else {
-                return new ArrayList<>();
+                throw new IllegalStateException();
             }
         }
-        return getWatchTimekeepingMap().getTimekeepingEntries(watchDataEntry);
-    }
-
-    public static void addTimekeepingEntry(WatchDataEntry watchDataEntry, TimekeepingEntry timekeepingEntry) {
-        List<TimekeepingEntry> timekeepingEntries = getWatchTimekeepingMap().getDataMap().getOrDefault(watchDataEntry, Collections.emptyList());
-        Objects.requireNonNull(timekeepingEntries).add(timekeepingEntry);
-        getWatchTimekeepingMap().getDataMap().put(watchDataEntry, timekeepingEntries);
-        getWatchTimekeepingMap().changed();
-        getWatchTimekeepingMap().notifyObservers();
-    }
-
-    public static void removeTimekeepingEntry(WatchDataEntry watchDataEntry, TimekeepingEntry timekeepingEntry) {
-        List<TimekeepingEntry> timekeepingEntries = getWatchTimekeepingMap().getDataMap().getOrDefault(watchDataEntry, Collections.emptyList());
-        Objects.requireNonNull(timekeepingEntries).remove(timekeepingEntry);
-        getWatchTimekeepingMap().getDataMap().put(watchDataEntry, timekeepingEntries);
-        getWatchTimekeepingMap().changed();
-        getWatchTimekeepingMap().notifyObservers();
+        return watchDataEntryAsKey;
     }
 
     public static void setWatchTimekeepingMap(WatchTimekeepingMap watchTimekeepingMap) {
         UserData.WATCH_TIMEKEEPING_MAP = watchTimekeepingMap;
-        getWatchTimekeepingMap().changed();
-        getWatchTimekeepingMap().notifyObservers();
+        notifyObservers();
     }
 
     public static void writeUserData(Context context) throws IOException {

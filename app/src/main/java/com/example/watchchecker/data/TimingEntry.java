@@ -1,13 +1,9 @@
 package com.example.watchchecker.data;
 
 
-import java.sql.Time;
+import com.example.watchchecker.util.Timekeeping_Util;
 
-import javax.measure.MetricPrefix;
-import javax.measure.Quantity;
-
-import tec.units.ri.quantity.Quantities;
-import tec.units.ri.unit.Units;
+import java.util.Date;
 
 /**
  * A class to store each timing event, fields are the time of the watch, the NIST time it was compared
@@ -19,33 +15,33 @@ public class TimingEntry {
      * The time that the user has specified their watch will be displaying when they lock in a
      * comparison with NIST time
      */
-    private final Time watchTime;
+    private final Date watchTime;
 
     /**
      * The reference time when the user presses the check watch button
      */
-    private final Time referenceTime;
+    private final Date referenceTime;
 
     /**
      * Long between the watch's time and the reference time in seconds
      */
-    private final Quantity<javax.measure.quantity.Time> delta;
+    private final TimingDeviation deviation;
 
-    public TimingEntry(Time watchTime, Time referenceTime) {
+    public TimingEntry(Date watchTime, Date referenceTime) {
         this.watchTime = watchTime;
         this.referenceTime = referenceTime;
-        this.delta = Quantities.getQuantity(referenceTime.getTime() - watchTime.getTime(), MetricPrefix.MILLI(Units.SECOND));
+        this.deviation = Timekeeping_Util.calculateDeviation(referenceTime, watchTime);
     }
 
-    public Time getWatchTime() {
+    public Date getWatchTime() {
         return watchTime;
     }
 
-    public Time getReferenceTime() {
+    public Date getReferenceTime() {
         return referenceTime;
     }
 
-    public Quantity<javax.measure.quantity.Time> getDelta() {
-        return delta;
+    public TimingDeviation getDeviation() {
+        return deviation;
     }
 }

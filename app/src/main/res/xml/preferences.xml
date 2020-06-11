@@ -3,7 +3,7 @@
     <ListPreference
         android:defaultValue="0"
         android:entries="@array/ref_time_entries"
-        android:key="ref_time_list"
+        android:key="@string/ref_time_preference_key"
         android:entryValues="@array/ref_time_values"
         android:summary="@string/ref_time_summary"
         android:title="@string/ref_time_title" />

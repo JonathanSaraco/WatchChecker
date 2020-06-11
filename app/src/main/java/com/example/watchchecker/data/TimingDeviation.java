@@ -14,14 +14,31 @@ public class TimingDeviation {
     private final BigDecimal deviation;
 
     public TimingDeviation(Double deviation) {
-        this.deviation = new BigDecimal(deviation).setScale(2, RoundingMode.HALF_UP);
+        this.deviation = new BigDecimal(deviation).setScale(4, RoundingMode.HALF_UP);
     }
 
-    public String toDisplayString() {
+    public BigDecimal toBigDecimal() {
+        return deviation;
+    }
+
+    public Double toDoubleValue() {
+        return this.deviation.doubleValue();
+    }
+
+    public String toSimpleDisplayString()
+    {
         if (this.equals(UNDEFINED_DEVIATION)) {
             return "Undefined";
         } else {
             return this.deviation.toPlainString();
+        }
+    }
+
+    public String toFullDisplayString() {
+        if (this.equals(UNDEFINED_DEVIATION)) {
+            return "Undefined";
+        } else {
+            return String.format("%s %s", this.deviation.toPlainString(), "s/day");
         }
     }
 }

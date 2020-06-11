@@ -14,14 +14,10 @@ import com.example.watchchecker.data.DateString;
 import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.data.WatchDataEntry;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class AddWatchActivity extends Activity{
-
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
+public class AddWatchActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

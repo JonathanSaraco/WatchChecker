@@ -1,9 +1,11 @@
 package com.example.watchchecker.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.text.Spannable;
@@ -11,6 +13,7 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,12 +23,14 @@ import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.data.WatchDataEntry;
 
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * An {@link Activity} used to display all of the information associated with a {@link WatchDataEntry},
  * including {@link TimekeepingEntry} info
  */
-public class WatchInformationDisplayActivity extends AppCompatActivity {
+public class WatchInformationDisplayActivity extends AppCompatActivity implements Observer {
 
     private WatchDataEntry watchDataEntry;
 
@@ -38,6 +43,14 @@ public class WatchInformationDisplayActivity extends AppCompatActivity {
         // Set text view components
         setTextViewComponents(watchDataEntry);
         // Set timekeeping entry grid view
+        setTimekeepingLinearLayout(watchDataEntry);
+        // Set FAB to check your watch against the reference time
+        setTimeWatchButton(watchDataEntry);
+        UserData.getWatchTimekeepingMap().addObserver(this);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
         setTimekeepingLinearLayout(watchDataEntry);
     }
 
@@ -62,7 +75,7 @@ public class WatchInformationDisplayActivity extends AppCompatActivity {
             View view = inflater.inflate(R.layout.timekeeping_entry_card, timekeepingLinearLayout, false);
             // Set text in textview to show timing deviation in entry
             TextView textView = view.findViewById(R.id.timekeeping_entry_date_range_text_view);
-            textView.setText(timekeepingEntries.get(i).getTimingDeviation().toDisplayString());
+            textView.setText(timekeepingEntries.get(i).getTimingDeviation().toFullDisplayString());
             timekeepingLinearLayout.addView(view);
         }
     }
@@ -91,5 +104,21 @@ public class WatchInformationDisplayActivity extends AppCompatActivity {
         } else {
             textView.setHeight(0);
         }
+    }
+
+    /**
+     * Set up the {@link Button} that initiates {@link TimeWatchActivity} and thus a timekeeping
+     * event
+     */
+    private void setTimeWatchButton(WatchDataEntry watchDataEntry) {
+        FloatingActionButton fab = findViewById(R.id.display_watch_start_timing_fab);
+        fab.setOnClickListener(v -> {
+            // Setup and start activity to display timekeeping information
+            Intent intent = new Intent(getApplicationContext(), TimeWatchActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(WatchDataEntry.PARCEL_KEY, watchDataEntry);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        });
     }
 }

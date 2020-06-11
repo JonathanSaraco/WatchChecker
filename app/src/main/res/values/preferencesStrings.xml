@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="ref_time_title">Reference Time Source</string>
+    <string name="ref_time_preference_key">ref_time_source</string>
     <string-array name="ref_time_entries">
         <item name="0">NIST</item>
         <item name="1">Phone</item>

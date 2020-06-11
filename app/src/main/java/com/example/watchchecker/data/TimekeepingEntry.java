@@ -3,6 +3,7 @@ package com.example.watchchecker.data;
 import com.example.watchchecker.util.Timekeeping_Util;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -36,6 +37,16 @@ public class TimekeepingEntry implements Iterable<TimingEntry> {
 
     public void removeTimingEntry(TimingEntry timingEntry) {
         timingEntries.remove(timingEntry);
+    }
+
+    public Date getLastTimekeepingEvent() {
+        if (!timingEntries.isEmpty()) {
+            Date lastReferenceTime = timingEntries.get(timingEntries.size() - 1).getReferenceTime();
+            if (lastReferenceTime != null) {
+                return lastReferenceTime;
+            }
+        }
+        return Timekeeping_Util.getReferenceTime();
     }
 
     @Override
