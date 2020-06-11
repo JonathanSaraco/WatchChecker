@@ -4,8 +4,8 @@ import android.content.SharedPreferences;
 
 import com.example.watchchecker.data.TimingDeviation;
 import com.example.watchchecker.data.TimingEntry;
-import com.instacart.library.truetime.TrueTime;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.measure.Quantity;
@@ -47,13 +47,7 @@ public class Timekeeping_Util {
     }
 
     public static Date getReferenceTime() {
-        // TODO implement the rest of this
-        if (!TrueTime.isInitialized()) {
-            try {
-                TrueTime.build().initialize();
-            } catch (Exception ignore) {}
-        }
-        return TrueTime.now();
+        return Calendar.getInstance().getTime();
     }
 
     public static Quantity<javax.measure.quantity.Time> getDateDeviation(Date referenceDate, Date watchDate) {
