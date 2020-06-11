@@ -68,6 +68,7 @@ public class WatchInformationDisplayActivity extends AppCompatActivity implement
 
     private void setTimekeepingLinearLayout(WatchDataEntry watchDataEntry) {
         LinearLayoutCompat timekeepingLinearLayout = findViewById(R.id.display_watch_timekeeping_entry_list_view);
+        timekeepingLinearLayout.removeAllViews();
         List<TimekeepingEntry> timekeepingEntries = UserData.getTimekeepingEntries(watchDataEntry);
         // Inflate layout for each timekeeping entry
         LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
