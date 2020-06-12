@@ -21,6 +21,7 @@ import com.example.watchchecker.R;
 import com.example.watchchecker.data.TimekeepingEntry;
 import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.data.WatchDataEntry;
+import com.example.watchchecker.util.Timekeeping_Util;
 
 import java.util.List;
 import java.util.Observable;
@@ -64,6 +65,9 @@ public class WatchInformationDisplayActivity extends AppCompatActivity implement
         setComplexTextViewText(R.id.display_watch_movement_text, watchDataEntry.getMovement());
         setComplexTextViewText(R.id.display_watch_purchase_date_text, watchDataEntry.getPurchaseDate().getSimpleDateString());
         setComplexTextViewText(R.id.display_watch_service_date_text, watchDataEntry.getLastServiceDate().getSimpleDateString());
+        // Display accuracy of watch
+        TextView accuracyDisplayTextView = findViewById(R.id.display_watch_average_deviation_text);
+        accuracyDisplayTextView.append(Timekeeping_Util.calculateAverageDeviation(watchDataEntry).toFullDisplayString());
     }
 
     private void setTimekeepingLinearLayout(WatchDataEntry watchDataEntry) {

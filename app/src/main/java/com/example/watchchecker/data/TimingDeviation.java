@@ -13,6 +13,10 @@ public class TimingDeviation {
 
     private final BigDecimal deviation;
 
+    public TimingDeviation(BigDecimal deviation) {
+        this.deviation = deviation;
+    }
+
     public TimingDeviation(Double deviation) {
         this.deviation = new BigDecimal(deviation).setScale(4, RoundingMode.HALF_UP);
     }
@@ -25,20 +29,24 @@ public class TimingDeviation {
         return this.deviation.doubleValue();
     }
 
+    private boolean isUndefined() {
+        return this.equals(UNDEFINED_DEVIATION) || this.toBigDecimal().doubleValue() <= 0.;
+    }
+
     public String toSimpleDisplayString()
     {
-        if (this.equals(UNDEFINED_DEVIATION)) {
-            return "Undefined";
+        if (isUndefined()) {
+            return "UNDEFINED";
         } else {
             return this.deviation.toPlainString();
         }
     }
 
     public String toFullDisplayString() {
-        if (this.equals(UNDEFINED_DEVIATION)) {
-            return "Undefined";
+        if (isUndefined()) {
+            return "UNDEFINED";
         } else {
-            return String.format("%s %s", this.deviation.toPlainString(), "s/day");
+            return String.format("%s %s", this.deviation.setScale(2, RoundingMode.HALF_UP).toPlainString(), "s/day");
         }
     }
 }

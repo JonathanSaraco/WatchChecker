@@ -117,7 +117,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
-                            android:text="Average: +8 s/day" />
+                            android:text="Average: " />
 
                     </LinearLayout>
                 </android.support.design.card.MaterialCardView>
@@ -127,7 +127,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="Timekeeping Entries"
+                    android:text="Timekeeping Runs"
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="24sp"
                     app:layout_constraintTop_toBottomOf="@id/display_watch_timekeeping_info_card_view"

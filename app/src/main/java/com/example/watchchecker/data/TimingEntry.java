@@ -42,6 +42,10 @@ public class TimingEntry {
         }
     }
 
+    public DateString getReferenceDateString() {
+        return referenceTime;
+    }
+
     public Date getReferenceTime() {
         try {
             return referenceTime.getComplexDate();
