@@ -10,16 +10,18 @@ import java.io.IOException;
 /**
  * {@link IntentService} to perform all finalization tasks for the app.
  */
-public class FinalizationService extends IntentService {
+public class WriteUserDataService extends IntentService {
 
-    public FinalizationService() {
+    public WriteUserDataService() {
         super("finalizationService");
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
         try {
-            UserData.writeUserData(FinalizationService.this);
+            UserData.writeUserData(WriteUserDataService.this);
+            // Only set this to true if the writing was successful
+            UserData.getWatchTimekeepingMap().setAllChangesCommitted();
         } catch (IOException ignore) {}
     }
 }

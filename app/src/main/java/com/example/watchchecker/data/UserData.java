@@ -3,7 +3,7 @@ package com.example.watchchecker.data;
 import android.content.Context;
 import android.content.Intent;
 
-import com.example.watchchecker.activity.FinalizationService;
+import com.example.watchchecker.activity.WriteUserDataService;
 import com.example.watchchecker.io.TimekeepingMapWriter;
 
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class UserData {
     private static WatchTimekeepingMap WATCH_TIMEKEEPING_MAP = null;
 
     public static void saveData(Context context) {
-        Intent finalizeIntent = new Intent(context, FinalizationService.class);
+        Intent finalizeIntent = new Intent(context, WriteUserDataService.class);
         finalizeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startService(finalizeIntent);
     }
@@ -123,6 +123,8 @@ public class UserData {
     }
 
     public static void writeUserData(Context context) throws IOException {
-        new TimekeepingMapWriter(context).write(WATCH_TIMEKEEPING_MAP);
+        if (!getWatchTimekeepingMap().areAllChangesCommitted()) {
+            new TimekeepingMapWriter(context).write(WATCH_TIMEKEEPING_MAP);
+        }
     }
 }

@@ -15,6 +15,11 @@ public class WatchTimekeepingMap extends Observable {
 
     private final Map<WatchDataEntry, List<TimekeepingEntry>> dataMap;
 
+    /**
+     * Field to ensure that the map isn't written to storage all willy-nilly
+     */
+    private boolean allChangesCommitted = false;
+
     public WatchTimekeepingMap() {
         dataMap = new HashMap<>();
     }
@@ -49,6 +54,15 @@ public class WatchTimekeepingMap extends Observable {
 
     public void changed() {
         this.setChanged();
+        allChangesCommitted = false;
+    }
+
+    public boolean areAllChangesCommitted() {
+        return allChangesCommitted;
+    }
+
+    public void setAllChangesCommitted() {
+        this.allChangesCommitted = true;
     }
 
     @Override
