@@ -1,6 +1,5 @@
 package com.example.watchchecker.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -13,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.watchchecker.R;
+import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.fragment.PreferencesFragment;
 import com.example.watchchecker.fragment.WatchCollectionFragment;
 
@@ -106,9 +106,7 @@ public class WatchCollectionActivity extends AppCompatActivity
      */
     @Override
     protected void onStop() {
-        Intent finalizeIntent = new Intent(this, FinalizationService.class);
-        finalizeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startService(finalizeIntent);
+        UserData.saveData(getApplicationContext());
         super.onStop();
     }
 }

@@ -1,8 +1,12 @@
 package com.example.watchchecker.activity;
 
 import android.app.Activity;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -59,6 +63,17 @@ public class TimeWatchActivity extends AppCompatActivity {
                     timePicker.getCurrentSeconds());
             // Add new data to the map
             UserData.addTimingEntry(watchDataEntry, new TimingEntry(timePickerCalendar.getTime(), referenceCalendar.getTime()));
+            // Send vibration
+            Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            int vibrateTime = 100;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibrator.vibrate(VibrationEffect.createOneShot(vibrateTime, VibrationEffect.DEFAULT_AMPLITUDE));
+            } else {
+                //deprecated in API 26
+                vibrator.vibrate(vibrateTime);
+            }
+
+
             // Finish activity
             this.finish();
         });
@@ -106,6 +121,7 @@ public class TimeWatchActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        UserData.saveData(getApplicationContext());
         handler.removeCallbacks(runnable);
     }
 }

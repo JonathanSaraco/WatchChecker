@@ -1,7 +1,9 @@
 package com.example.watchchecker.data;
 
 import android.content.Context;
+import android.content.Intent;
 
+import com.example.watchchecker.activity.FinalizationService;
 import com.example.watchchecker.io.TimekeepingMapWriter;
 
 import java.io.IOException;
@@ -18,6 +20,12 @@ import java.util.Optional;
  */
 public class UserData {
     private static WatchTimekeepingMap WATCH_TIMEKEEPING_MAP = null;
+
+    public static void saveData(Context context) {
+        Intent finalizeIntent = new Intent(context, FinalizationService.class);
+        finalizeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startService(finalizeIntent);
+    }
 
     public static WatchTimekeepingMap getWatchTimekeepingMap() {
         if (WATCH_TIMEKEEPING_MAP == null) {

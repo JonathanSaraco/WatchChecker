@@ -79,4 +79,10 @@ public class AddWatchActivity extends Activity {
             return DateString.SIMPLE_DATE_FORMAT.parse(editText.getText().toString());
         }
     }
+
+    @Override
+    protected void onStop() {
+        UserData.saveData(getApplicationContext());
+        super.onStop();
+    }
 }
