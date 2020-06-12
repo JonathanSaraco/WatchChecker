@@ -10,6 +10,7 @@ import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.watchchecker.R;
@@ -50,6 +51,8 @@ public class TimeWatchActivity extends AppCompatActivity {
         // Get deviation text view being displayed and updated
         TextView deviationTextView = findViewById(R.id.time_watch_deviation_text_view);
         setDeviationUpdateRunnable(deviationTextView, timePicker);
+        // Get new timekeeping run switch to make a new timekeeping entry upon timing
+        Switch newRunSwitch = findViewById(R.id.time_watch_new_timekeeping_run_switch);
         // Set measure deviation card view as a button that will add a new timekeeping entry
         CardView measureDeviationCardView = findViewById(R.id.time_watch_card_view_measure_deviation);
         measureDeviationCardView.setOnClickListener(v -> {
@@ -62,7 +65,7 @@ public class TimeWatchActivity extends AppCompatActivity {
                     timePicker.getCurrentMinute(),
                     timePicker.getCurrentSeconds());
             // Add new data to the map
-            UserData.addTimingEntry(watchDataEntry, new TimingEntry(timePickerCalendar.getTime(), referenceCalendar.getTime()));
+            UserData.addTimingEntry(watchDataEntry, new TimingEntry(timePickerCalendar.getTime(), referenceCalendar.getTime()), newRunSwitch.isChecked());
             // Send vibration
             Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             int vibrateTime = 100;
@@ -72,8 +75,6 @@ public class TimeWatchActivity extends AppCompatActivity {
                 //deprecated in API 26
                 vibrator.vibrate(vibrateTime);
             }
-
-
             // Finish activity
             this.finish();
         });

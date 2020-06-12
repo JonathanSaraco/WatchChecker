@@ -95,10 +95,16 @@ public class UserData {
         notifyObservers();
     }
 
-    public static void addTimingEntry(WatchDataEntry watchDataEntry, TimingEntry timingEntry) {
+    public static void addTimingEntry(WatchDataEntry watchDataEntry, TimingEntry timingEntry, boolean newRun) {
         WatchDataEntry watchDataEntryAsKey = getWatchDataEntryKey(watchDataEntry);
-        TimekeepingEntry lastTimekeepingEntry = getLastTimekeepingEntry(watchDataEntryAsKey);
-        lastTimekeepingEntry.addTimingEntry(timingEntry);
+        if (!newRun) {
+            TimekeepingEntry lastTimekeepingEntry = getLastTimekeepingEntry(watchDataEntryAsKey);
+            lastTimekeepingEntry.addTimingEntry(timingEntry);
+        } else {
+            TimekeepingEntry newTimekeepingEntry = new TimekeepingEntry();
+            newTimekeepingEntry.addTimingEntry(timingEntry);
+            addTimekeepingEntry(watchDataEntry, newTimekeepingEntry);
+        }
         notifyObservers();
     }
 

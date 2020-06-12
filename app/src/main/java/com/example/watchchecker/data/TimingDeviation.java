@@ -9,7 +9,7 @@ import java.math.RoundingMode;
  */
 public class TimingDeviation {
 
-    public static final TimingDeviation UNDEFINED_DEVIATION = new TimingDeviation(-1.);
+    public static final TimingDeviation UNDEFINED_DEVIATION = new TimingDeviation(Double.MIN_VALUE);
 
     private final BigDecimal deviation;
 
@@ -30,7 +30,7 @@ public class TimingDeviation {
     }
 
     private boolean isUndefined() {
-        return this.equals(UNDEFINED_DEVIATION) || this.toBigDecimal().doubleValue() <= 0.;
+        return this.equals(UNDEFINED_DEVIATION) || this.toBigDecimal().doubleValue() == Double.MIN_VALUE;
     }
 
     public String toSimpleDisplayString()

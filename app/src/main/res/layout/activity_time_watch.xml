@@ -112,6 +112,38 @@
     </android.support.design.card.MaterialCardView>
 
     <android.support.design.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:id="@+id/time_watch_new_timekeeping_run_card_view"
+        app:layout_constraintTop_toBottomOf="@id/time_watch_card_view_deviation">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:text="New timekeeping run"
+                android:textSize="20sp" />
+
+            <Switch
+                android:id="@+id/time_watch_new_timekeeping_run_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:checked="false"/>
+
+    </android.support.design.card.MaterialCardView>
+
+    <android.support.design.card.MaterialCardView
         android:id="@+id/time_watch_card_view_measure_deviation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
