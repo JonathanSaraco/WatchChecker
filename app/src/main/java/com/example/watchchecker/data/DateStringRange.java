@@ -43,6 +43,6 @@ public class DateStringRange {
         if (this.equals(UNDEFINED_RANGE)) {
             return "UNDEFINED";
         }
-        return String.format("%s %s", startDateString.getSimpleDateString(), endDateString.getSimpleDateString());
+        return String.format("%s - %s", startDateString.getSimpleDateString(), endDateString.getSimpleDateString());
     }
 }

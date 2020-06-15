@@ -16,7 +16,16 @@
             android:id="@+id/timekeeping_entry_date_range_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="start|center"
             android:text="Date range"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/timekeeping_entry_deviation_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center"
+            android:text="Timing deviation"
             android:textSize="20sp"/>
 
     </android.support.design.card.MaterialCardView>

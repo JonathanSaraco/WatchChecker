@@ -65,7 +65,7 @@ public class UserData {
     public static List<TimekeepingEntry> getTimekeepingEntries(WatchDataEntry watchDataEntry) {
         WatchDataEntry watchDataEntryAsKey = getWatchDataEntryKey(watchDataEntry);
         List<TimekeepingEntry> timekeepingEntries = getWatchTimekeepingMap().getTimekeepingEntries(watchDataEntryAsKey);
-        timekeepingEntries.sort(Comparator.comparing(TimekeepingEntry::getLastTimekeepingEvent));
+        timekeepingEntries.sort(Comparator.comparing(TimekeepingEntry::getLastTimekeepingEvent).reversed());
         return getWatchTimekeepingMap().getTimekeepingEntries(watchDataEntryAsKey);
     }
 

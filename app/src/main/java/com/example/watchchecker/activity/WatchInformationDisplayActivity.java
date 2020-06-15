@@ -78,9 +78,12 @@ public class WatchInformationDisplayActivity extends AppCompatActivity implement
         LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
         for (int i = 0; i < timekeepingEntries.size(); i++) {
             View view = inflater.inflate(R.layout.timekeeping_entry_card, timekeepingLinearLayout, false);
-            // Set text in textview to show timing deviation in entry
-            TextView textView = view.findViewById(R.id.timekeeping_entry_date_range_text_view);
-            textView.setText(timekeepingEntries.get(i).getTimingDeviation().toFullDisplayString());
+            // Set text in textview to show date range in entry
+            TextView dateRangeTextView = view.findViewById(R.id.timekeeping_entry_date_range_text_view);
+            dateRangeTextView.setText(timekeepingEntries.get(i).getDateStringRange().toDisplayString());
+            // Set text in textview  to show timing deviation in entry
+            TextView deviationTextView = view.findViewById(R.id.timekeeping_entry_deviation_text_view);
+            deviationTextView.setText(timekeepingEntries.get(i).getTimingDeviation().toFullDisplayString());
             timekeepingLinearLayout.addView(view);
         }
     }
