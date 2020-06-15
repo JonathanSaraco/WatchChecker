@@ -60,6 +60,10 @@ public class TimekeepingEntry implements Iterable<TimingEntry> {
         timingEntries.remove(timingEntry);
     }
 
+    public List<TimingEntry> getTimingEntries() {
+        return timingEntries;
+    }
+
     public Date getLastTimekeepingEvent() {
         if (!timingEntries.isEmpty()) {
             Date lastReferenceTime = timingEntries.get(timingEntries.size() - 1).getReferenceTime();

@@ -5,20 +5,25 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.card.MaterialCardView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.watchchecker.R;
 import com.example.watchchecker.data.TimekeepingEntry;
+import com.example.watchchecker.data.TimingEntry;
 import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.data.WatchDataEntry;
 import com.example.watchchecker.util.Timekeeping_Util;
@@ -76,16 +81,51 @@ public class WatchInformationDisplayActivity extends AppCompatActivity implement
         List<TimekeepingEntry> timekeepingEntries = UserData.getTimekeepingEntries(watchDataEntry);
         // Inflate layout for each timekeeping entry
         LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+        addTimekeepingEntryHeaderCard(inflater, timekeepingLinearLayout);
         for (int i = 0; i < timekeepingEntries.size(); i++) {
-            View view = inflater.inflate(R.layout.timekeeping_entry_card, timekeepingLinearLayout, false);
+            View timekeepingEntryView = inflater.inflate(R.layout.timekeeping_entry_card, timekeepingLinearLayout, false);
             // Set text in textview to show date range in entry
-            TextView dateRangeTextView = view.findViewById(R.id.timekeeping_entry_date_range_text_view);
+            TextView dateRangeTextView = timekeepingEntryView.findViewById(R.id.timekeeping_entry_date_range_text_view);
             dateRangeTextView.setText(timekeepingEntries.get(i).getDateStringRange().toDisplayString());
-            // Set text in textview  to show timing deviation in entry
-            TextView deviationTextView = view.findViewById(R.id.timekeeping_entry_deviation_text_view);
+            // Set text in textview to show timing deviation in entry
+            TextView deviationTextView = timekeepingEntryView.findViewById(R.id.timekeeping_entry_deviation_text_view);
             deviationTextView.setText(timekeepingEntries.get(i).getTimingDeviation().toFullDisplayString());
-            timekeepingLinearLayout.addView(view);
+            // Set detail view which will be displayed after tapping a timekeeping run card view
+            LinearLayout detailViewLinearLayout = timekeepingEntryView.findViewById(R.id.timekeeping_entry_detail_view);
+            List<TimingEntry> timingEntries = timekeepingEntries.get(i).getTimingEntries();
+            for (int j = 0; j < timingEntries.size(); j++) {
+                View timingEntryView = inflater.inflate(R.layout.timing_entry_card, detailViewLinearLayout, false);
+                // Display reference time of timing entry
+                TextView referenceTimeTextView = timingEntryView.findViewById(R.id.timing_entry_reference_time_text_view);
+                referenceTimeTextView.setText(timingEntries.get(j).getReferenceDateString().getComplexDateString());
+                // Display deviation in timing entry
+                TextView detailDeviationTextView = timingEntryView.findViewById(R.id.timing_entry_watch_deviation_text_view);
+                detailDeviationTextView.setText(timingEntries.get(j).getDeviation().toSimpleDisplayString());
+                // Add view to parent
+                detailViewLinearLayout.addView(timingEntryView);
+            }
+            // Set onclick listener to display the detail view
+            CardView timekeepingEntryCardView = timekeepingEntryView.findViewById(R.id.timekeeping_entry_card_view);
+            timekeepingEntryCardView.setOnClickListener(v -> {
+                TransitionManager.beginDelayedTransition(timekeepingEntryCardView);
+                if (detailViewLinearLayout.getVisibility() == View.GONE) {
+                    detailViewLinearLayout.setVisibility(View.VISIBLE);
+                } else {
+                    detailViewLinearLayout.setVisibility(View.GONE);
+                }
+            });
+            // All done, add it to the view
+            timekeepingLinearLayout.addView(timekeepingEntryView);
         }
+    }
+
+    private void addTimekeepingEntryHeaderCard(LayoutInflater inflater, LinearLayoutCompat timekeepingLinearLayout) {
+        View headerView = inflater.inflate(R.layout.timekeeping_entry_card, timekeepingLinearLayout, false);
+        // Set colour since this is a header card
+        MaterialCardView headerCardView = headerView.findViewById(R.id.timekeeping_entry_card_view);
+        headerCardView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+        // Add to the linear layout view
+        timekeepingLinearLayout.addView(headerView);
     }
 
     private void setSimpleTextViewText(int resourceID, String text) {

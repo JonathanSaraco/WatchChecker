@@ -34,6 +34,10 @@ public class TimingEntry {
         this.deviation = Timekeeping_Util.calculateDeviation(referenceTime, watchTime);
     }
 
+    public DateString getWatchDateString() {
+        return watchTime;
+    }
+
     public Date getWatchTime() {
         try {
             return watchTime.getComplexDate();
