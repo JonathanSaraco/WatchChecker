@@ -1,21 +1,23 @@
 package com.example.watchchecker.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.watchchecker.R;
+import com.example.watchchecker.activity.WatchInformationDisplayActivity;
 import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.data.WatchDataEntry;
-import com.example.watchchecker.view.SquareWidthImageView;
 
 import java.util.List;
 import java.util.Observable;
@@ -54,33 +56,45 @@ public class WatchCollectionAdapter extends BaseAdapter implements Observer {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         WatchDataEntry watchDataEntry = watchDataEntries.get(position);
-        // Wrap text and watch image in a card view
-        CardView cardView = new CardView(context);
-        // Linear layout to display both sections
-        LinearLayout linearLayout = new LinearLayout(context);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-        // Text view to display watch brand and model
-        TextView watchDisplayTextView = new TextView(context);
-        setCommonTextViewProperties(watchDisplayTextView);
-        watchDisplayTextView.setTextColor(context.getResources().getColor(R.color.colorPrimaryText));
-        watchDisplayTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimensionPixelSize(R.dimen.watch_collection_display_text_size));
-        watchDisplayTextView.setText(watchDataEntry.toDisplayString());
-        // TextView to display movement name
-        TextView watchMovementTextView = new TextView(context);
-        setCommonTextViewProperties(watchMovementTextView);
-        watchMovementTextView.setTextColor(context.getResources().getColor(R.color.colorSecondaryText));
-        watchMovementTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimensionPixelSize(R.dimen.watch_collection_movement_text_size));
-        watchMovementTextView.setText(watchDataEntry.getMovement());
-        // Image view to display image associated with watch
-        ImageView watchDialImageView = new SquareWidthImageView(context);
-        watchDialImageView.setImageResource(R.drawable.watch_placeholder_image);
-        watchDialImageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        // Add views to cardview, add that to the linearLayout, and return it
-        linearLayout.addView(watchDisplayTextView);
-        linearLayout.addView(watchMovementTextView);
-        linearLayout.addView(watchDialImageView);
-        cardView.addView(linearLayout);
-        return cardView;
+        if (convertView == null) {
+            convertView = View.inflate(context, R.layout.watch_collection_grid_view_element, null);
+            // Setup on-click listener to display this watch entry's information
+            convertView.setOnClickListener(v -> {
+                // Setup and start activity to display timekeeping information
+                Intent intent = new Intent(context, WatchInformationDisplayActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(WatchDataEntry.PARCEL_KEY, watchDataEntry);
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+            });
+            // Text view to display watch brand and model
+            TextView watchDisplayTextView = convertView.findViewById(R.id.display_watch_element_name_text_view);
+            watchDisplayTextView.setText(watchDataEntry.toDisplayString());
+            // TextView to display movement name
+            TextView watchMovementTextView = convertView.findViewById(R.id.display_watch_element_movement_text_view);
+            watchMovementTextView.setText(watchDataEntry.getMovement());
+            // Image view to display image associated with watch
+            ImageView watchDialImageView = convertView.findViewById(R.id.display_watch_element_image_view);
+            watchDialImageView.setImageResource(R.drawable.watch_placeholder_image);
+            // Set on-click event of settings button
+            ImageButton settingsButton = convertView.findViewById(R.id.watch_collection_element_settings_button);
+            settingsButton.setOnClickListener(v -> {
+                // Instantiate and inflate popup menu
+                PopupMenu popupMenu = new PopupMenu(context, settingsButton);
+                popupMenu.getMenuInflater().inflate(R.menu.watch_collection_element_settings_menu, popupMenu.getMenu());
+                // Set menu item onclick listener behaviour
+                popupMenu.setOnMenuItemClickListener(item -> {
+                    Toast.makeText(
+                            context,
+                            "You Clicked : " + item.getTitle(),
+                            Toast.LENGTH_SHORT
+                    ).show();
+                    return true;
+                });
+                popupMenu.show();
+            });
+        }
+        return convertView;
     }
 
     @Override
