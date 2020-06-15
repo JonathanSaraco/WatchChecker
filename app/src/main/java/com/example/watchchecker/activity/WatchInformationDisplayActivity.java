@@ -57,6 +57,7 @@ public class WatchInformationDisplayActivity extends AppCompatActivity implement
 
     @Override
     public void update(Observable o, Object arg) {
+        setDeviationTextView(watchDataEntry);
         setTimekeepingLinearLayout(watchDataEntry);
     }
 
@@ -71,6 +72,10 @@ public class WatchInformationDisplayActivity extends AppCompatActivity implement
         setComplexTextViewText(R.id.display_watch_purchase_date_text, watchDataEntry.getPurchaseDate().getSimpleDateString());
         setComplexTextViewText(R.id.display_watch_service_date_text, watchDataEntry.getLastServiceDate().getSimpleDateString());
         // Display accuracy of watch
+        setDeviationTextView(watchDataEntry);
+    }
+
+    private void setDeviationTextView(WatchDataEntry watchDataEntry) {
         TextView accuracyDisplayTextView = findViewById(R.id.display_watch_average_deviation_text);
         accuracyDisplayTextView.append(Timekeeping_Util.calculateAverageDeviation(watchDataEntry).toFullDisplayString());
     }
@@ -92,7 +97,9 @@ public class WatchInformationDisplayActivity extends AppCompatActivity implement
             deviationTextView.setText(timekeepingEntries.get(i).getTimingDeviation().toFullDisplayString());
             // Set detail view which will be displayed after tapping a timekeeping run card view
             LinearLayout detailViewLinearLayout = timekeepingEntryView.findViewById(R.id.timekeeping_entry_detail_view);
+            detailViewLinearLayout.removeAllViews();
             List<TimingEntry> timingEntries = timekeepingEntries.get(i).getTimingEntries();
+            addTimingEntryHeaderCard(inflater, detailViewLinearLayout);
             for (int j = 0; j < timingEntries.size(); j++) {
                 View timingEntryView = inflater.inflate(R.layout.timing_entry_card, detailViewLinearLayout, false);
                 // Display reference time of timing entry
@@ -117,6 +124,13 @@ public class WatchInformationDisplayActivity extends AppCompatActivity implement
             // All done, add it to the view
             timekeepingLinearLayout.addView(timekeepingEntryView);
         }
+    }
+
+    private void addTimingEntryHeaderCard(LayoutInflater inflater, LinearLayout timingEntryLinearLayout) {
+        View headerView = inflater.inflate(R.layout.timing_entry_card, timingEntryLinearLayout, false);
+        MaterialCardView headerCardView = headerView.findViewById(R.id.timing_entry_card_view);
+        headerCardView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+        timingEntryLinearLayout.addView(headerView);
     }
 
     private void addTimekeepingEntryHeaderCard(LayoutInflater inflater, LinearLayoutCompat timekeepingLinearLayout) {

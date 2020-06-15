@@ -5,6 +5,7 @@
     android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
 
     <android.support.design.card.MaterialCardView
+        android:id="@+id/timing_entry_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
