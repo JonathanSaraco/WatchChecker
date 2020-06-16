@@ -94,7 +94,7 @@ public class UserData {
             TimekeepingEntry timekeepingEntry = new TimekeepingEntry();
             timekeepingEntries.add(timekeepingEntry);
         }
-        return timekeepingEntries.get(timekeepingEntries.size() - 1);
+        return timekeepingEntries.get(0);
     }
 
     public static void addTimekeepingEntry(WatchDataEntry watchDataEntry, TimekeepingEntry timekeepingEntry) {
