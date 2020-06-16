@@ -82,7 +82,7 @@ public class WatchInformationDisplayActivity extends AppCompatActivity implement
 
     private void setDeviationTextView(WatchDataEntry watchDataEntry) {
         TextView accuracyDisplayTextView = findViewById(R.id.display_watch_average_deviation_text);
-        accuracyDisplayTextView.append(Timekeeping_Util.calculateAverageDeviation(watchDataEntry).toFullDisplayString());
+        accuracyDisplayTextView.setText(String.format("%s %s", "Average:", Timekeeping_Util.calculateAverageDeviation(watchDataEntry).toFullDisplayString()));
     }
 
     private void setTimekeepingLinearLayout(WatchDataEntry watchDataEntry) {
