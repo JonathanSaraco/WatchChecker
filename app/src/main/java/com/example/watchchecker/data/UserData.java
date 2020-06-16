@@ -27,6 +27,15 @@ public class UserData {
         context.startService(finalizeIntent);
     }
 
+    public static boolean containsWatchDataEntry(WatchDataEntry watchDataEntry) {
+        try {
+            getWatchDataEntryKey(watchDataEntry);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public static WatchTimekeepingMap getWatchTimekeepingMap() {
         if (WATCH_TIMEKEEPING_MAP == null) {
             throw new UnsupportedOperationException();
@@ -48,6 +57,15 @@ public class UserData {
 
     public static void addWatchDataEntry(WatchDataEntry watchDataEntry) {
         getWatchTimekeepingMap().getDataMap().putIfAbsent(watchDataEntry, new ArrayList<>());
+        notifyObservers();
+    }
+
+    /**
+     * Adds a new {@link WatchDataEntry} with a pre-defined list of {@link TimekeepingEntry} objects.
+     * ONLY USE IF YOU ARE OKAY WITH FULLY REPLACING DATA.
+     */
+    public static void addWatchDataEntry(WatchDataEntry watchDataEntry, List<TimekeepingEntry> timekeepingEntries) {
+        getWatchTimekeepingMap().getDataMap().put(watchDataEntry, timekeepingEntries);
         notifyObservers();
     }
 
@@ -83,6 +101,14 @@ public class UserData {
         WatchDataEntry watchDataEntryAsKey = getWatchDataEntryKey(watchDataEntry);
         List<TimekeepingEntry> timekeepingEntries = getWatchTimekeepingMap().getDataMap().getOrDefault(watchDataEntryAsKey, Collections.emptyList());
         Objects.requireNonNull(timekeepingEntries).add(timekeepingEntry);
+        getWatchTimekeepingMap().getDataMap().put(watchDataEntryAsKey, timekeepingEntries);
+        notifyObservers();
+    }
+
+    public static void addTimekeepingEntries(WatchDataEntry watchDataEntry, List<TimekeepingEntry> newTimekeepingEntries) {
+        WatchDataEntry watchDataEntryAsKey = getWatchDataEntryKey(watchDataEntry);
+        List<TimekeepingEntry> timekeepingEntries = getWatchTimekeepingMap().getDataMap().getOrDefault(watchDataEntryAsKey, Collections.emptyList());
+        Objects.requireNonNull(timekeepingEntries).addAll(newTimekeepingEntries);
         getWatchTimekeepingMap().getDataMap().put(watchDataEntryAsKey, timekeepingEntries);
         notifyObservers();
     }

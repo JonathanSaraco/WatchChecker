@@ -57,8 +57,13 @@ public class WatchInformationDisplayActivity extends AppCompatActivity implement
 
     @Override
     public void update(Observable o, Object arg) {
-        setDeviationTextView(watchDataEntry);
-        setTimekeepingLinearLayout(watchDataEntry);
+        // Unfortunately race conditions can cause this method to be ran when we remove watchDataEntry
+        // from the timekeeping map. Ideally, this activity would be finished when it's removed, but
+        // this isn't always the case. So we need to be absolutely sure that we can update this
+        if (UserData.containsWatchDataEntry(watchDataEntry)) {
+            setDeviationTextView(watchDataEntry);
+            setTimekeepingLinearLayout(watchDataEntry);
+        }
     }
 
     private void setTextViewComponents(WatchDataEntry watchDataEntry) {

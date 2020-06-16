@@ -41,6 +41,8 @@ public class WatchCollectionFragment extends Fragment {
         fab.setOnClickListener(view -> {
             Intent in = new Intent(getActivity(), AddWatchActivity.class);
             startActivity(in);
+            WatchCollectionAdapter newWatchCollectionAdapter = new WatchCollectionAdapter(fragmentView.getContext(), UserData.getWatchDataEntries());
+            gridView.setAdapter(newWatchCollectionAdapter);
         });
         return fragmentView;
     }
