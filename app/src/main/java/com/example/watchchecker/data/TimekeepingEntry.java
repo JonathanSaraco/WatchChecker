@@ -14,7 +14,7 @@ public class TimekeepingEntry implements Iterable<TimingEntry> {
 
     private final List<TimingEntry> timingEntries;
 
-    private TimingDeviation deviation = null;
+    private transient TimingDeviation deviation = null;
 
     private DateStringRange dateStringRange = null;
 
