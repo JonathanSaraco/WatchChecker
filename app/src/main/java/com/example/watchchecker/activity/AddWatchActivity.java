@@ -15,7 +15,6 @@ import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.data.WatchDataEntry;
 
 import java.text.ParseException;
-import java.util.Date;
 
 public class AddWatchActivity extends Activity {
 
@@ -39,13 +38,12 @@ public class AddWatchActivity extends Activity {
         Button addWatchButton = findViewById(R.id.addWatchButton);
         addWatchButton.setOnClickListener(v -> {
             WatchDataEntry watchDataEntry = null;
-            // Parse items in list
             try {
                 watchDataEntry = new WatchDataEntry(brandEditText.getText().toString(),
                         modelEditText.getText().toString(),
                         movementEditText.getText().toString(),
-                        new DateString(parseDateEditText(purchaseEditText)),
-                        new DateString(parseDateEditText(serviceEditText)));
+                        parseDateEditText(purchaseEditText),
+                        parseDateEditText(serviceEditText));
             } catch (ParseException ignore) {}
             if (watchDataEntry != null) {
                 UserData.addWatchDataEntry(watchDataEntry);
@@ -72,11 +70,11 @@ public class AddWatchActivity extends Activity {
         });
     }
 
-    private Date parseDateEditText(EditText editText) throws ParseException {
+    private DateString parseDateEditText(EditText editText) throws ParseException {
         if (editText.getText().toString().isEmpty()) {
-            return new Date();
+            return new DateString();
         } else {
-            return DateString.SIMPLE_DATE_FORMAT.parse(editText.getText().toString());
+            return new DateString(DateString.SIMPLE_DATE_FORMAT.parse(editText.getText().toString()));
         }
     }
 
