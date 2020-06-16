@@ -1,6 +1,8 @@
 package com.example.watchchecker.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,7 +15,6 @@ import android.support.v7.widget.LinearLayoutCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -93,6 +94,7 @@ public class WatchInformationDisplayActivity extends AppCompatActivity implement
         LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
         addTimekeepingEntryHeaderCard(inflater, timekeepingLinearLayout);
         for (int i = 0; i < timekeepingEntries.size(); i++) {
+            TimekeepingEntry timekeepingEntry = timekeepingEntries.get(i);
             View timekeepingEntryView = inflater.inflate(R.layout.timekeeping_entry_card, timekeepingLinearLayout, false);
             // Set text in textview to show date range in entry
             TextView dateRangeTextView = timekeepingEntryView.findViewById(R.id.timekeeping_entry_date_range_text_view);
@@ -101,7 +103,8 @@ public class WatchInformationDisplayActivity extends AppCompatActivity implement
             TextView deviationTextView = timekeepingEntryView.findViewById(R.id.timekeeping_entry_deviation_text_view);
             deviationTextView.setText(timekeepingEntries.get(i).getTimingDeviation().toFullDisplayString());
             // Set detail view which will be displayed after tapping a timekeeping run card view
-            LinearLayout detailViewLinearLayout = timekeepingEntryView.findViewById(R.id.timekeeping_entry_detail_view);
+            MaterialCardView detailCardView = timekeepingEntryView.findViewById(R.id.timekeeping_entry_detail_card_view);
+            LinearLayout detailViewLinearLayout = detailCardView.findViewById(R.id.timekeeping_entry_detail_linear_layout);
             detailViewLinearLayout.removeAllViews();
             List<TimingEntry> timingEntries = timekeepingEntries.get(i).getTimingEntries();
             addTimingEntryHeaderCard(inflater, detailViewLinearLayout);
@@ -119,11 +122,34 @@ public class WatchInformationDisplayActivity extends AppCompatActivity implement
             // Set onclick listener to display the detail view
             CardView timekeepingEntryCardView = timekeepingEntryView.findViewById(R.id.timekeeping_entry_card_view);
             timekeepingEntryCardView.setOnClickListener(v -> {
-                TransitionManager.beginDelayedTransition(timekeepingEntryCardView);
-                if (detailViewLinearLayout.getVisibility() == View.GONE) {
-                    detailViewLinearLayout.setVisibility(View.VISIBLE);
+                if (detailCardView.getVisibility() == View.GONE) {
+                    detailCardView.setVisibility(View.VISIBLE);
                 } else {
-                    detailViewLinearLayout.setVisibility(View.GONE);
+                    detailCardView.setVisibility(View.GONE);
+                }
+            });
+            // Set onLongClickListener to delete the timekeeping entry
+            timekeepingEntryCardView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(WatchInformationDisplayActivity.this);
+                    builder.setTitle("Delete timekeeping run?");
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            UserData.removeTimekeepingEntry(watchDataEntry, timekeepingEntry);
+                        }
+                    });
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                    return true;
                 }
             });
             // All done, add it to the view
