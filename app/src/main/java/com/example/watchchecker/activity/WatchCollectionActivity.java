@@ -19,6 +19,7 @@ import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.data.WatchDataEntry;
 import com.example.watchchecker.fragment.PreferencesFragment;
 import com.example.watchchecker.fragment.WatchCollectionFragment;
+import com.example.watchchecker.util.BitmapUtil;
 import com.example.watchchecker.util.IO_Util;
 import com.example.watchchecker.util.IntentUtil;
 
@@ -58,6 +59,8 @@ public class WatchCollectionActivity extends AppCompatActivity
         if (requestCode == IntentUtil.CAMERA_INTENT_REQUEST_CODE &&
                 resultCode == RESULT_OK) {
             try {
+                // Check to see if the image file needs to be rotated and re-written
+                BitmapUtil.rotateAndRewriteBitmap(IO_Util.getPathForNewImage());
                 // Get data from IO_Util since we can't parcel shit
                 WatchDataEntry watchDataEntry = IO_Util.getWatchDataEntryForNewImage();
                 UserData.setWatchDataEntryImage(watchDataEntry, IO_Util.getPathForNewImage());
