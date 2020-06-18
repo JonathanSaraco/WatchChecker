@@ -64,10 +64,11 @@ public class WatchCollectionActivity extends AppCompatActivity
                 // Get data from IO_Util since we can't parcel shit
                 WatchDataEntry watchDataEntry = IO_Util.getWatchDataEntryForNewImage();
                 UserData.setWatchDataEntryImage(watchDataEntry, IO_Util.getPathForNewImage());
+                // Save timekeeping map
+                UserData.saveData(getApplicationContext());
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            int i=2;
         }
     }
 

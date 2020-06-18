@@ -39,7 +39,12 @@ public class WatchTimekeepingMap extends Observable {
     }
 
     public List<TimekeepingEntry> getTimekeepingEntries(WatchDataEntry keyEntry) {
-        return dataMap.get(keyEntry);
+        // For some reason elements in dataMap.keySet() can be gi out of sync with containsKey()
+        // so this fixes that
+        return dataMap.entrySet().stream()
+                .filter(entry -> keyEntry.equals(entry.getKey()))
+                .map(Map.Entry::getValue)
+                .findAny().orElse(null);
     }
 
     public WatchTimekeepingMap union(WatchTimekeepingMap mapToAdd) {

@@ -70,7 +70,7 @@ public class WatchInformationDisplayActivity extends AppCompatActivity implement
     private void setTextViewComponents(WatchDataEntry watchDataEntry) {
         // Get image view that displays the watch and set its drawable
         ImageView watchImageView = findViewById(R.id.display_watch_image);
-        watchImageView.setImageResource(R.drawable.watch_placeholder_image);
+        watchImageView.setImageBitmap(watchDataEntry.getImageAsBitmap(getApplicationContext()));
         watchImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         // Set the text views to display watchDataEntry information
         setSimpleTextViewText(R.id.display_watch_identifier_text, watchDataEntry.toDisplayString());

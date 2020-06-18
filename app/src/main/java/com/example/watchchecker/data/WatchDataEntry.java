@@ -5,10 +5,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.example.watchchecker.R;
 import com.example.watchchecker.util.BitmapUtil;
 
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
 import java.util.Date;
 import java.util.Objects;
 
@@ -114,7 +118,15 @@ public class WatchDataEntry implements Parcelable {
     }
 
     public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+        if (!imagePath.equals(this.imagePath)) {
+            // Delete the old image if it exists
+            try {
+                FileUtils.forceDelete(new File(this.imagePath));
+                Log.i("WatchDataEntry", String.format("Deleted %s's old image file successfully.", this.toDisplayString()));
+            } catch (Exception ignore) {
+            }
+            this.imagePath = imagePath;
+        }
     }
 
     public Bitmap getImageAsBitmap(Context context) {
