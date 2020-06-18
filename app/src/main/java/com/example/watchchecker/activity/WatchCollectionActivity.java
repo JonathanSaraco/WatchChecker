@@ -1,5 +1,6 @@
 package com.example.watchchecker.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -7,9 +8,11 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -27,8 +30,13 @@ import com.example.watchchecker.util.ThemeUtil;
 public class WatchCollectionActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    NavigationView navigationView = null;
-    Toolbar toolbar = null;
+    private NavigationView navigationView = null;
+    private Toolbar toolbar = null;
+
+    private Fragment watchCollectionFragment = null;
+    private Fragment preferencesFragment = null;
+
+    private boolean isWatchCollectionVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +46,29 @@ public class WatchCollectionActivity extends AppCompatActivity
         // Needed to create file URI
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
-        //Set the check watch fragment at startup
-        Fragment fragment = new WatchCollectionFragment();
-        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.commit();
+        // Set fragments, or reuse them if savedInstanceState is not null
+        if (savedInstanceState == null) {
+            watchCollectionFragment = new WatchCollectionFragment();
+            preferencesFragment = new PreferencesFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, watchCollectionFragment, "watchFrag")
+                    .add(R.id.fragment_container, preferencesFragment, "prefFrag")
+                    .hide(preferencesFragment)
+                    .commit();
+        } else {
+            watchCollectionFragment = getSupportFragmentManager().findFragmentByTag("watchFrag");
+            preferencesFragment = getSupportFragmentManager().findFragmentByTag("prefFrag");
+            boolean isWatchCollectionVisible = savedInstanceState.getBoolean("isWatchCollectionVisible");
+            if (isWatchCollectionVisible) {
+                getSupportFragmentManager().beginTransaction()
+                        .hide(preferencesFragment)
+                        .commit();
+            } else {
+                getSupportFragmentManager().beginTransaction()
+                        .hide(watchCollectionFragment)
+                        .commit();
+            }
+        }
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -54,6 +80,13 @@ public class WatchCollectionActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        isWatchCollectionVisible = watchCollectionFragment.isVisible();
+        outState.putBoolean("isWatchCollectionVisible", isWatchCollectionVisible);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -80,7 +113,19 @@ public class WatchCollectionActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (preferencesFragment.isVisible()) {
+                super.onBackPressed();
+            } else {
+                new AlertDialog.Builder(this)
+                        .setTitle("Exit")
+                        .setMessage("Are you sure you want to exit?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        }).setNegativeButton("No", null).show();
+            }
         }
     }
 
@@ -104,26 +149,28 @@ public class WatchCollectionActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         if (id == R.id.nav_watch_collection) {
-            //Set the check watch fragment
-            Fragment fragment = new WatchCollectionFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, fragment, "WatchCollectionFragment");
-            // Clears back stack because this is the main fragment
-            getSupportFragmentManager().popBackStackImmediate(0, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            fragmentTransaction.commit();
-        } else if (id == R.id.nav_settings) {
-            Fragment fragment = new PreferencesFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, fragment, "PreferencesFragment");
-            // Don't add inordinate SettingsFragments to the back stack
-            if (getSupportFragmentManager().getBackStackEntryCount() < 1) {
-                fragmentTransaction.addToBackStack("PreferencesFragment");
+            //Show the watch collection fragment
+            if (!watchCollectionFragment.isVisible()) {
+                // Clears back stack because this is the main fragment
+                getSupportFragmentManager().popBackStackImmediate(0, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                getSupportFragmentManager().beginTransaction()
+                        .show(watchCollectionFragment)
+                        .hide(preferencesFragment)
+                        .commit();
             }
-            fragmentTransaction.commit();
+        } else if (id == R.id.nav_settings) {
+            if (!preferencesFragment.isVisible()) {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction
+                        .show(preferencesFragment)
+                        .hide(watchCollectionFragment);
+                if (getSupportFragmentManager().getBackStackEntryCount() < 1) {
+                    fragmentTransaction.addToBackStack("watchFrag");
+                }
+                fragmentTransaction.commit();
+            }
         }
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
