@@ -1,10 +1,14 @@
 package com.example.watchchecker.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.PopupMenu;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -17,7 +21,11 @@ import com.example.watchchecker.activity.WatchInformationDisplayActivity;
 import com.example.watchchecker.data.TimekeepingEntry;
 import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.data.WatchDataEntry;
+import com.example.watchchecker.util.IO_Util;
+import com.example.watchchecker.util.IntentUtil;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -82,7 +90,7 @@ public class WatchCollectionAdapter extends BaseAdapter implements Observer {
             WatchDataEntry watchDataEntry = watchDataEntries.get(position);
             viewHolder.watchDisplayTextView.setText(watchDataEntry.toDisplayString());
             viewHolder.watchMovementTextView.setText(watchDataEntry.getMovement());
-            viewHolder.watchDialImageView.setImageResource(R.drawable.watch_placeholder_image);
+            viewHolder.watchDialImageView.setImageBitmap(watchDataEntry.getImageAsBitmap(context));
             // Setup on-click listener to display this watch entry's information
             convertView.setOnClickListener(v -> {
                 // Setup and start activity to display timekeeping information
@@ -115,6 +123,25 @@ public class WatchCollectionAdapter extends BaseAdapter implements Observer {
                                     .setAction("Undo", v1 -> UserData.addWatchDataEntry(watchDataEntry, backupEntries))
                                     .show();
                             break;
+                        case R.id.watch_collection_element_settings_photo:
+                            // User chose to take a photo
+                            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            if (takePictureIntent.resolveActivity(context.getPackageManager()) != null) {
+                                File watchImageFile = null;
+                                try {
+                                    watchImageFile = IO_Util.getImageFile(context);
+                                } catch (IOException e) {
+                                    Log.i("WatchCollectionAdapter", "Failed to create image file in storage.");
+                                }
+                                if (watchImageFile != null) {
+                                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(context, context.getPackageName(), watchImageFile));
+                                    // We can only parcel if we only want a thumbnail, but we want more than that
+                                    // so use these static members to store stuff
+                                    IO_Util.setWatchDataEntryForNewImage(watchDataEntry);
+                                    IO_Util.setImagePathForNewImage(watchImageFile.getPath());
+                                    ((Activity) context).startActivityForResult(takePictureIntent, IntentUtil.CAMERA_INTENT_REQUEST_CODE);
+                                }
+                            }
                         default:
                             // Something went horribly wrong
                             return false;
@@ -126,6 +153,7 @@ public class WatchCollectionAdapter extends BaseAdapter implements Observer {
         }
         return convertView;
     }
+
 
     @Override
     public void update(Observable o, Object arg) {

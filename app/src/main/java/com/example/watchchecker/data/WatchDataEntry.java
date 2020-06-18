@@ -1,7 +1,13 @@
 package com.example.watchchecker.data;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.example.watchchecker.R;
+import com.example.watchchecker.util.BitmapUtil;
 
 import java.util.Date;
 import java.util.Objects;
@@ -44,6 +50,11 @@ public class WatchDataEntry implements Parcelable {
      * The date when this WatchDataEntry was created
      */
     private DateString creationDate;
+
+    /**
+     * The path of this watch's image
+     */
+    private String imagePath = "";
 
     /* NO ARGS CONSTRUCTOR FOR SERIALIZATION */
     private WatchDataEntry() {
@@ -98,6 +109,24 @@ public class WatchDataEntry implements Parcelable {
         return lastServiceDate;
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public Bitmap getImageAsBitmap(Context context) {
+        // Decode bitmap from image path and return it
+        Bitmap bmp = BitmapFactory.decodeFile(imagePath);
+        if (bmp != null) {
+            return BitmapUtil.createSquaredBitmap(bmp);
+        }
+        // Fall back to default image
+        return BitmapFactory.decodeResource(context.getResources(), R.drawable.watch_placeholder_image);
+    }
+
     /**
      * Set the watch's last service date
      */
@@ -142,6 +171,7 @@ public class WatchDataEntry implements Parcelable {
         purchaseDate = DateString.tryToParse(parcel.readString());
         lastServiceDate = DateString.tryToParse(parcel.readString());
         creationDate = DateString.tryToParse(parcel.readString());
+        imagePath = parcel.readString();
     }
 
     @Override
@@ -157,6 +187,7 @@ public class WatchDataEntry implements Parcelable {
         dest.writeString(purchaseDate.getComplexDateString());
         dest.writeString(lastServiceDate.getComplexDateString());
         dest.writeString(creationDate.getComplexDateString());
+        dest.writeString(imagePath);
     }
 
     @Override
@@ -169,11 +200,18 @@ public class WatchDataEntry implements Parcelable {
                 Objects.equals(getMovement(), that.getMovement()) &&
                 Objects.equals(getPurchaseDate(), that.getPurchaseDate()) &&
                 Objects.equals(getLastServiceDate(), that.getLastServiceDate()) &&
-                Objects.equals(getCreationDate(), that.getCreationDate());
+                Objects.equals(getCreationDate(), that.getCreationDate()) &&
+                Objects.equals(getImagePath(), that.getImagePath());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getBrand(), getModel(), getMovement(), getPurchaseDate(), getLastServiceDate(), getCreationDate());
+        return Objects.hash(getBrand(),
+                getModel(),
+                getMovement(),
+                getPurchaseDate(),
+                getLastServiceDate(),
+                getCreationDate(),
+                getImagePath());
     }
 }

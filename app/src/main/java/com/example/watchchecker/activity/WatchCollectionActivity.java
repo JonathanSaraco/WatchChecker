@@ -1,6 +1,9 @@
 package com.example.watchchecker.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,8 +16,11 @@ import android.view.MenuItem;
 
 import com.example.watchchecker.R;
 import com.example.watchchecker.data.UserData;
+import com.example.watchchecker.data.WatchDataEntry;
 import com.example.watchchecker.fragment.PreferencesFragment;
 import com.example.watchchecker.fragment.WatchCollectionFragment;
+import com.example.watchchecker.util.IO_Util;
+import com.example.watchchecker.util.IntentUtil;
 
 public class WatchCollectionActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -26,6 +32,9 @@ public class WatchCollectionActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // Needed to create file URI
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
         //Set the check watch fragment at startup
         Fragment fragment = new WatchCollectionFragment();
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -42,6 +51,21 @@ public class WatchCollectionActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == IntentUtil.CAMERA_INTENT_REQUEST_CODE &&
+                resultCode == RESULT_OK) {
+            try {
+                // Get data from IO_Util since we can't parcel shit
+                WatchDataEntry watchDataEntry = IO_Util.getWatchDataEntryForNewImage();
+                UserData.setWatchDataEntryImage(watchDataEntry, IO_Util.getPathForNewImage());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            int i=2;
+        }
     }
 
     @Override

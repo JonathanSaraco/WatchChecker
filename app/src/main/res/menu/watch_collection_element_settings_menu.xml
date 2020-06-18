@@ -4,6 +4,9 @@
         android:id="@+id/watch_collection_element_settings_edit"
         android:title="Edit" />
     <item
+        android:id="@+id/watch_collection_element_settings_photo"
+        android:title="Add Watch Photo"/>
+    <item
         android:id="@+id/watch_collection_element_settings_delete"
         android:title="Delete" />
 </menu>

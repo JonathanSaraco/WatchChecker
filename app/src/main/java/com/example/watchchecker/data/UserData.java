@@ -154,6 +154,12 @@ public class UserData {
         notifyObservers();
     }
 
+    public static void setWatchDataEntryImage(WatchDataEntry watchDataEntry, String imagePath) {
+        WatchDataEntry watchDataEntryAsKey = getWatchDataEntryKey(watchDataEntry);
+        watchDataEntryAsKey.setImagePath(imagePath);
+        notifyObservers();
+    }
+
     public static void writeUserData(Context context) throws IOException {
         if (!getWatchTimekeepingMap().areAllChangesCommitted()) {
             new TimekeepingMapWriter(context).write(WATCH_TIMEKEEPING_MAP);
