@@ -23,7 +23,7 @@ public class IO_Util {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = new File(context.getFilesDir(), "watchPhotos");
+        File storageDir = getWatchPhotoDirectory(context);
         storageDir.mkdirs();
         File image = File.createTempFile(
                 imageFileName,  // prefix
@@ -31,6 +31,10 @@ public class IO_Util {
                 storageDir      // directory
         );
         return image;
+    }
+
+    public static File getWatchPhotoDirectory(Context context) {
+        return new File(context.getFilesDir(), "watchPhotos");
     }
 
     public static WatchDataEntry watchDataEntry = null;

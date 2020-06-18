@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.watchchecker.init.UserDataInitialization;
 import com.example.watchchecker.init.WatchCheckStarter;
+import com.example.watchchecker.init.WatchPhotoCleaner;
 
 public class InitializationActivity extends AppCompatActivity {
 
@@ -16,6 +17,7 @@ public class InitializationActivity extends AppCompatActivity {
         // Do app initialization
         new WatchCheckStarter().run();
         new UserDataInitialization(getApplicationContext()).run();
+        new WatchPhotoCleaner(getApplicationContext()).run();
         // Done initialization, transition to the main activity
         Intent intent = new Intent(this, WatchCollectionActivity.class);
         startActivity(intent);
