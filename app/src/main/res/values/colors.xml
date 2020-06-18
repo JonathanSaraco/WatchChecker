@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<color name="colorPrimary">#F44336</color>
-<color name="colorPrimaryDark">#D32F2F</color>
-<color name="colorPrimaryLight">#CFCFCF</color>
-<color name="colorAccent">#7C4DFF</color>
-<color name="colorPrimaryText">#212121</color>
-<color name="colorSecondaryText">#727272</color>
-<color name="colorIcons">#FFFFFF</color>
-<color name="colorWhite">#FFFFFF</color>
-<color name="colorDivider">#B6B6B6</color>
+    <color name="colorPrimary">#F44336</color>
+    <color name="colorPrimaryDark">#D32F2F</color>
+    <color name="colorPrimaryLight">#CFCFCF</color>
+    <color name="colorAccent">#7C4DFF</color>
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#727272</color>
+    <color name="colorIcons">#FFFFFF</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorDivider">#B6B6B6</color>
+
+    <!-- Colours for light theme -->
+    <color name="lightBackground">#FFFFFF</color>
+    <color name="lightCardView">#CFCFCF</color>
+    <color name="lightPrimaryAccent">#D32F2F</color>
+    <color name="lightPrimaryText">#212121</color>
+    <color name="lightSecondaryText">#727272</color>
+
+    <!-- Colours for dark theme -->
+    <color name="darkBackground">#121212</color>
+    <color name="darkCardView">#272727</color>
+    <color name="darkPrimaryAccent">#29B6F6</color>
+    <color name="darkPrimaryText">#FFFFFF</color>
+    <color name="darkSecondaryText">#727272</color>
+
+    <!-- Colours for AMOLED theme -->
+    <color name="amoledBackground">#000000</color>
 
 </resources>

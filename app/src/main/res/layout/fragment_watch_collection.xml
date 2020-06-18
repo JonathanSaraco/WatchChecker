@@ -7,7 +7,6 @@
     tools:context=".fragment.WatchCollectionFragment">
     <GridView
         android:id="@+id/gridView_check_watch"
-        android:paddingTop="@dimen/watch_collection_grid_view_padding_top"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/watch_collection_grid_view_layout_margin"

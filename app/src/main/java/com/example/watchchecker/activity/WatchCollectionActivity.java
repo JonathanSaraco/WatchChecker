@@ -22,6 +22,7 @@ import com.example.watchchecker.fragment.WatchCollectionFragment;
 import com.example.watchchecker.util.BitmapUtil;
 import com.example.watchchecker.util.IO_Util;
 import com.example.watchchecker.util.IntentUtil;
+import com.example.watchchecker.util.ThemeUtil;
 
 public class WatchCollectionActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -33,6 +34,7 @@ public class WatchCollectionActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTheme(ThemeUtil.getThemeResourceID(ThemeUtil.getThemeFromPreferences(this)));
         // Needed to create file URI
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());

@@ -17,4 +17,55 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+
+
+    <!-- In progress here -->
+    <!-- Light application theme -->
+    <style name="LightAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:colorBackground">@color/lightBackground</item>
+        <item name="android:backgroundStacked">@color/lightCardView</item>
+        <item name="android:textColorPrimary">@color/lightPrimaryText</item>
+        <item name="android:textColorSecondary">@color/lightSecondaryText</item>
+        <item name="android:colorPrimary">@color/lightPrimaryAccent</item>
+    </style>
+
+    <style name="LightAppTheme.NoActionBar" parent="LightAppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="LightAppTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">
+    </style>
+
+    <!-- Dark application theme -->
+    <style name="DarkAppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:colorBackground">@color/darkBackground</item>
+        <item name="android:textColorPrimary">@color/darkPrimaryText</item>
+        <item name="android:textColorSecondary">@color/darkSecondaryText</item>
+        <item name="android:colorPrimary">@color/darkPrimaryAccent</item>
+    </style>
+
+    <style name="DarkAppTheme.NoActionBar" parent="DarkAppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="DarkAppTheme.Dialog" parent="Theme.AppCompat.DayNight.Dialog">
+    </style>
+
+    <!-- Dark application theme -->
+    <style name="AmoledAppTheme" parent="DarkAppTheme">
+        <item name="android:colorBackground">@color/amoledBackground</item>
+    </style>
+
+    <style name="AmoledAppTheme.NoActionBar" parent="AmoledAppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AmoledAppTheme.Dialog" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="android:colorBackground">@color/amoledBackground</item>
+    </style>
+
 </resources>

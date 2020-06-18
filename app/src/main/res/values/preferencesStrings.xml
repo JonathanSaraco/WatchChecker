@@ -11,4 +11,18 @@
         <item name="1">phone</item>
     </string-array>
     <string name="ref_time_summary">Select a source for the reference time</string>
+
+    <string name="ref_theme">App Theme</string>
+    <string name="ref_theme_key">ref_theme_key</string>
+    <string-array name="ref_theme_entries">
+        <item name="0">Light</item>
+        <item name="1">Dark</item>
+        <item name="2">AMOLED</item>
+    </string-array>
+    <string-array name="ref_theme_values">
+        <item name="0">light</item>
+        <item name="1">dark</item>
+        <item name="2">amoled</item>
+    </string-array>
+    <string name="ref_theme_summary">Select a theme for the app</string>
 </resources>
