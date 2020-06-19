@@ -19,6 +19,7 @@ import com.example.watchchecker.data.TimingDeviation;
 import com.example.watchchecker.data.TimingEntry;
 import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.data.WatchDataEntry;
+import com.example.watchchecker.util.ThemeUtil;
 import com.example.watchchecker.util.Timekeeping_Util;
 import com.ikovac.timepickerwithseconds.TimePicker;
 
@@ -42,6 +43,7 @@ public class TimeWatchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(ThemeUtil.getNoActionBarThemeResourceID(ThemeUtil.getThemeFromPreferences(getApplicationContext())));
         setContentView(R.layout.activity_time_watch);
         // Unparcel the WatchDataEntry that this timekeeping event is for
         watchDataEntry = getIntent().getExtras().getParcelable(WatchDataEntry.PARCEL_KEY);

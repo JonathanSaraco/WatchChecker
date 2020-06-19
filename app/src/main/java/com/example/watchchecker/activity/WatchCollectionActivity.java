@@ -2,8 +2,10 @@ package com.example.watchchecker.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -38,37 +40,31 @@ public class WatchCollectionActivity extends AppCompatActivity
 
     private boolean isWatchCollectionVisible = false;
 
+    private SharedPreferences.OnSharedPreferenceChangeListener listener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(ThemeUtil.getNoActionBarThemeResourceID(ThemeUtil.getThemeFromPreferences(this)));
         setContentView(R.layout.activity_main);
-        setTheme(ThemeUtil.getThemeResourceID(ThemeUtil.getThemeFromPreferences(this)));
         // Needed to create file URI
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         // Set fragments, or reuse them if savedInstanceState is not null
         if (savedInstanceState == null) {
-            watchCollectionFragment = new WatchCollectionFragment();
-            preferencesFragment = new PreferencesFragment();
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, watchCollectionFragment, "watchFrag")
-                    .add(R.id.fragment_container, preferencesFragment, "prefFrag")
-                    .hide(preferencesFragment)
-                    .commit();
+            initializeFragments();
         } else {
-            watchCollectionFragment = getSupportFragmentManager().findFragmentByTag("watchFrag");
-            preferencesFragment = getSupportFragmentManager().findFragmentByTag("prefFrag");
-            boolean isWatchCollectionVisible = savedInstanceState.getBoolean("isWatchCollectionVisible");
-            if (isWatchCollectionVisible) {
-                getSupportFragmentManager().beginTransaction()
-                        .hide(preferencesFragment)
-                        .commit();
-            } else {
-                getSupportFragmentManager().beginTransaction()
-                        .hide(watchCollectionFragment)
-                        .commit();
-            }
+            redisplayFragments(savedInstanceState);
         }
+
+        // Setup preference change listener to see when the theme changes
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        listener = (sharedPreferences1, key) -> {
+            if (key.equals(getApplicationContext().getString(R.string.ref_theme_key))) {
+                ThemeUtil.resetThemeConfiguration();
+            }
+        };
+        sharedPreferences.registerOnSharedPreferenceChangeListener(listener);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -80,6 +76,31 @@ public class WatchCollectionActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void redisplayFragments(Bundle savedInstanceState) {
+        watchCollectionFragment = getSupportFragmentManager().findFragmentByTag("watchFrag");
+        preferencesFragment = getSupportFragmentManager().findFragmentByTag("prefFrag");
+        boolean isWatchCollectionVisible = savedInstanceState.getBoolean("isWatchCollectionVisible");
+        if (isWatchCollectionVisible) {
+            getSupportFragmentManager().beginTransaction()
+                    .hide(preferencesFragment)
+                    .commit();
+        } else {
+            getSupportFragmentManager().beginTransaction()
+                    .hide(watchCollectionFragment)
+                    .commit();
+        }
+    }
+
+    private void initializeFragments() {
+        watchCollectionFragment = new WatchCollectionFragment();
+        preferencesFragment = new PreferencesFragment();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, watchCollectionFragment, "watchFrag")
+                .add(R.id.fragment_container, preferencesFragment, "prefFrag")
+                .hide(preferencesFragment)
+                .commit();
     }
 
     @Override
@@ -186,4 +207,6 @@ public class WatchCollectionActivity extends AppCompatActivity
         UserData.saveData(getApplicationContext());
         super.onStop();
     }
+
+
 }

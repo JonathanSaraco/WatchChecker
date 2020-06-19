@@ -13,6 +13,7 @@ import com.example.watchchecker.RequiredFieldTextWatcher;
 import com.example.watchchecker.data.DateString;
 import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.data.WatchDataEntry;
+import com.example.watchchecker.util.ThemeUtil;
 
 import java.text.ParseException;
 
@@ -21,8 +22,8 @@ public class AddWatchActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(ThemeUtil.getDialogThemeResourceID(ThemeUtil.getThemeFromPreferences(getApplicationContext())));
         setContentView(R.layout.add_watch_popup_layout);
-
         // Get views for access following an add watch button click
         EditText brandEditText = findViewById(R.id.brandEditText);
         EditText modelEditText = findViewById(R.id.modelEditText);

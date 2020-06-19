@@ -27,6 +27,7 @@ import com.example.watchchecker.data.TimekeepingEntry;
 import com.example.watchchecker.data.TimingEntry;
 import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.data.WatchDataEntry;
+import com.example.watchchecker.util.ThemeUtil;
 import com.example.watchchecker.util.Timekeeping_Util;
 
 import java.util.List;
@@ -44,6 +45,7 @@ public class WatchInformationDisplayActivity extends AppCompatActivity implement
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(ThemeUtil.getNoActionBarThemeResourceID(ThemeUtil.getThemeFromPreferences(getApplicationContext())));
         setContentView(R.layout.activity_display_watch_info);
         // Unparcel the WatchDataEntry that caused all this
         watchDataEntry = getIntent().getExtras().getParcelable(WatchDataEntry.PARCEL_KEY);
