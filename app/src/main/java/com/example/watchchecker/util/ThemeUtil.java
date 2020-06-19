@@ -9,9 +9,18 @@ import com.example.watchchecker.theme.ThemeConfiguration;
 
 public class ThemeUtil {
 
+    private static ThemeConfiguration themeConfiguration = null;
+
     public static ThemeConfiguration getThemeFromPreferences(Context context) {
-        SharedPreferences themePreference = PreferenceManager.getDefaultSharedPreferences(context);
-        return ThemeConfiguration.getValueOf(themePreference.getString(context.getString(R.string.ref_theme_key), "light"));
+        if (themeConfiguration == null) {
+            SharedPreferences themePreference = PreferenceManager.getDefaultSharedPreferences(context);
+            themeConfiguration = ThemeConfiguration.getValueOf(themePreference.getString(context.getString(R.string.ref_theme_key), "light"));
+        }
+        return themeConfiguration;
+    }
+
+    public static void resetThemeConfiguration() {
+        themeConfiguration = null;
     }
 
     public static int getThemeResourceID(ThemeConfiguration theme) {
