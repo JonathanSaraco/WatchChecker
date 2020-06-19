@@ -12,17 +12,17 @@
 
     <!-- Colours for light theme -->
     <color name="lightBackground">#FFFFFF</color>
-    <color name="lightCardView">#CFCFCF</color>
+    <color name="lightCardView">#26FFFFFF</color>
     <color name="lightPrimaryAccent">#D32F2F</color>
     <color name="lightPrimaryText">#212121</color>
-    <color name="lightSecondaryText">#727272</color>
+    <color name="lightSecondaryText">#B3212121</color>
 
     <!-- Colours for dark theme -->
     <color name="darkBackground">#121212</color>
-    <color name="darkCardView">#272727</color>
+    <color name="darkCardView">#26121212</color>
     <color name="darkPrimaryAccent">#29B6F6</color>
     <color name="darkPrimaryText">#FFFFFF</color>
-    <color name="darkSecondaryText">#727272</color>
+    <color name="darkSecondaryText">#B3FFFFFF</color>
 
     <!-- Colours for AMOLED theme -->
     <color name="amoledBackground">#000000</color>

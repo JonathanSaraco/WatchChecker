@@ -17,17 +17,16 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-
-
     <!-- In progress here -->
     <!-- Light application theme -->
-    <style name="LightAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="LightAppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="android:colorBackground">@color/lightBackground</item>
         <item name="android:backgroundStacked">@color/lightCardView</item>
         <item name="android:textColorPrimary">@color/lightPrimaryText</item>
         <item name="android:textColorSecondary">@color/lightSecondaryText</item>
         <item name="android:colorPrimary">@color/lightPrimaryAccent</item>
         <item name="drawerArrowStyle">@style/LightDrawerIcon</item>
+        <item name="materialCardViewStyle">@color/lightCardView</item>
     </style>
 
     <style name="LightAppTheme.NoActionBar" parent="LightAppTheme">
