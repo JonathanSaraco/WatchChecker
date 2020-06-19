@@ -94,7 +94,7 @@ public class WatchInformationDisplayActivity extends AppCompatActivity implement
         timekeepingLinearLayout.removeAllViews();
         List<TimekeepingEntry> timekeepingEntries = UserData.getTimekeepingEntries(watchDataEntry);
         // Inflate layout for each timekeeping entry
-        LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+        LayoutInflater inflater = LayoutInflater.from(WatchInformationDisplayActivity.this);
         addTimekeepingEntryHeaderCard(inflater, timekeepingLinearLayout);
         for (int i = 0; i < timekeepingEntries.size(); i++) {
             TimekeepingEntry timekeepingEntry = timekeepingEntries.get(i);
@@ -163,7 +163,7 @@ public class WatchInformationDisplayActivity extends AppCompatActivity implement
     private void addTimingEntryHeaderCard(LayoutInflater inflater, LinearLayout timingEntryLinearLayout) {
         View headerView = inflater.inflate(R.layout.timing_entry_card, timingEntryLinearLayout, false);
         MaterialCardView headerCardView = headerView.findViewById(R.id.timing_entry_card_view);
-        headerCardView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+        headerCardView.setAlpha(0.5f);
         timingEntryLinearLayout.addView(headerView);
     }
 
@@ -171,7 +171,7 @@ public class WatchInformationDisplayActivity extends AppCompatActivity implement
         View headerView = inflater.inflate(R.layout.timekeeping_entry_card, timekeepingLinearLayout, false);
         // Set colour since this is a header card
         MaterialCardView headerCardView = headerView.findViewById(R.id.timekeeping_entry_card_view);
-        headerCardView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+        headerCardView.setAlpha(0.5f);
         // Add to the linear layout view
         timekeepingLinearLayout.addView(headerView);
     }

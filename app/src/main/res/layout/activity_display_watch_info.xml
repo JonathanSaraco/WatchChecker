@@ -29,7 +29,7 @@
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/display_watch_start_timing_fab"
                     android:src="@drawable/ic_timer_black_24dp"
-                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:backgroundTint="?android:colorPrimary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
@@ -61,7 +61,7 @@
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:text="Watch model"
-                            android:textColor="@color/colorPrimaryText"
+                            android:textColor="?android:textColorPrimary"
                             android:textSize="24sp" />
 
                         <TextView
@@ -69,6 +69,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
+                            android:textColor="?android:textColorSecondary"
                             android:text="Movement: " />
 
                         <TextView
@@ -76,12 +77,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
+                            android:textColor="?android:textColorSecondary"
                             android:text="Purchase Date: " />
 
                         <TextView
                             android:id="@+id/display_watch_service_date_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="?android:textColorSecondary"
                             android:ellipsize="end"
                             android:text="Last Service: " />
                     </LinearLayout>
@@ -111,13 +114,14 @@
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:text="Accuracy"
-                            android:textColor="@color/colorPrimaryText"
+                            android:textColor="?android:textColorPrimary"
                             android:textSize="24sp" />
 
                         <TextView
                             android:id="@+id/display_watch_average_deviation_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="?android:textColorSecondary"
                             android:ellipsize="end"
                             android:text="Average: " />
 
@@ -130,7 +134,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text="Timekeeping Runs"
-                    android:textColor="@color/colorPrimaryText"
+                    android:textColor="?android:textColorPrimary"
                     android:textSize="24sp"
                     app:layout_constraintTop_toBottomOf="@id/display_watch_timekeeping_info_card_view"
                     app:layout_constraintStart_toStartOf="parent"/>

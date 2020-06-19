@@ -21,43 +21,48 @@
     <!-- Light application theme -->
     <style name="LightAppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="android:colorBackground">@color/lightBackground</item>
-        <item name="android:backgroundStacked">@color/lightCardView</item>
+        <item name="android:backgroundStacked">@color/lightBackground</item>
         <item name="android:textColorPrimary">@color/lightPrimaryText</item>
         <item name="android:textColorSecondary">@color/lightSecondaryText</item>
         <item name="android:colorPrimary">@color/lightPrimaryAccent</item>
         <item name="drawerArrowStyle">@style/LightDrawerIcon</item>
-        <item name="materialCardViewStyle">@color/lightCardView</item>
     </style>
 
-    <style name="LightAppTheme.NoActionBar" parent="LightAppTheme">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="LightAppTheme.NoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/lightPrimaryAccent</item>
+        <item name="colorPrimary">@color/lightBackground</item>
+        <item name="android:statusBarColor">@android:color/black</item>
+        <item name="drawerArrowStyle">@style/LightDrawerIcon</item>
     </style>
 
-    <style name="LightAppTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">
+    <style name="LightAppTheme.Dialog" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="colorPrimary">@color/lightPrimaryText</item>
     </style>
 
     <style name="LightDrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="color">@color/lightBackground</item>
+        <item name="color">@android:color/white</item>
     </style>
 
     <!-- Dark application theme -->
-    <style name="DarkAppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="DarkAppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="android:colorBackground">@color/darkBackground</item>
-        <item name="android:backgroundStacked">@color/darkCardView</item>
         <item name="android:textColorPrimary">@color/darkPrimaryText</item>
         <item name="android:textColorSecondary">@color/darkSecondaryText</item>
         <item name="android:colorPrimary">@color/darkPrimaryAccent</item>
         <item name="drawerArrowStyle">@style/LightDrawerIcon</item>
     </style>
 
-    <style name="DarkAppTheme.NoActionBar" parent="DarkAppTheme">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="DarkAppTheme.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:colorPrimary">@color/darkPrimaryAccent</item>
+        <item name="colorPrimary">@color/darkBackground</item>
+        <item name="android:statusBarColor">@android:color/black</item>
+        <item name="drawerArrowStyle">@style/LightDrawerIcon</item>
     </style>
 
-    <style name="DarkAppTheme.Dialog" parent="Theme.AppCompat.DayNight.Dialog">
+    <style name="DarkAppTheme.Dialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+        <item name="android:textColorPrimary">@color/darkPrimaryText</item>
+        <item name="colorPrimary">@color/darkPrimaryText</item>
     </style>
 
     <!-- Dark application theme -->
@@ -65,12 +70,11 @@
         <item name="android:colorBackground">@color/amoledBackground</item>
     </style>
 
-    <style name="AmoledAppTheme.NoActionBar" parent="AmoledAppTheme">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="AmoledAppTheme.NoActionBar" parent="DarkAppTheme.NoActionBar">
+        <item name="android:colorBackground">@color/amoledBackground</item>
     </style>
 
-    <style name="AmoledAppTheme.Dialog" parent="Theme.AppCompat.DayNight.Dialog">
+    <style name="AmoledAppTheme.Dialog" parent="DarkAppTheme.Dialog">
         <item name="android:colorBackground">@color/amoledBackground</item>
     </style>
 

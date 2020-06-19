@@ -2,7 +2,6 @@ package com.example.watchchecker.fragment;
 
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,8 +36,6 @@ public class WatchCollectionFragment extends Fragment {
         gridView.setAdapter(watchCollectionAdapter);
         // Add the floating action button for adding a new watch data entry
         FloatingActionButton fab = fragmentView.findViewById(R.id.fab); //Get the floating action button view
-        fab.setImageResource(R.drawable.ic_plus_one); //Set button icon to a plus one icon
-        fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimaryDark))); //Set the background colour of the fab
         fab.setOnClickListener(view -> {
             Intent in = new Intent(getActivity(), AddWatchActivity.class);
             startActivity(in);

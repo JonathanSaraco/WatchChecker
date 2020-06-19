@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryLight"
+    android:background="?android:colorBackground"
     tools:context=".fragment.WatchCollectionFragment">
     <GridView
         android:id="@+id/gridView_check_watch"
@@ -19,10 +19,10 @@
          />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
+        android:src="@drawable/ic_exposure_plus_1_black_24dp"
+        android:backgroundTint="?android:colorPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:background="@color/colorPrimaryDark"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/btn_plus" />
+        android:layout_margin="@dimen/fab_margin"/>
 </FrameLayout>

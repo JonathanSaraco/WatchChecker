@@ -11,7 +11,7 @@
     <color name="colorDivider">#B6B6B6</color>
 
     <!-- Colours for light theme -->
-    <color name="lightBackground">#FFFFFF</color>
+    <color name="lightBackground">#B3FFFFFF</color>
     <color name="lightCardView">#26FFFFFF</color>
     <color name="lightPrimaryAccent">#D32F2F</color>
     <color name="lightPrimaryText">#212121</color>

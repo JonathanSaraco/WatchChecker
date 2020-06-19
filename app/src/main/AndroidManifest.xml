@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.InitializationActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/DarkAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -37,7 +37,7 @@
         <activity
             android:name=".activity.WatchInformationDisplayActivity"
             android:label="@string/title_activity_watch_information_display"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"></activity>
         <activity
             android:name=".activity.TimeWatchActivity"
             android:label="@string/title_activity_time_watch"

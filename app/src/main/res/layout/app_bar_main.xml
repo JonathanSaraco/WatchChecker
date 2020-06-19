@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="?android:actionBarSize"
             android:background="?android:colorPrimary"
-            app:titleTextColor="?android:colorBackground"
+            app:titleTextColor="@color/colorWhite"
             app:color="?android:colorBackground"
             />
 

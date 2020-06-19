@@ -138,7 +138,7 @@ public class WatchCollectionActivity extends AppCompatActivity
             if (preferencesFragment.isVisible()) {
                 super.onBackPressed();
             } else {
-                new AlertDialog.Builder(this)
+                new AlertDialog.Builder(this, ThemeUtil.getDialogThemeResourceID(ThemeUtil.getThemeFromPreferences(this)))
                         .setTitle("Exit")
                         .setMessage("Are you sure you want to exit?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
