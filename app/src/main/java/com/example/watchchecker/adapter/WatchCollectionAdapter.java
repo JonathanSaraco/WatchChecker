@@ -5,9 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.FileProvider;
-import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +13,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.PopupMenu;
+import androidx.core.content.FileProvider;
+
 import com.example.watchchecker.R;
 import com.example.watchchecker.activity.WatchInformationDisplayActivity;
 import com.example.watchchecker.data.TimekeepingEntry;
@@ -23,6 +23,7 @@ import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.data.WatchDataEntry;
 import com.example.watchchecker.util.IO_Util;
 import com.example.watchchecker.util.IntentUtil;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.io.IOException;

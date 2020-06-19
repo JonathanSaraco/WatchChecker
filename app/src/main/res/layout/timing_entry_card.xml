@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
 
-    <android.support.design.card.MaterialCardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/timing_entry_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,6 +29,6 @@
             android:text="Deviation"
             android:textSize="12sp" />
 
-    </android.support.design.card.MaterialCardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>

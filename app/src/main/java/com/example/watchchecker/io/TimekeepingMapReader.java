@@ -1,6 +1,6 @@
 package com.example.watchchecker.io;
 
-import android.support.annotation.VisibleForTesting;
+import androidx.annotation.VisibleForTesting;
 
 import com.example.watchchecker.data.WatchTimekeepingMap;
 import com.example.watchchecker.util.IO_Util;

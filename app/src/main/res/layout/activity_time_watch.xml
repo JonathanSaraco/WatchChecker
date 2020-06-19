@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.design.card.MaterialCardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/reference_time_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,9 +39,9 @@
                 android:textSize="40sp" />
 
         </LinearLayout>
-    </android.support.design.card.MaterialCardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <android.support.design.card.MaterialCardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/time_watch_card_view_time_picker"
@@ -74,9 +74,9 @@
                 android:timePickerMode="spinner">
             </com.ikovac.timepickerwithseconds.TimePicker>
         </LinearLayout>
-    </android.support.design.card.MaterialCardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <android.support.design.card.MaterialCardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/time_watch_card_view_deviation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -109,9 +109,9 @@
 
         </LinearLayout>
 
-    </android.support.design.card.MaterialCardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <android.support.design.card.MaterialCardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -141,9 +141,9 @@
                 android:layout_marginBottom="4dp"
                 android:checked="false"/>
 
-    </android.support.design.card.MaterialCardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <android.support.design.card.MaterialCardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/time_watch_card_view_measure_deviation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -160,6 +160,6 @@
             android:text="Measure Deviation"
             android:textSize="20sp" />
 
-    </android.support.design.card.MaterialCardView>
+    </com.google.android.material.card.MaterialCardView>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,12 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.card.MaterialCardView;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -22,6 +16,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.cardview.widget.CardView;
+
 import com.example.watchchecker.R;
 import com.example.watchchecker.data.TimekeepingEntry;
 import com.example.watchchecker.data.TimingEntry;
@@ -29,6 +28,8 @@ import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.data.WatchDataEntry;
 import com.example.watchchecker.util.ThemeUtil;
 import com.example.watchchecker.util.Timekeeping_Util;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 import java.util.Observable;

@@ -2,8 +2,9 @@ package com.example.watchchecker.fragment;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.preference.PreferenceFragmentCompat;
+
+import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceFragmentCompat;
 
 import com.example.watchchecker.R;
 
