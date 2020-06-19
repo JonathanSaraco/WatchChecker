@@ -27,6 +27,7 @@
         <item name="android:textColorPrimary">@color/lightPrimaryText</item>
         <item name="android:textColorSecondary">@color/lightSecondaryText</item>
         <item name="android:colorPrimary">@color/lightPrimaryAccent</item>
+        <item name="drawerArrowStyle">@style/LightDrawerIcon</item>
     </style>
 
     <style name="LightAppTheme.NoActionBar" parent="LightAppTheme">
@@ -37,13 +38,19 @@
     <style name="LightAppTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">
     </style>
 
+    <style name="LightDrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/lightBackground</item>
+    </style>
+
     <!-- Dark application theme -->
     <style name="DarkAppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="android:colorBackground">@color/darkBackground</item>
+        <item name="android:backgroundStacked">@color/darkCardView</item>
         <item name="android:textColorPrimary">@color/darkPrimaryText</item>
         <item name="android:textColorSecondary">@color/darkSecondaryText</item>
         <item name="android:colorPrimary">@color/darkPrimaryAccent</item>
+        <item name="drawerArrowStyle">@style/LightDrawerIcon</item>
     </style>
 
     <style name="DarkAppTheme.NoActionBar" parent="DarkAppTheme">
