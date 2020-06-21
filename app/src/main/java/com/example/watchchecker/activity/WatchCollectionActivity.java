@@ -63,6 +63,9 @@ public class WatchCollectionActivity extends AppCompatActivity
         listener = (sharedPreferences1, key) -> {
             if (key.equals(getApplicationContext().getString(R.string.ref_theme_key))) {
                 ThemeUtil.resetThemeConfiguration();
+                // Set theme and refresh the view
+                setTheme(ThemeUtil.getNoActionBarThemeResourceID(ThemeUtil.getThemeFromPreferences(this)));
+                recreate();
             }
         };
         sharedPreferences.registerOnSharedPreferenceChangeListener(listener);
@@ -113,6 +116,7 @@ public class WatchCollectionActivity extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IntentUtil.CAMERA_INTENT_REQUEST_CODE &&
                 resultCode == RESULT_OK) {
             try {
