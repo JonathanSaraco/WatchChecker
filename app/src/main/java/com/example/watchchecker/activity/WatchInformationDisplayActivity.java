@@ -4,11 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -77,9 +73,9 @@ public class WatchInformationDisplayActivity extends AppCompatActivity implement
         watchImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         // Set the text views to display watchDataEntry information
         setSimpleTextViewText(R.id.display_watch_identifier_text, watchDataEntry.toDisplayString());
-        setComplexTextViewText(R.id.display_watch_movement_text, watchDataEntry.getMovement());
-        setComplexTextViewText(R.id.display_watch_purchase_date_text, watchDataEntry.getPurchaseDate().getSimpleDateString());
-        setComplexTextViewText(R.id.display_watch_service_date_text, watchDataEntry.getLastServiceDate().getSimpleDateString());
+        appendTextViewText(R.id.display_watch_movement_text, watchDataEntry.getMovement());
+        appendTextViewText(R.id.display_watch_purchase_date_text, watchDataEntry.getPurchaseDate().getSimpleDateString());
+        appendTextViewText(R.id.display_watch_service_date_text, watchDataEntry.getLastServiceDate().getSimpleDateString());
         // Display accuracy of watch
         setDeviationTextView(watchDataEntry);
     }
@@ -176,27 +172,19 @@ public class WatchInformationDisplayActivity extends AppCompatActivity implement
         timekeepingLinearLayout.addView(headerView);
     }
 
-    private void setSimpleTextViewText(int resourceID, String text) {
+    private void appendTextViewText(int resourceID, String appendText) {
         TextView textView = findViewById(resourceID);
-        if (!text.isEmpty()) {
-            textView.setText(text);
+        if (!appendText.isEmpty()) {
+            textView.append(appendText);
         } else {
             textView.setHeight(0);
         }
     }
 
-    private void setComplexTextViewText(int resourceID, String secondText) {
+    private void setSimpleTextViewText(int resourceID, String text) {
         TextView textView = findViewById(resourceID);
-        if (!secondText.isEmpty()) {
-            // Set text part one, will use the text specified in the layout.xml, but give it gray text
-            Spannable textPartOne = new SpannableString(textView.getText());
-            textPartOne.setSpan(new ForegroundColorSpan(Color.GRAY), 0, textPartOne.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            textView.setText(textPartOne);
-            // Set part two, will use the text we want, but in black because it's the "value" of what
-            // we're displaying
-            Spannable textPartTwo = new SpannableString(secondText);
-            textPartTwo.setSpan(new ForegroundColorSpan(Color.BLACK), 0, textPartTwo.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            textView.append(textPartTwo);
+        if (!text.isEmpty()) {
+            textView.setText(text);
         } else {
             textView.setHeight(0);
         }
