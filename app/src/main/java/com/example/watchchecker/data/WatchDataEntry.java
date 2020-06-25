@@ -7,8 +7,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
-import com.example.watchchecker.R;
 import com.example.watchchecker.util.BitmapUtil;
+import com.example.watchchecker.util.ThemeUtil;
 
 import org.apache.commons.io.FileUtils;
 
@@ -136,7 +136,7 @@ public class WatchDataEntry implements Parcelable {
             return BitmapUtil.createSquaredBitmap(bmp);
         }
         // Fall back to default image
-        return BitmapFactory.decodeResource(context.getResources(), R.drawable.watch_placeholder_image);
+        return BitmapFactory.decodeResource(context.getResources(), ThemeUtil.getWatchPlaceholderImageID(ThemeUtil.getThemeFromPreferences(context)));
     }
 
     /**

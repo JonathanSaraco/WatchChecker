@@ -9,6 +9,8 @@ import com.example.watchchecker.theme.ThemeConfiguration;
 
 public class ThemeUtil {
 
+    private static String INVALID_THEME_CONFIG_STRING = "Theme enum value is invalid.";
+
     private static ThemeConfiguration themeConfiguration = null;
 
     public static ThemeConfiguration getThemeFromPreferences(Context context) {
@@ -32,7 +34,7 @@ public class ThemeUtil {
             case AMOLED:
                 return R.style.AmoledAppTheme;
         }
-        throw new IllegalStateException("Theme enum value is invalid.");
+        throw new IllegalStateException(INVALID_THEME_CONFIG_STRING);
     }
 
     public static int getNoActionBarThemeResourceID(ThemeConfiguration theme) {
@@ -44,7 +46,7 @@ public class ThemeUtil {
             case AMOLED:
                 return R.style.AmoledAppTheme_NoActionBar;
         }
-        throw new IllegalStateException("Theme enum value is invalid.");
+        throw new IllegalStateException(INVALID_THEME_CONFIG_STRING);
     }
 
     public static int getDialogThemeResourceID(ThemeConfiguration theme) {
@@ -56,7 +58,17 @@ public class ThemeUtil {
             case AMOLED:
                 return R.style.AmoledAppTheme_Dialog;
         }
-        throw new IllegalStateException("Theme enum value is invalid.");
+        throw new IllegalStateException(INVALID_THEME_CONFIG_STRING);
     }
 
+    public static int getWatchPlaceholderImageID(ThemeConfiguration theme) {
+        switch (theme) {
+            case LIGHT:
+                return R.drawable.watch_placeholder_image;
+            case DARK:
+            case AMOLED:
+                return R.drawable.night_watch_placeholder;
+        }
+        throw new IllegalStateException(INVALID_THEME_CONFIG_STRING);
+    }
 }
