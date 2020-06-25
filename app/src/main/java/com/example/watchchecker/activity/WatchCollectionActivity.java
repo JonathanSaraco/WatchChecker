@@ -3,9 +3,13 @@ package com.example.watchchecker.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.Nullable;
@@ -24,8 +28,8 @@ import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.data.WatchDataEntry;
 import com.example.watchchecker.fragment.PreferencesFragment;
 import com.example.watchchecker.fragment.WatchCollectionFragment;
-import com.example.watchchecker.util.BitmapUtil;
 import com.example.watchchecker.util.IO_Util;
+import com.example.watchchecker.util.ImageUtil;
 import com.example.watchchecker.util.IntentUtil;
 import com.example.watchchecker.util.ThemeUtil;
 import com.google.android.material.navigation.NavigationView;
@@ -121,14 +125,31 @@ public class WatchCollectionActivity extends AppCompatActivity
                 resultCode == RESULT_OK) {
             try {
                 // Check to see if the image file needs to be rotated and re-written
-                BitmapUtil.rotateAndRewriteBitmap(IO_Util.getPathForNewImage());
+                ImageUtil.rotateAndRewriteBitmap(IO_Util.getPathForNewImage());
                 // Get data from IO_Util since we can't parcel shit
                 WatchDataEntry watchDataEntry = IO_Util.getWatchDataEntryForNewImage();
                 UserData.setWatchDataEntryImage(watchDataEntry, IO_Util.getPathForNewImage());
                 // Save timekeeping map
                 UserData.saveData(getApplicationContext());
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e("WatchCollectionActivity", "Failed to set WatchDataEntry photo");
+            }
+        } else if (requestCode == IntentUtil.GALLERY_INTENT_REQUEST_CODE &&
+                data != null) {
+            try {
+                // Get path of new image file
+                String newImagePath = IO_Util.getImageFile(this).getPath();
+                // Read image from URI and save it to app storage
+                Uri imageUri = data.getData();
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                ImageUtil.rotateAndRewriteBitmap(bitmap, newImagePath);
+                // Set photo of WatchDataEntry and save data
+                WatchDataEntry watchDataEntry = IO_Util.getWatchDataEntryForNewImage();
+                UserData.setWatchDataEntryImage(watchDataEntry, newImagePath);
+                // Save timekeeping map
+                UserData.saveData(getApplicationContext());
+            } catch (Exception e) {
+                Log.e("WatchCollectionActivity", "Failed to set WatchDataEntry photo");
             }
         }
     }

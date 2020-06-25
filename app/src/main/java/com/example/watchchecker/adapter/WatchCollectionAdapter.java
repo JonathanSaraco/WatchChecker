@@ -1,7 +1,9 @@
 package com.example.watchchecker.adapter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,6 +24,7 @@ import com.example.watchchecker.data.TimekeepingEntry;
 import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.data.WatchDataEntry;
 import com.example.watchchecker.util.IO_Util;
+import com.example.watchchecker.util.ImageUtil;
 import com.example.watchchecker.util.IntentUtil;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -125,24 +128,43 @@ public class WatchCollectionAdapter extends BaseAdapter implements Observer {
                                     .show();
                             break;
                         case R.id.watch_collection_element_settings_photo:
-                            // User chose to take a photo
-                            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            if (takePictureIntent.resolveActivity(context.getPackageManager()) != null) {
-                                File watchImageFile = null;
-                                try {
-                                    watchImageFile = IO_Util.getImageFile(context);
-                                } catch (IOException e) {
-                                    Log.i("WatchCollectionAdapter", "Failed to create image file in storage.");
-                                }
-                                if (watchImageFile != null) {
-                                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(context, context.getPackageName(), watchImageFile));
-                                    // We can only parcel if we only want a thumbnail, but we want more than that
-                                    // so use these static members to store stuff
+                            // User chose to take a photo, give them a dialog to choose their source
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            builder.setTitle("Select an image source");
+                            builder.setItems(ImageUtil.imageChoices, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // We can only parcel if the image is just a thumbnail, but we want more than that
+                                    // so unfortunately we have to resort to this static field
                                     IO_Util.setWatchDataEntryForNewImage(watchDataEntry);
-                                    IO_Util.setImagePathForNewImage(watchImageFile.getPath());
-                                    ((Activity) context).startActivityForResult(takePictureIntent, IntentUtil.CAMERA_INTENT_REQUEST_CODE);
+                                    // Launch different activities based on the user's choice
+                                    if (ImageUtil.imageChoices[which].equals(ImageUtil.TAKE_PHOTO_CHOICE)) {
+                                        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                        if (takePictureIntent.resolveActivity(context.getPackageManager()) != null) {
+                                            File watchImageFile = null;
+                                            try {
+                                                watchImageFile = IO_Util.getImageFile(context);
+                                            } catch (IOException e) {
+                                                Log.i("WatchCollectionAdapter", "Failed to create image file in storage.");
+                                            }
+                                            if (watchImageFile != null) {
+                                                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(context, context.getPackageName(), watchImageFile));
+                                                // Again, need to use a static field to store things
+                                                IO_Util.setImagePathForNewImage(watchImageFile.getPath());
+                                                ((Activity) context).startActivityForResult(takePictureIntent, IntentUtil.CAMERA_INTENT_REQUEST_CODE);
+                                            }
+                                        }
+                                    } else if (ImageUtil.imageChoices[which].equals(ImageUtil.ATTACH_PHOTO_CHOICE)) {
+                                        Intent intent = new Intent(Intent.ACTION_PICK);
+                                        intent.setType("image/*");
+                                        String[] mimeTypes = {"image/jpeg", "image/png"};
+                                        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+                                        // Start intent
+                                        ((Activity) context).startActivityForResult(intent, IntentUtil.GALLERY_INTENT_REQUEST_CODE);
+                                    }
                                 }
-                            }
+                            });
+                            builder.show();
                         default:
                             // Something went horribly wrong
                             return false;
