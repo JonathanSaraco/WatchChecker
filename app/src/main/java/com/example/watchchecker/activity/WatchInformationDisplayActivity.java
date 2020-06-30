@@ -22,6 +22,7 @@ import com.example.watchchecker.data.TimekeepingEntry;
 import com.example.watchchecker.data.TimingEntry;
 import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.data.WatchDataEntry;
+import com.example.watchchecker.util.ImageUtil;
 import com.example.watchchecker.util.ThemeUtil;
 import com.example.watchchecker.util.Timekeeping_Util;
 import com.google.android.material.card.MaterialCardView;
@@ -69,7 +70,7 @@ public class WatchInformationDisplayActivity extends AppCompatActivity implement
     private void setTextViewComponents(WatchDataEntry watchDataEntry) {
         // Get image view that displays the watch and set its drawable
         ImageView watchImageView = findViewById(R.id.display_watch_image);
-        watchImageView.setImageBitmap(watchDataEntry.getImageAsBitmap(getApplicationContext()));
+        watchImageView.setImageBitmap(ImageUtil.getWatchDataEntryImage(WatchInformationDisplayActivity.this, watchDataEntry));
         watchImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         // Set the text views to display watchDataEntry information
         setSimpleTextViewText(R.id.display_watch_identifier_text, watchDataEntry.toDisplayString());

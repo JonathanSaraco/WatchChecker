@@ -94,7 +94,7 @@ public class WatchCollectionAdapter extends BaseAdapter implements Observer {
             WatchDataEntry watchDataEntry = watchDataEntries.get(position);
             viewHolder.watchDisplayTextView.setText(watchDataEntry.toDisplayString());
             viewHolder.watchMovementTextView.setText(watchDataEntry.getMovement());
-            viewHolder.watchDialImageView.setImageBitmap(watchDataEntry.getImageAsBitmap(context));
+            viewHolder.watchDialImageView.setImageBitmap(ImageUtil.getWatchDataEntryImage(context, watchDataEntry));
             // Setup on-click listener to display this watch entry's information
             convertView.setOnClickListener(v -> {
                 // Setup and start activity to display timekeeping information

@@ -1,14 +1,10 @@
 package com.example.watchchecker.data;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
 import com.example.watchchecker.util.ImageUtil;
-import com.example.watchchecker.util.ThemeUtil;
 
 import org.apache.commons.io.FileUtils;
 
@@ -122,21 +118,12 @@ public class WatchDataEntry implements Parcelable {
             // Delete the old image if it exists
             try {
                 FileUtils.forceDelete(new File(this.imagePath));
+                ImageUtil.removeBitmapFromMap(this.imagePath);
                 Log.i("WatchDataEntry", String.format("Deleted %s's old image file successfully.", this.toDisplayString()));
             } catch (Exception ignore) {
             }
             this.imagePath = imagePath;
         }
-    }
-
-    public Bitmap getImageAsBitmap(Context context) {
-        // Decode bitmap from image path and return it
-        Bitmap bmp = BitmapFactory.decodeFile(imagePath);
-        if (bmp != null) {
-            return ImageUtil.createSquaredBitmap(bmp);
-        }
-        // Fall back to default image
-        return BitmapFactory.decodeResource(context.getResources(), ThemeUtil.getWatchPlaceholderImageID(ThemeUtil.getThemeFromPreferences(context)));
     }
 
     /**

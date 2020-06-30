@@ -1,5 +1,6 @@
 package com.example.watchchecker.util;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -13,6 +14,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * Utility class for methods involving {@link Bitmap}s and operations involving them.
@@ -22,6 +26,40 @@ public class ImageUtil {
     public static final String TAKE_PHOTO_CHOICE = "Capture image";
     public static final String ATTACH_PHOTO_CHOICE = "Choose from gallery";
     public static final String[] imageChoices = {TAKE_PHOTO_CHOICE, ATTACH_PHOTO_CHOICE};
+
+    public static final Map<String, Bitmap> bitmapStorageMap = new HashMap<>();
+
+    public static Bitmap getWatchDataEntryImage(Context context, WatchDataEntry watchDataEntry) {
+        String imagePath = watchDataEntry.getImagePath();
+        // Attempt to find the display image in the cache
+        Optional<Bitmap> storedBitmap = bitmapStorageMap.entrySet().stream()
+                .filter(entry -> entry.getKey().equals(imagePath))
+                .map(Map.Entry::getValue)
+                .findAny();
+        if (storedBitmap.isPresent()) {
+            return storedBitmap.get();
+        } else {
+            // Decode bitmap from image path and return it
+            Bitmap bitmapToReturn;
+            Bitmap bmp = BitmapFactory.decodeFile(watchDataEntry.getImagePath());
+            if (bmp != null) {
+                // If the bitmap has been read, create a square image out of it
+                bitmapToReturn = ImageUtil.createSquaredBitmap(bmp);
+            } else {
+                // Fall back to default image as the path is invalid or the image doesn't exist
+                watchDataEntry.setImagePath("");
+                bitmapToReturn = BitmapFactory.decodeResource(context.getResources(), ThemeUtil.getWatchPlaceholderImageID(ThemeUtil.getThemeFromPreferences(context)));
+            }
+            // Put the image in the cache
+            bitmapStorageMap.put(watchDataEntry.getImagePath(), bitmapToReturn);
+            return bitmapToReturn;
+        }
+    }
+
+    public static void removeBitmapFromMap(String pathToRemove) {
+        bitmapStorageMap.remove(pathToRemove);
+        Log.i("ImageUtil", "Removed bitmap from storage map");
+    }
 
     /**
      * Method overload if the image to be processed has already been written to app storage
