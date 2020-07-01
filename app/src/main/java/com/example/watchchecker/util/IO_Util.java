@@ -34,7 +34,9 @@ public class IO_Util {
     }
 
     public static File getWatchPhotoDirectory(Context context) {
-        return new File(context.getFilesDir(), "watchPhotos");
+        File photoDirectory = new File(context.getFilesDir(), "watchPhotos");
+        photoDirectory.mkdirs();
+        return photoDirectory;
     }
 
     public static WatchDataEntry watchDataEntry = null;

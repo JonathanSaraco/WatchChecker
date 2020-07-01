@@ -16,13 +16,12 @@ public enum ThemeConfiguration {
     }
 
     public static ThemeConfiguration getValueOf(String name) {
-        if (LIGHT.name.equals(name)) {
-            return LIGHT;
-        } else if (DARK.name.equals(name)) {
+        if (DARK.name.equals(name)) {
             return DARK;
         } else if (AMOLED.name.equals(name)) {
             return AMOLED;
+        } else {
+            return LIGHT;
         }
-        throw new IllegalStateException("ThemeConfiguration not implemented.");
     }
 }
