@@ -38,7 +38,7 @@ public class TimingDeviation {
         if (isUndefined()) {
             return "UNDEFINED";
         } else {
-            return this.deviation.toPlainString();
+            return String.format("%s %s", this.deviation.setScale(2, RoundingMode.HALF_UP).toPlainString(), "s");
         }
     }
 

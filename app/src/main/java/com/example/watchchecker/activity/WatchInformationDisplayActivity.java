@@ -1,7 +1,6 @@
 package com.example.watchchecker.activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.cardview.widget.CardView;
@@ -109,6 +109,7 @@ public class WatchInformationDisplayActivity extends AppCompatActivity implement
             List<TimingEntry> timingEntries = timekeepingEntries.get(i).getTimingEntries();
             addTimingEntryHeaderCard(inflater, detailViewLinearLayout);
             for (int j = 0; j < timingEntries.size(); j++) {
+                TimingEntry timingEntry = timingEntries.get(j);
                 View timingEntryView = inflater.inflate(R.layout.timing_entry_card, detailViewLinearLayout, false);
                 // Display reference time of timing entry
                 TextView referenceTimeTextView = timingEntryView.findViewById(R.id.timing_entry_reference_time_text_view);
@@ -118,6 +119,33 @@ public class WatchInformationDisplayActivity extends AppCompatActivity implement
                 detailDeviationTextView.setText(timingEntries.get(j).getDeviation().toSimpleDisplayString());
                 // Add view to parent
                 detailViewLinearLayout.addView(timingEntryView);
+                // Add long press listener to delete timing entry
+                CardView timingEntryCardView = timingEntryView.findViewById(R.id.timing_entry_card_view);
+                timingEntryCardView.setFocusable(true);
+                timingEntryCardView.setClickable(true);
+                timingEntryCardView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        new AlertDialog.Builder(WatchInformationDisplayActivity.this,
+                                ThemeUtil.getDialogThemeResourceID(ThemeUtil.getThemeFromPreferences(WatchInformationDisplayActivity.this)))
+                                .setTitle("Delete timing entry?")
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                        UserData.removeTimingEntry(timekeepingEntry, timingEntry);
+                                    }
+                                })
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .show();
+                        return true;
+                    }
+                });
             }
             // Set onclick listener to display the detail view
             CardView timekeepingEntryCardView = timekeepingEntryView.findViewById(R.id.timekeeping_entry_card_view);
@@ -132,23 +160,22 @@ public class WatchInformationDisplayActivity extends AppCompatActivity implement
             timekeepingEntryCardView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(WatchInformationDisplayActivity.this);
-                    builder.setTitle("Delete timekeeping run?");
-                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            UserData.removeTimekeepingEntry(watchDataEntry, timekeepingEntry);
-                        }
-                    });
-                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    AlertDialog alertDialog = builder.create();
-                    alertDialog.show();
+                    new AlertDialog.Builder(WatchInformationDisplayActivity.this,
+                            ThemeUtil.getDialogThemeResourceID(ThemeUtil.getThemeFromPreferences(WatchInformationDisplayActivity.this)))
+                            .setTitle("Delete timekeeping run?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    UserData.removeTimekeepingEntry(watchDataEntry, timekeepingEntry);
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
                     return true;
                 }
             });

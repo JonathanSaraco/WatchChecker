@@ -157,6 +157,11 @@ public class UserData {
         notifyObservers();
     }
 
+    public static void removeTimingEntry(TimekeepingEntry timekeepingEntry, TimingEntry timingEntry) {
+        timekeepingEntry.removeTimingEntry(timingEntry);
+        notifyObservers();
+    }
+
     public static void setWatchTimekeepingMap(WatchTimekeepingMap watchTimekeepingMap) {
         UserData.WATCH_TIMEKEEPING_MAP = watchTimekeepingMap;
         notifyObservers();
