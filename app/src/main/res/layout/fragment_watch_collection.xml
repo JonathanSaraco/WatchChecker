@@ -9,11 +9,9 @@
         android:id="@+id/gridView_check_watch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/watch_collection_grid_view_layout_margin"
-        android:verticalSpacing="16dp"
         android:gravity="center"
-        android:columnWidth="180dp"
-        android:minHeight="180dp"
+        android:columnWidth="185dp"
+        android:minHeight="185dp"
         android:numColumns="auto_fit"
         android:stretchMode="spacingWidthUniform"
          />
