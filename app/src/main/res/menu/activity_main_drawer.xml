@@ -3,20 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="none">
         <item
             android:id="@+id/nav_watch_collection"
             android:icon="@drawable/ic_menu_check_watch"
-            android:title="@string/menu_watch_collection" />
+            android:title="@string/menu_watch_collection"/>
     </group>
 
     <item android:title="Settings">
         <menu>
             <item
                 android:id="@+id/nav_settings"
-                android:title="@string/action_settings"
                 android:icon="@drawable/ic_menu_manage"
-                />
+                android:title="@string/action_settings" />
         </menu>
     </item>
 
