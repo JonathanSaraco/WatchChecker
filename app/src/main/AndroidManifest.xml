@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.watchchecker">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
-    <uses-feature android:name="android.hardware.camera"
+    <uses-feature
+        android:name="android.hardware.camera"
         android:required="true" />
 
     <application
@@ -16,7 +18,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".activity.InitializationActivity"
             android:theme="@style/SplashTheme">
@@ -28,23 +31,23 @@
         <activity
             android:name=".activity.WatchCollectionActivity"
             android:label="@string/title_activity_watch_collection"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.AddWatchActivity"
             android:label="@string/title_activity_add_watch"
-            android:theme="@android:style/Theme.Material.Light.Dialog"></activity>
+            android:theme="@android:style/Theme.Material.Light.Dialog" />
         <activity
             android:name=".activity.WatchInformationDisplayActivity"
             android:label="@string/title_activity_watch_information_display"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
         <activity
             android:name=".activity.TimeWatchActivity"
             android:label="@string/title_activity_time_watch"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <service
             android:name=".activity.WriteUserDataService"
-            android:theme="@android:style/Theme.Translucent"></service>
+            android:theme="@android:style/Theme.Translucent" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -53,7 +56,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
     </application>
 
