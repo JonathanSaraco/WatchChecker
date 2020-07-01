@@ -8,6 +8,7 @@ import android.media.ExifInterface;
 import android.util.Log;
 
 import com.example.watchchecker.data.WatchDataEntry;
+import com.example.watchchecker.theme.ThemeConfiguration;
 import com.google.common.base.Preconditions;
 
 import java.io.File;
@@ -45,13 +46,18 @@ public class ImageUtil {
             if (bmp != null) {
                 // If the bitmap has been read, create a square image out of it
                 bitmapToReturn = ImageUtil.createSquaredBitmap(bmp);
+                bitmapStorageMap.put(watchDataEntry.getImagePath(), bitmapToReturn);
             } else {
                 // Fall back to default image as the path is invalid or the image doesn't exist
                 watchDataEntry.setImagePath("");
-                bitmapToReturn = BitmapFactory.decodeResource(context.getResources(), ThemeUtil.getWatchPlaceholderImageID(ThemeUtil.getThemeFromPreferences(context)));
+                ThemeConfiguration themeConfiguration = ThemeUtil.getThemeFromPreferences(context);
+                if (!bitmapStorageMap.containsKey(themeConfiguration.getName())) {
+                    bitmapToReturn = BitmapFactory.decodeResource(context.getResources(), ThemeUtil.getWatchPlaceholderImageID(ThemeUtil.getThemeFromPreferences(context)));
+                    bitmapStorageMap.put(themeConfiguration.getName(), bitmapToReturn);
+                } else {
+                    bitmapToReturn = bitmapStorageMap.get(themeConfiguration.getName());
+                }
             }
-            // Put the image in the cache
-            bitmapStorageMap.put(watchDataEntry.getImagePath(), bitmapToReturn);
             return bitmapToReturn;
         }
     }
