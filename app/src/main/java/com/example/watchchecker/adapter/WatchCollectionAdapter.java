@@ -123,7 +123,7 @@ public class WatchCollectionAdapter extends BaseAdapter implements Observer {
                             List<TimekeepingEntry> backupEntries = new ArrayList<>(UserData.getTimekeepingEntries(watchDataEntry));
                             // Remove data entry and setup snackbar with undo button
                             UserData.removeWatchDataEntry(watchDataEntry);
-                            Snackbar.make(finalConvertView, "Deleted watch entry", Snackbar.LENGTH_LONG)
+                            Snackbar.make(finalConvertView, String.format("Deleted: %s", watchDataEntry.toDisplayString()), Snackbar.LENGTH_LONG)
                                     .setAction("Undo", v1 -> UserData.addWatchDataEntry(watchDataEntry, backupEntries))
                                     .show();
                             break;
