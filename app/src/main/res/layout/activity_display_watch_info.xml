@@ -28,13 +28,14 @@
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/display_watch_start_timing_fab"
-                    android:src="@drawable/ic_timer_black_24dp"
+                    app:srcCompat="@drawable/ic_timer_black_24dp"
                     android:backgroundTint="?android:colorPrimary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginBottom="4dp"
                     android:layout_marginEnd="4dp"
+                    app:borderWidth="0dp"
                     app:layout_constraintBottom_toBottomOf="@id/display_watch_image"
                     app:layout_constraintEnd_toEndOf="parent"/>
 
