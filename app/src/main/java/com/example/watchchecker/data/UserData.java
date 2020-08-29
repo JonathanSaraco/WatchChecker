@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Static class to give easy access to objects storing user data.
@@ -100,12 +101,19 @@ public class UserData {
         return watchDataEntryAsKey;
     }
 
+    /**
+     * @return
+     */
     public static List<TimekeepingEntry> getTimekeepingEntries(WatchDataEntry watchDataEntry) {
         Optional<List<TimekeepingEntry>> timekeepingEntries = getWatchTimekeepingMap().getDataMap().entrySet().stream()
                 .filter(dataMapEntry -> dataMapEntry.getKey().equals(watchDataEntry))
                 .map(Map.Entry::getValue)
                 .findAny();
-        if (timekeepingEntries.isPresent()) return timekeepingEntries.get();
+        if (timekeepingEntries.isPresent()){
+            return timekeepingEntries.get().stream()
+                    .sorted(Comparator.comparing((TimekeepingEntry timingEntry) -> timingEntry.getLastTimekeepingEvent().getTime()).reversed())
+                    .collect(Collectors.toList());
+        }
         Log.e("UserData", "Failed to get timekeeping entries.");
         throw new IllegalStateException();
     }
