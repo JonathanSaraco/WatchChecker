@@ -64,10 +64,9 @@ public class ThemeUtil {
         switch (theme) {
             case DARK:
             case AMOLED:
-                return R.drawable.night_watch_placeholder;
             case LIGHT:
             default:
-                return R.drawable.watch_placeholder_image;
+                return R.drawable.ic_placeholder_watch;
         }
     }
 }
