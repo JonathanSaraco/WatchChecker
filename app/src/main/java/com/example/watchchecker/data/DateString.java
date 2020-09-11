@@ -50,6 +50,10 @@ public class DateString {
         return SIMPLE_DATE_FORMAT.parse(simpleDateString);
     }
 
+    public boolean isEmpty() {
+        return this.complexDateString.isEmpty();
+    }
+
     public String getSimpleDateString() {
         return simpleDateString;
     }

@@ -19,6 +19,7 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.core.content.FileProvider;
 
 import com.example.watchchecker.R;
+import com.example.watchchecker.activity.EditWatchActivity;
 import com.example.watchchecker.activity.WatchInformationDisplayActivity;
 import com.example.watchchecker.data.TimekeepingEntry;
 import com.example.watchchecker.data.UserData;
@@ -115,7 +116,12 @@ public class WatchCollectionAdapter extends BaseAdapter implements Observer {
                 popupMenu.setOnMenuItemClickListener(menuItem -> {
                     switch (menuItem.getItemId()) {
                         case R.id.watch_collection_element_settings_edit:
-                            // User chose edit
+                            // User chose edit, launch the edit watch activity
+                            Intent editWatchIntent = new Intent(context, EditWatchActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putParcelable(WatchDataEntry.PARCEL_KEY, watchDataEntry);
+                            editWatchIntent.putExtras(bundle);
+                            context.startActivity(editWatchIntent);
                             break;
                         case R.id.watch_collection_element_settings_delete:
                             // User chose delete

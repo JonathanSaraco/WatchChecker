@@ -63,6 +63,19 @@ public class UserData {
     }
 
     /**
+     * Edits a {@link WatchDataEntry} with new information given to it by {@param entryWithNewInfo}.
+     */
+    public static void editWatchDataEntry(WatchDataEntry entryToEdit, WatchDataEntry entryWithNewInfo) {
+        WatchDataEntry watchDataEntryAsKey = getEquivalentWatchDataEntry(entryToEdit);
+        entryToEdit.setModel(entryWithNewInfo.getModel());
+        entryToEdit.setBrand(entryWithNewInfo.getBrand());
+        entryToEdit.setMovement(entryWithNewInfo.getMovement());
+        entryToEdit.setPurchaseDate(entryWithNewInfo.getPurchaseDate());
+        entryToEdit.setLastServiceDate(entryWithNewInfo.getLastServiceDate());
+        notifyObservers();
+    }
+
+    /**
      * Adds a new {@link WatchDataEntry} with a pre-defined list of {@link TimekeepingEntry} objects.
      * ONLY USE IF YOU ARE OKAY WITH FULLY REPLACING DATA.
      */

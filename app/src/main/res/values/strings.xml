@@ -16,6 +16,7 @@
     <string name="menu_send">Send</string>
 
     <string name="title_activity_add_watch">Add Watch</string>
+    <string name="title_activity_edit_watch">Edit Watch</string>
     <string name="title_activity_watch_collection">Watch Collection</string>
     <string name="title_activity_watch_information_display">Watch Information</string>
     <string name="title_activity_time_watch">Time Watch</string>

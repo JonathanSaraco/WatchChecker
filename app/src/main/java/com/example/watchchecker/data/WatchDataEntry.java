@@ -213,4 +213,20 @@ public class WatchDataEntry implements Parcelable {
                 getCreationDate(),
                 getImagePath());
     }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public void setMovement(String movement) {
+        this.movement = movement;
+    }
+
+    public void setPurchaseDate(DateString purchaseDate) {
+        this.purchaseDate = purchaseDate;
+    }
 }
