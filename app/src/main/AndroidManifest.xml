@@ -50,7 +50,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <service
-            android:name=".activity.WriteUserDataService"
+            android:name=".activity.WriteWatchDataEntryService"
             android:theme="@android:style/Theme.Translucent" />
 
         <provider

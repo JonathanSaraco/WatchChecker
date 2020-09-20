@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.util.Log;
 
-import com.example.watchchecker.activity.WriteUserDataService;
+import com.example.watchchecker.activity.WriteWatchDataEntryService;
 import com.example.watchchecker.io.WatchTimekeepingEntryWriter;
 import com.example.watchchecker.util.IO_Util;
 
@@ -25,17 +25,11 @@ public class UserData {
     private static WatchTimekeepingMap WATCH_TIMEKEEPING_MAP = null;
 
     public static void saveWatchTimekeepingEntry(Context context, WatchDataEntry watchDataEntry) {
-        Intent finalizeIntent = new Intent(context, WriteUserDataService.class);
+        Intent finalizeIntent = new Intent(context, WriteWatchDataEntryService.class);
         finalizeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Bundle bundle = new Bundle();
         bundle.putParcelable(WatchDataEntry.PARCEL_KEY, watchDataEntry);
         finalizeIntent.putExtras(bundle);
-        context.startService(finalizeIntent);
-    }
-
-    public static void saveData(Context context) {
-        Intent finalizeIntent = new Intent(context, WriteUserDataService.class);
-        finalizeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startService(finalizeIntent);
     }
 
@@ -195,12 +189,6 @@ public class UserData {
         WatchDataEntry watchDataEntryAsKey = getEquivalentWatchDataEntry(watchDataEntry);
         watchDataEntryAsKey.setImagePath(imagePath);
         notifyObservers();
-    }
-
-    public static void writeUserData(Context context) throws IOException {
-        if (!getWatchTimekeepingMap().areAllChangesCommitted()) {
-            new WatchTimekeepingEntryWriter(context).writeAll(WATCH_TIMEKEEPING_MAP);
-        }
     }
 
     public static void writeWatchDataEntry(Context context, WatchDataEntry watchDataEntry) throws IOException {

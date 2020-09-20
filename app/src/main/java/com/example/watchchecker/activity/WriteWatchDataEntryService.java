@@ -14,11 +14,11 @@ import java.io.IOException;
 /**
  * {@link IntentService} to perform all finalization tasks for the app.
  */
-public class WriteUserDataService extends IntentService {
+public class WriteWatchDataEntryService extends IntentService {
 
     private WatchDataEntry watchDataEntryToWrite;
 
-    public WriteUserDataService() {
+    public WriteWatchDataEntryService() {
         super("finalizationService");
     }
 
@@ -27,7 +27,7 @@ public class WriteUserDataService extends IntentService {
         if (intent != null) {
             watchDataEntryToWrite = intent.getExtras().getParcelable(WatchDataEntry.PARCEL_KEY);
         } else {
-            Log.e(WriteUserDataService.class.getSimpleName(), "No parcelable");
+            Log.e(WriteWatchDataEntryService.class.getSimpleName(), "No parcelable");
             throw new IllegalStateException();
         }
         return super.onStartCommand(intent, flags, startId);
@@ -36,7 +36,7 @@ public class WriteUserDataService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         try {
-            UserData.writeWatchDataEntry(WriteUserDataService.this, watchDataEntryToWrite);
+            UserData.writeWatchDataEntry(WriteWatchDataEntryService.this, watchDataEntryToWrite);
             // Only set this to true if the writing was successful
             UserData.getWatchTimekeepingMap().setAllChangesCommitted();
         } catch (IOException ignore) {}

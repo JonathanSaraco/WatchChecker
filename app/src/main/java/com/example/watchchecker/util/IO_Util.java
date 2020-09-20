@@ -13,8 +13,6 @@ import java.util.Optional;
 
 public class IO_Util {
     public static final String WATCH_TIMEKEEPING_ENTRY_EXTENSION = ".wte";
-    public static final String WATCH_TIMEKEEPING_MAP_EXTENSION = ".wtkm";
-    public static final FilenameFilter WTKM_FILENAME_FILTER = (dir, name) -> name.toLowerCase().endsWith(WATCH_TIMEKEEPING_MAP_EXTENSION);
     public static final FilenameFilter WTE_FILENAME_FILTER = (dir, name) -> name.toLowerCase().endsWith(WATCH_TIMEKEEPING_ENTRY_EXTENSION);
 
     public static String getWatchTimekeepingEntryFileName(WatchDataEntry watchDataEntry) {
