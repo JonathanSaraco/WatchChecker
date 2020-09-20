@@ -203,6 +203,10 @@ public class WatchDataEntry implements Parcelable {
                 Objects.equals(getImagePath(), that.getImagePath());
     }
 
+    public String fileName() {
+        return getBrand() + "_" + getModel();
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(getBrand(),

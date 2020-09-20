@@ -2,11 +2,13 @@ package com.example.watchchecker.data;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Parcel;
 import android.util.Log;
 
 import com.example.watchchecker.activity.WriteUserDataService;
-import com.example.watchchecker.io.TimekeepingMapWriter;
+import com.example.watchchecker.io.WatchTimekeepingEntryWriter;
+import com.example.watchchecker.util.IO_Util;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,13 +17,21 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Static class to give easy access to objects storing user data.
  */
 public class UserData {
     private static WatchTimekeepingMap WATCH_TIMEKEEPING_MAP = null;
+
+    public static void saveWatchTimekeepingEntry(Context context, WatchDataEntry watchDataEntry) {
+        Intent finalizeIntent = new Intent(context, WriteUserDataService.class);
+        finalizeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(WatchDataEntry.PARCEL_KEY, watchDataEntry);
+        finalizeIntent.putExtras(bundle);
+        context.startService(finalizeIntent);
+    }
 
     public static void saveData(Context context) {
         Intent finalizeIntent = new Intent(context, WriteUserDataService.class);
@@ -65,13 +75,15 @@ public class UserData {
     /**
      * Edits a {@link WatchDataEntry} with new information given to it by {@param entryWithNewInfo}.
      */
-    public static void editWatchDataEntry(WatchDataEntry entryToEdit, WatchDataEntry entryWithNewInfo) {
+    public static void editWatchDataEntry(Context context, WatchDataEntry entryToEdit, WatchDataEntry entryWithNewInfo) {
+        IO_Util.removeWatchTimekeepingEntryFile(context, entryToEdit);
         WatchDataEntry watchDataEntryAsKey = getEquivalentWatchDataEntry(entryToEdit);
-        entryToEdit.setModel(entryWithNewInfo.getModel());
-        entryToEdit.setBrand(entryWithNewInfo.getBrand());
-        entryToEdit.setMovement(entryWithNewInfo.getMovement());
-        entryToEdit.setPurchaseDate(entryWithNewInfo.getPurchaseDate());
-        entryToEdit.setLastServiceDate(entryWithNewInfo.getLastServiceDate());
+        watchDataEntryAsKey.setModel(entryWithNewInfo.getModel());
+        watchDataEntryAsKey.setBrand(entryWithNewInfo.getBrand());
+        watchDataEntryAsKey.setMovement(entryWithNewInfo.getMovement());
+        watchDataEntryAsKey.setPurchaseDate(entryWithNewInfo.getPurchaseDate());
+        watchDataEntryAsKey.setLastServiceDate(entryWithNewInfo.getLastServiceDate());
+        UserData.saveWatchTimekeepingEntry(context, watchDataEntryAsKey);
         notifyObservers();
     }
 
@@ -100,32 +112,23 @@ public class UserData {
      * we need to be able to access a real {@link WatchDataEntry} using a {@link Parcel} instance
      */
     private static WatchDataEntry getEquivalentWatchDataEntry(WatchDataEntry watchDataEntry) {
-        WatchDataEntry watchDataEntryAsKey = watchDataEntry;
-        if (!getWatchTimekeepingMap().getDataMap().containsKey(watchDataEntry)) {
-            Optional<WatchDataEntry> actualWatchDataEntry = getWatchTimekeepingMap().getDataMap().keySet().stream()
-                    .filter(watchDataEntry::equals)
-                    .findAny();
-            if (actualWatchDataEntry.isPresent()) {
-                watchDataEntryAsKey = actualWatchDataEntry.get();
-            } else {
-                throw new IllegalStateException();
+        for (Map.Entry<WatchDataEntry, List<TimekeepingEntry>> watchTimekeepingEntry : getWatchTimekeepingMap().getDataMap().entrySet()) {
+            if (watchTimekeepingEntry.getKey().equals(watchDataEntry)) {
+                return watchTimekeepingEntry.getKey();
             }
         }
-        return watchDataEntryAsKey;
+        Log.e(UserData.class.getSimpleName(), "Could not find equivalent WatchDataEntry");
+        throw new IllegalStateException();
     }
 
     /**
      * @return
      */
     public static List<TimekeepingEntry> getTimekeepingEntries(WatchDataEntry watchDataEntry) {
-        Optional<List<TimekeepingEntry>> timekeepingEntries = getWatchTimekeepingMap().getDataMap().entrySet().stream()
-                .filter(dataMapEntry -> dataMapEntry.getKey().equals(watchDataEntry))
-                .map(Map.Entry::getValue)
-                .findAny();
-        if (timekeepingEntries.isPresent()){
-            return timekeepingEntries.get().stream()
-                    .sorted(Comparator.comparing((TimekeepingEntry timingEntry) -> timingEntry.getLastTimekeepingEvent().getTime()).reversed())
-                    .collect(Collectors.toList());
+        for (Map.Entry<WatchDataEntry, List<TimekeepingEntry>> timekeepingMapEntry : getWatchTimekeepingMap().getDataMap().entrySet()) {
+            if (timekeepingMapEntry.getKey().equals(watchDataEntry)) {
+                return timekeepingMapEntry.getValue();
+            }
         }
         Log.e("UserData", "Failed to get timekeeping entries.");
         throw new IllegalStateException();
@@ -152,7 +155,7 @@ public class UserData {
     public static void addTimekeepingEntry(WatchDataEntry watchDataEntry, TimekeepingEntry timekeepingEntry) {
         Map.Entry<WatchDataEntry, List<TimekeepingEntry>> dataMapEntry = getDataMapEntry(watchDataEntry);
         List<TimekeepingEntry> timekeepingEntries = new ArrayList<>(dataMapEntry.getValue());
-        timekeepingEntries.add(timekeepingEntry);
+        timekeepingEntries.add(0, timekeepingEntry);
         getWatchTimekeepingMap().getDataMap().put(dataMapEntry.getKey(), timekeepingEntries);
         notifyObservers();
     }
@@ -196,7 +199,11 @@ public class UserData {
 
     public static void writeUserData(Context context) throws IOException {
         if (!getWatchTimekeepingMap().areAllChangesCommitted()) {
-            new TimekeepingMapWriter(context).write(WATCH_TIMEKEEPING_MAP);
+            new WatchTimekeepingEntryWriter(context).writeAll(WATCH_TIMEKEEPING_MAP);
         }
+    }
+
+    public static void writeWatchDataEntry(Context context, WatchDataEntry watchDataEntry) throws IOException {
+        new WatchTimekeepingEntryWriter(context).write(watchDataEntry);
     }
 }

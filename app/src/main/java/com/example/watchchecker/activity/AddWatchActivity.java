@@ -19,6 +19,8 @@ import java.text.ParseException;
 
 public class AddWatchActivity extends Activity {
 
+    private WatchDataEntry addedWatchDataEntry;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,9 +47,11 @@ public class AddWatchActivity extends Activity {
                         movementEditText.getText().toString(),
                         parseDateEditText(purchaseEditText),
                         parseDateEditText(serviceEditText));
-            } catch (ParseException ignore) {}
+            } catch (ParseException ignore) {
+            }
             if (watchDataEntry != null) {
                 UserData.addWatchDataEntry(watchDataEntry);
+                addedWatchDataEntry = watchDataEntry;
                 // We're done with the activity
                 this.finish();
             }
@@ -81,7 +85,9 @@ public class AddWatchActivity extends Activity {
 
     @Override
     protected void onStop() {
-        UserData.saveData(getApplicationContext());
+        if (addedWatchDataEntry != null) {
+            UserData.saveWatchTimekeepingEntry(getApplicationContext(), addedWatchDataEntry);
+        }
         super.onStop();
     }
 }

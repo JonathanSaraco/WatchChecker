@@ -125,7 +125,9 @@ public class TimeWatchActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        UserData.saveData(getApplicationContext());
+        if (watchDataEntry != null) {
+            UserData.saveWatchTimekeepingEntry(TimeWatchActivity.this, watchDataEntry);
+        }
         handler.removeCallbacks(runnable);
     }
 }

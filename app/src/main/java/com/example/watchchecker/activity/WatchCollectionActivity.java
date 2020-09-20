@@ -129,8 +129,8 @@ public class WatchCollectionActivity extends AppCompatActivity
                 // Get data from IO_Util since we can't parcel shit
                 WatchDataEntry watchDataEntry = IO_Util.getWatchDataEntryForNewImage();
                 UserData.setWatchDataEntryImage(watchDataEntry, IO_Util.getPathForNewImage());
-                // Save timekeeping map
-                UserData.saveData(getApplicationContext());
+                // Save the watch data entry with its new image
+                UserData.saveWatchTimekeepingEntry(WatchCollectionActivity.this, watchDataEntry);
             } catch (Exception e) {
                 Log.e("WatchCollectionActivity", "Failed to set WatchDataEntry photo");
             }
@@ -146,8 +146,8 @@ public class WatchCollectionActivity extends AppCompatActivity
                 // Set photo of WatchDataEntry and save data
                 WatchDataEntry watchDataEntry = IO_Util.getWatchDataEntryForNewImage();
                 UserData.setWatchDataEntryImage(watchDataEntry, newImagePath);
-                // Save timekeeping map
-                UserData.saveData(getApplicationContext());
+                // Save the watch data entry with its new image
+                UserData.saveWatchTimekeepingEntry(WatchCollectionActivity.this, watchDataEntry);
             } catch (Exception e) {
                 Log.e("WatchCollectionActivity", "Failed to set WatchDataEntry photo");
             }
@@ -230,7 +230,7 @@ public class WatchCollectionActivity extends AppCompatActivity
      */
     @Override
     protected void onStop() {
-        UserData.saveData(getApplicationContext());
+        //UserData.saveData(getApplicationContext());
         super.onStop();
     }
 

@@ -5,7 +5,7 @@ import com.example.watchchecker.data.TimekeepingEntry;
 import com.example.watchchecker.data.WatchDataEntry;
 import com.example.watchchecker.data.WatchTimekeepingMap;
 import com.example.watchchecker.io.TimekeepingMapReader;
-import com.example.watchchecker.io.TimekeepingMapWriter;
+import com.example.watchchecker.io.WatchTimekeepingEntryWriter;
 import com.google.gson.Gson;
 
 import org.junit.Test;
@@ -16,7 +16,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 /**
- * Tests to ensure that {@link TimekeepingMapWriter} produces a Json file that is compatible with
+ * Tests to ensure that {@link WatchTimekeepingEntryWriter} produces a Json file that is compatible with
  * and parsable by {@link TimekeepingMapReader}.
  */
 public class WatchTimekeepingMapSerializationTest {
@@ -26,7 +26,7 @@ public class WatchTimekeepingMapSerializationTest {
         WatchTimekeepingMap testMap = createDummyMap();
         try {
             // Get test map as String formatted as a Json
-            String mapAsJson = TimekeepingMapWriter.getMapAsJson(testMap);
+            String mapAsJson = WatchTimekeepingEntryWriter.getMapAsJson(testMap);
             // Parse it and create a copy object
             WatchTimekeepingMap watchTimekeepingMap = TimekeepingMapReader.parseJsonAsString(new Gson(), mapAsJson);
             // Check that the new map isn't empty, probably needs a more comprehensive test but I can't be bothered right now
