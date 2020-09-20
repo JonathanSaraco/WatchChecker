@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.watchchecker.R;
+import com.example.watchchecker.RequiredFieldTextWatcher;
 import com.example.watchchecker.data.DateString;
 import com.example.watchchecker.data.UserData;
 import com.example.watchchecker.data.WatchDataEntry;
@@ -44,6 +45,7 @@ public class EditWatchActivity extends Activity {
         // Set behaviour of the add watch button
         Button editWatchButton = findViewById(R.id.addWatchButton);
         editWatchButton.setText("Edit");
+        editWatchButton.setEnabled(true);
         editWatchButton.setOnClickListener(v -> {
             WatchDataEntry entryWithNewInfo = null;
             try {
@@ -54,11 +56,11 @@ public class EditWatchActivity extends Activity {
                         parseDateEditText(serviceEditText));
             } catch (ParseException ignore) {}
             if (entryWithNewInfo != null) {
-                UserData.editWatchDataEntry(watchDataEntryToEdit, entryWithNewInfo);
-                // We're done with the activity
+                UserData.editWatchDataEntry(EditWatchActivity.this, watchDataEntryToEdit, entryWithNewInfo);
                 this.finish();
             }
         });
+        modelEditText.addTextChangedListener(new RequiredFieldTextWatcher(editWatchButton));
     }
 
     private void setViewText(String text, EditText editText) {
@@ -95,7 +97,6 @@ public class EditWatchActivity extends Activity {
 
     @Override
     protected void onStop() {
-        UserData.saveData(getApplicationContext());
         super.onStop();
     }
 
