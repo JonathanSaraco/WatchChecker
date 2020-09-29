@@ -58,7 +58,8 @@ public class Timekeeping_Util {
             weightedSum = weightedSum.add(timekeepingEntry.getTimingDeviation().toBigDecimal().multiply(elapsedTimeInDays));
             sumOfWeights = sumOfWeights.add(elapsedTimeInDays);
         }
-        return new TimingDeviation(weightedSum.divide(sumOfWeights, RoundingMode.HALF_UP));
+        return sumOfWeights.doubleValue() > 0. ? new TimingDeviation(weightedSum.divide(sumOfWeights, RoundingMode.HALF_UP)) :
+                TimingDeviation.UNDEFINED_DEVIATION;
     }
 
     public static TimingDeviation calculateDeviation(TimingEntry firstTimingEntry, TimingEntry lastTimingEntry) {
