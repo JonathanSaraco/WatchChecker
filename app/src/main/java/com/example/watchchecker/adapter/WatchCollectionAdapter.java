@@ -128,9 +128,9 @@ public class WatchCollectionAdapter extends BaseAdapter implements Observer {
                             // Store data entry temporarily in case the user presses undo
                             List<TimekeepingEntry> backupEntries = new ArrayList<>(UserData.getTimekeepingEntries(watchDataEntry));
                             // Remove data entry and setup snackbar with undo button
-                            UserData.removeWatchDataEntry(watchDataEntry);
+                            UserData.removeWatchDataEntry(context, watchDataEntry);
                             Snackbar.make(finalConvertView, String.format("Deleted: %s", watchDataEntry.toDisplayString()), Snackbar.LENGTH_LONG)
-                                    .setAction("Undo", v1 -> UserData.addWatchDataEntry(watchDataEntry, backupEntries))
+                                    .setAction("Undo", v1 -> UserData.addWatchDataEntry(context, watchDataEntry, backupEntries))
                                     .show();
                             break;
                         case R.id.watch_collection_element_settings_photo:

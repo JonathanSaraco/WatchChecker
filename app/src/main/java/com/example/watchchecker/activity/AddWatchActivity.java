@@ -50,7 +50,7 @@ public class AddWatchActivity extends Activity {
             } catch (ParseException ignore) {
             }
             if (watchDataEntry != null) {
-                UserData.addWatchDataEntry(watchDataEntry);
+                UserData.addWatchDataEntry(AddWatchActivity.this, watchDataEntry);
                 addedWatchDataEntry = watchDataEntry;
                 // We're done with the activity
                 this.finish();

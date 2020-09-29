@@ -10,6 +10,7 @@ import com.example.watchchecker.activity.WriteWatchDataEntryService;
 import com.example.watchchecker.io.WatchTimekeepingEntryWriter;
 import com.example.watchchecker.util.IO_Util;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -61,11 +62,6 @@ public class UserData {
         return watchDataEntries;
     }
 
-    public static void addWatchDataEntry(WatchDataEntry watchDataEntry) {
-        getWatchTimekeepingMap().getDataMap().putIfAbsent(watchDataEntry, new ArrayList<>());
-        notifyObservers();
-    }
-
     /**
      * Edits a {@link WatchDataEntry} with new information given to it by {@param entryWithNewInfo}.
      */
@@ -81,17 +77,27 @@ public class UserData {
         notifyObservers();
     }
 
+    public static void addWatchDataEntry(Context context, WatchDataEntry watchDataEntry) {
+        addWatchDataEntry(context, watchDataEntry, new ArrayList<>());
+    }
+
     /**
      * Adds a new {@link WatchDataEntry} with a pre-defined list of {@link TimekeepingEntry} objects.
      * ONLY USE IF YOU ARE OKAY WITH FULLY REPLACING DATA.
      */
-    public static void addWatchDataEntry(WatchDataEntry watchDataEntry, List<TimekeepingEntry> timekeepingEntries) {
+    public static void addWatchDataEntry(Context context, WatchDataEntry watchDataEntry, List<TimekeepingEntry> timekeepingEntries) {
         getWatchTimekeepingMap().getDataMap().put(watchDataEntry, timekeepingEntries);
+        try {
+            writeWatchDataEntry(context, watchDataEntry);
+        } catch (IOException e) {
+            Log.e(UserData.class.getSimpleName(), "Failed to write watch data entry file.");
+        }
         notifyObservers();
     }
 
-    public static void removeWatchDataEntry(WatchDataEntry watchDataEntry) {
+    public static void removeWatchDataEntry(Context context, WatchDataEntry watchDataEntry) {
         WatchDataEntry watchDataEntryAsKey = getEquivalentWatchDataEntry(watchDataEntry);
+        deleteWatchDataEntry(context, watchDataEntryAsKey);
         getWatchTimekeepingMap().getDataMap().remove(watchDataEntryAsKey);
         notifyObservers();
     }
@@ -193,5 +199,13 @@ public class UserData {
 
     public static void writeWatchDataEntry(Context context, WatchDataEntry watchDataEntry) throws IOException {
         new WatchTimekeepingEntryWriter(context).write(watchDataEntry);
+    }
+
+    public static boolean deleteWatchDataEntry(Context context, WatchDataEntry watchDataEntry) {
+        File entryFile = new File(context.getFilesDir(), IO_Util.getWatchTimekeepingEntryFileName(watchDataEntry));
+        if (entryFile.isFile() && entryFile.length() > 0) {
+            return entryFile.delete();
+        }
+        return false;
     }
 }
