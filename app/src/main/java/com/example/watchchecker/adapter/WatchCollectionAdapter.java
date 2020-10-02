@@ -186,7 +186,7 @@ public class WatchCollectionAdapter extends BaseAdapter implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        watchDataEntries = UserData.getWatchDataEntries();
+        watchDataEntries = UserData.getWatchDataEntries(context);
         notifyDataSetChanged();
     }
 

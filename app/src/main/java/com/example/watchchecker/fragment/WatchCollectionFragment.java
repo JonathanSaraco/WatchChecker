@@ -32,17 +32,16 @@ public class WatchCollectionFragment extends Fragment {
         View fragmentView = inflater.inflate(R.layout.fragment_watch_collection, container, false);
         // Add the gridView to display WatchDataEntries
         GridView gridView = fragmentView.findViewById(R.id.gridView_check_watch);
-        WatchCollectionAdapter watchCollectionAdapter = new WatchCollectionAdapter(fragmentView.getContext(), UserData.getWatchDataEntries());
+        WatchCollectionAdapter watchCollectionAdapter = new WatchCollectionAdapter(fragmentView.getContext(), UserData.getWatchDataEntries(fragmentView.getContext()));
         gridView.setAdapter(watchCollectionAdapter);
         // Add the floating action button for adding a new watch data entry
         FloatingActionButton fab = fragmentView.findViewById(R.id.fab); //Get the floating action button view
         fab.setOnClickListener(view -> {
             Intent in = new Intent(getActivity(), AddWatchActivity.class);
             startActivity(in);
-            WatchCollectionAdapter newWatchCollectionAdapter = new WatchCollectionAdapter(fragmentView.getContext(), UserData.getWatchDataEntries());
+            WatchCollectionAdapter newWatchCollectionAdapter = new WatchCollectionAdapter(fragmentView.getContext(), UserData.getWatchDataEntries(fragmentView.getContext()));
             gridView.setAdapter(newWatchCollectionAdapter);
         });
         return fragmentView;
     }
-
 }

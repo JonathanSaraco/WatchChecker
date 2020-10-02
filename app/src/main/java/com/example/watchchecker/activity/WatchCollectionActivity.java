@@ -223,16 +223,4 @@ public class WatchCollectionActivity extends AppCompatActivity
         return true;
     }
 
-    /**
-     * Saves user data, we override this method because onPause() is called whenever we switch activity
-     * (which is too often), and because onDestroy() is only called when we exit the app via back
-     * button (not often enough).
-     */
-    @Override
-    protected void onStop() {
-        //UserData.saveData(getApplicationContext());
-        super.onStop();
-    }
-
-
 }

@@ -29,7 +29,7 @@ public class WatchPhotoCleaner implements Runnable {
     @Override
     public void run() {
         File watchPhotoDirectory = IO_Util.getWatchPhotoDirectory(context);
-        List<String> allowedImagePaths = UserData.getWatchDataEntries().stream()
+        List<String> allowedImagePaths = UserData.getWatchDataEntries(context).stream()
                 .map(WatchDataEntry::getImagePath)
                 .collect(Collectors.toList());
         for (File file : watchPhotoDirectory.listFiles()) {

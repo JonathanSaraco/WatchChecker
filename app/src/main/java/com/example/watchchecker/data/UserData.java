@@ -7,6 +7,7 @@ import android.os.Parcel;
 import android.util.Log;
 
 import com.example.watchchecker.activity.WriteWatchDataEntryService;
+import com.example.watchchecker.init.UserDataInitialization;
 import com.example.watchchecker.io.WatchTimekeepingEntryWriter;
 import com.example.watchchecker.util.IO_Util;
 
@@ -24,6 +25,10 @@ import java.util.Optional;
  */
 public class UserData {
     private static WatchTimekeepingMap WATCH_TIMEKEEPING_MAP = null;
+
+    public static boolean isInitialized() {
+        return WATCH_TIMEKEEPING_MAP == null || WATCH_TIMEKEEPING_MAP.getDataMap().isEmpty();
+    }
 
     public static void saveWatchTimekeepingEntry(Context context, WatchDataEntry watchDataEntry) {
         Intent finalizeIntent = new Intent(context, WriteWatchDataEntryService.class);
@@ -50,7 +55,16 @@ public class UserData {
         return WATCH_TIMEKEEPING_MAP;
     }
 
-    public static List<WatchDataEntry> getWatchDataEntries() {
+    public static void reinitializeWatchTimekeepingMap(Context context) {
+        Runnable initializationRunnable = new UserDataInitialization(context);
+        initializationRunnable.run();
+    }
+
+    public static List<WatchDataEntry> getWatchDataEntries(Context context) {
+        // Re-initialize the timekeeping map if we've lost it
+        if (!isInitialized()) {
+            reinitializeWatchTimekeepingMap(context);
+        }
         List<WatchDataEntry> watchDataEntries = new ArrayList<>(WATCH_TIMEKEEPING_MAP.getDataMap().keySet());
         watchDataEntries.sort(Comparator.comparing(watchDataEntry -> {
             try {
@@ -59,6 +73,7 @@ public class UserData {
                 return new Date();
             }
         }));
+        Log.i(UserData.class.getSimpleName(), "Successfully read watch data entries.");
         return watchDataEntries;
     }
 
